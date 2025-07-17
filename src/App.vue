@@ -2,6 +2,11 @@
 
 import Appheader from './components/Appheader.vue'; // Importando o componente Appheader
 import item from '../src/components/item.vue';
+
+import axios from 'axios';
+
+axios.defaults.baseURL = import.meta.env.VUE_APP_API_URL; // Configurando a URL base do Axios
+console.log(import.meta.env);
  
 
 export default {

@@ -44,9 +44,9 @@ router.post("/", async (req, res) => { // rota para criar um novo usuário
 router.post("/login", async (req, res) => {  // rota para fazer login do usuário
     connectDB();
 
-        const {email, password} = req.body; // obtém o email e a senha do corpo da requisição
+    const {email, password} = req.body; // obtém o email e a senha do corpo da requisição
 
-     try { 
+    try { 
         const userDoc = await User.findOne({email});
 
         if (userDoc) {

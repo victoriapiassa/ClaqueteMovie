@@ -11,9 +11,13 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
               </svg>
             </div>
-          <div class="flex items-center p-3">
-                <img src="@/assets/image/user-account.svg" alt="User Account" />
-                <RouterLink to="/login" class="ml-2 text-white">Minha Conta</RouterLink>
+          <div  v-if="user" class="flex items-center p-3">
+                <img src="@/assets/image/user-account.svg"  alt="User Account" />
+                <RouterLink to="/login" class="ml-2 text-white">  {{ user.nome }} </RouterLink>
+          </div>
+          <div  v-else class="flex items-center p-3">
+                <img src="@/assets/image/user-account.svg"  alt="User Account" />
+                <RouterLink to="/login" class="ml-2 text-white"> Fazer Login </RouterLink>
           </div>
         </div>
   </header>
@@ -22,9 +26,30 @@
 
 <script>
 
+
+
 export default {
   name: 'Appheader',
-  
+  data() {
+  return {
+    user: null
+    };
+  },
+  mounted() {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      this.user = JSON.parse(storedUser);
+    }
+  },
+
+  methods: {
+    logout() {
+      localStorage.removeItem('user');
+      this.user = null;
+      this.$router.push('/login');
+    }
+  },
+
 }
 
 </script>

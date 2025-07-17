@@ -1,4 +1,7 @@
+
 <script>
+
+  import api from  '@/axios';
 
     export default {
     name:'login',
@@ -9,12 +12,33 @@
     }
   },
   methods: {
-    handleSubmit() {
-    
-    }
-  }
+   async handleSubmit() {
 
+      if (!this.email || !this.senha) {
+    alert('Por favor, preencha todos os campos.');
+    return;
+      }
+      try {
+        const response = await api.post('http://localhost:3000/users/login', {
+          email: this.email,
+          senha: this.senha
+        }); 
+
+         if (typeof response.data === 'object') {
+          localStorage.setItem('user', JSON.stringify(response.data));
+          this.$router.push('/'); // redireciona para home ou área logada
+        } else {
+          alert(response.data); // mostra erro do backend (ex: "Usuário não encontrado!")
+         }
+
+      } catch (error) {
+        console.error('Erro ao fazer login:', error.response?.data || error.message);
+        alert('Erro ao fazer login. Verifique seu e-mail e senha.');
+    
+     } 
     }
+   }
+ }
 
 </script>
 
@@ -29,7 +53,7 @@
 
                 <input type="text" placeholder="Digite seu e-mail" class="w-full rounded-full border border-gray-300 py-2 px-4  mt-4" v-model="email">
 
-                <input type="text" placeholder="Digite sua senha" class="w-full rounded-full border border-gray-300 py-2 px-4"  v-model="senha">
+                <input  type="password" placeholder="Digite sua senha"  class="w-full rounded-full border border-gray-300 py-2 px-4"  v-model="senha">
 
                 <button class="w-full py-2 px-4 cursor-pointer rounded-full bg-blue-400"> Login </button>
 
