@@ -11,11 +11,12 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
               </svg>
             </div>
-          <div  v-if="user" class="flex items-center p-3">
+          <div v-if="user" class="flex items-center p-3">
                 <img src="@/assets/image/user-account.svg"  alt="User Account" />
-                <RouterLink to="/login" class="ml-2 text-white">  {{ user.nome }} </RouterLink>
+                <RouterLink to="/login" class="ml-2 text-white">  {{ user.name }} </RouterLink>
+          <button @click="logout" class="ml-4 px-2 py-1 bg-red-500 rounded text-white">Sair</button>
           </div>
-          <div  v-else class="flex items-center p-3">
+          <div v-else class="flex items-center p-3">q
                 <img src="@/assets/image/user-account.svg"  alt="User Account" />
                 <RouterLink to="/login" class="ml-2 text-white"> Fazer Login </RouterLink>
           </div>
@@ -26,29 +27,24 @@
 
 <script>
 
-
+import { useUserStore } from '@/stores/user';
+import { mapState, mapActions } from 'pinia';
 
 export default {
   name: 'Appheader',
-  data() {
-  return {
-    user: null
-    };
+  computed: {
+    ...mapState(useUserStore, ['user'])
   },
-  mounted() {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      this.user = JSON.parse(storedUser);
-    }
-  },
-
   methods: {
+    ...mapActions(useUserStore, ['setUser']),
     logout() {
-      localStorage.removeItem('user');
-      this.user = null;
-      this.$router.push('/login');
-    }
-  },
+    localStorage.removeItem('user');
+    this.setUser(null);
+    this.$router.push('/login');
+   
+    },
+
+  }
 
 }
 

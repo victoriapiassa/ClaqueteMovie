@@ -1,6 +1,7 @@
 
 <script>
 
+  import { useUserStore } from '@/stores/user'
   import api from  '@/axios';
 
     export default {
@@ -21,14 +22,16 @@
       try {
         const response = await api.post('http://localhost:3000/users/login', {
           email: this.email,
-          senha: this.senha
+          password: this.senha
         }); 
 
          if (typeof response.data === 'object') {
-          localStorage.setItem('user', JSON.stringify(response.data));
-          this.$router.push('/'); // redireciona para home ou área logada
+          const userStore = useUserStore();
+           userStore.setUser(response.data);
+           localStorage.setItem('user', JSON.stringify(response.data));
+           this.$router.push('/home/:id');
         } else {
-          alert(response.data); // mostra erro do backend (ex: "Usuário não encontrado!")
+          alert(response.data); 
          }
 
       } catch (error) {
