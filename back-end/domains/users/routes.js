@@ -3,7 +3,8 @@
 import { Router } from "express";
 import { connectDB } from "../../config/db.js"; // importa a função(connectDB) para conectar ao banco de dados
 import User from './model.js'; // importa o modelo de usuário(User) 
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
 
 const router = Router(); //
 const bcryptSalt = bcrypt.genSaltSync();
