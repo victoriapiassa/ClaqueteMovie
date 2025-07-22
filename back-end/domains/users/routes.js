@@ -1,5 +1,5 @@
 // tem como finalidade definir as rotas da API relacionadas ao usuário
-
+import  'dotenv/config.js'; //importa as variaveis de ambiente do arquivo .env 
 import { Router } from "express";
 import { connectDB } from "../../config/db.js"; // importa a função(connectDB) para conectar ao banco de dados
 import User from './model.js'; // importa o modelo de usuário(User) 
@@ -7,7 +7,8 @@ import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
 const router = Router(); //
-const bcryptSalt = bcrypt.genSaltSync();
+const bcryptSalt = bcrypt.genSaltSync(); 
+const { JWT_SECRET_KEY } = process.env;
 
 
 router.get("/", async (req, res) => {   // rota para buscar todos os usuários
@@ -54,9 +55,15 @@ router.post("/login", async (req, res) => {  // rota para fazer login do usuári
             const passwordCorrect = bcrypt.compareSync(password, userDoc.password); 
             const {name, _id} = userDoc;
 
-            passwordCorrect 
-                ? res.json({name, email, _id}) 
-                : res.status(400).json("Senha incorreta!");  
+            if(passwordCorrect) {
+                const newUserObj = { name, email, _id};
+                const token = jwt.sign(newUserObj, JWT_SECRET_KEY);  //node / forma sincrona 
+
+                res.cookie("token", token).json(newUserObj); 
+            } else { 
+                res.status(400).json("Senha incorreta!");  
+            }
+                
         } else {
             res.json("Usuário não encontrado!"); 
         }
