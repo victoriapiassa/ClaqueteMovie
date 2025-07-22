@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useUserStore } from '@/stores/user';
 
 
-axios.defaults.baseURL = import.meta.env.VUE_APP_API_URL; // Configurando a URL base do Axios
+axios.defaults.baseURL = import.meta.env.VITE_API_URL; // Configurando a URL base do Axios
 axios.defaults.withCredentials = true; //permite que o axios envie cookies com as requisicões de outro domoninio
  
 export default {
