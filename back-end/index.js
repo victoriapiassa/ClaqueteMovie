@@ -16,3 +16,5 @@ app.use("/users", UserRouters); // define a rota base para usuários
 app.listen(PORT, () => {
     console.log(`Servidor está rodando na porta ${PORT}`);
 });
+
+

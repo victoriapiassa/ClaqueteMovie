@@ -15,8 +15,6 @@
 <script>
 import api from '@/axios';
 
-
-
 export default {
   name: 'register',
   data() {
@@ -31,11 +29,11 @@ export default {
   methods: {
     async handleRegister() {
       try {
-        const response = await api.post('/users', this.form);
+        const response = await api.post('http://localhost:3000/users', this.form);
         alert('Usuário cadastrado com sucesso!');
         this.$router.push('/login'); // redireciona para login
       } catch (error) {
-        console.error('Erro ao cadastrar usuário:', error);
+        console.error('Erro ao cadastrar:', error.response?.data || error.message);
         
     
         alert('Erro ao cadastrar. Verifique os dados.');

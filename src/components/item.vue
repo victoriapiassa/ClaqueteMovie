@@ -1,5 +1,5 @@
 <template> 
-<div>
+<div class=" rounded-lg shadow-md p-4 h-80 bg-white text-gray-800">
   <img src="https://th.bing.com/th/id/OIP.NwFkL28B2EyItuJGbypY3wHaHa?w=187&h=187&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3" alt="Álbum Maré Viva">
   <h3> Fresno </h3>
   <p>R$ 550 por noite</p>
