@@ -6,6 +6,7 @@ import User from './model.js'; // importa o modelo de usuário(User)
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
+
 const router = Router(); //
 const bcryptSalt = bcrypt.genSaltSync(); 
 const { JWT_SECRET_KEY } = process.env;
@@ -25,14 +26,15 @@ router.get("/", async (req, res) => {   // rota para buscar todos os usuários
 router.post("/", async (req, res) => { // rota para criar um novo usuário
     connectDB();
 
-    const { name, email, password } = req.body; 
+    const { name, email, password, isAdmin } = req.body; 
     const encryptePassword = bcrypt.hashSync(password, bcryptSalt); // criptografa a senha do usuário
 
     try {
         const newUserDoc = await User.create({
             name,
             email,
-            password: encryptePassword
+            password: encryptePassword,
+            isAdmin: isAdmin
         }); 
 
         res.json(newUserDoc); // retorna o novo usuário criado em formato JSON
