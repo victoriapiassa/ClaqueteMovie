@@ -2,7 +2,8 @@
  import express from "express"; // importa o express(fremerwork) para criar o servidor
  import UserRouters from './domains/users/routes.js';
  import cors from 'cors'; // importa o cors para permitir requisições de diferentes origens
- import filmRoutes from './domains/users/routerFilm.js';
+ import filmRoutes from './domains/users/films/routerFilm.js';
+ import routerAdmin from './admin/routerAdmin.js';
  
 
 
@@ -17,7 +18,10 @@ app.use(cors({
 }));
 
 app.use("/users", UserRouters); // define a rota base para usuários
+
 app.use("/films", filmRoutes);
+
+app.use("/admin", routerAdmin);
 
 app.listen(PORT, () => {
     console.log(`Servidor está rodando na porta ${PORT}`);

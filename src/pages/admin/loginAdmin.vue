@@ -25,7 +25,7 @@ export default {
   methods: {
     async handleLogin() {
       try {
-        const res = await axios.post('http://localhost:3000/users/login', {
+        const res = await axios.post('http://localhost:3000/admin/loginAdmin', {
           email: this.email,
           password: this.password
         }, { withCredentials: true });

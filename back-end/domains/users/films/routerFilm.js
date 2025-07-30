@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { connectDB } from "../../config/db.js";
-import Film from "../../models/film.js";
+import { connectDB } from "../../../config/db.js";
+import Film from "./modelFilm.js";
+
 
 const router = Router();
 
