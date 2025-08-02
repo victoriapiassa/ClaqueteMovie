@@ -1,14 +1,21 @@
 <template>
-  <div class="p-6 max-w-xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4">Cadastrar Filme</h2>
-    <form @submit.prevent="cadastrarFilme" class="grid gap-4">
-      <input v-model="title" placeholder="Título" required />
-      <textarea v-model="description" placeholder="Descrição"></textarea>
-      <input v-model="image" placeholder="URL da imagem" />
-      <input type="date" v-model="releaseDate" />
-      <input v-model="genre" placeholder="Gênero" />
-      <button type="submit" class="bg-blue-600 text-white py-2 rounded">Salvar</button>
-    </form>
+
+  <div class="flex justify-center bg-blue-200 "> 
+    <div class=" max-w-md mx-auto mt-20 p-6 border rounded shadow w-90 h-100  bg-red-200 ">
+
+      <main class=" flex-col justify-center "> 
+        <h2 class="text-2xl font-bold mb-4 text-center ">Cadastrar Filme</h2>
+        <form @submit.prevent="cadastrarFilme" class="grid gap-4 w-70 ">
+          <input v-model="title" placeholder="Título" required />
+          <textarea v-model="description" placeholder="Descrição"></textarea>
+          <input v-model="image" placeholder="URL da imagem" />
+          <input type="date" v-model="releaseDate"
+           />
+          <input v-model="genre" placeholder="Gênero" />
+          <button type="submit" class="bg-blue-600 text-white py-2 rounded">Salvar</button>
+        </form>
+      </main>
+    </div>
   </div>
 </template>
 
