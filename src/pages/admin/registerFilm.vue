@@ -1,21 +1,59 @@
 <template>
 
-  <div class="flex justify-center bg-blue-200 "> 
-    <div class=" max-w-md mx-auto mt-20 p-6 border rounded shadow w-90 h-100  bg-red-200 ">
+  <div class="flex justify-center items-center bg-blue-200 "> 
+    <div class="p-6 border rounded shadow w-full max-w-lg mx-auto bg-red-200">
+     <main class="flex flex-col items-center">
+       <h2 class="text-2xl font-bold mb-6 text-center">Cadastrar Filme</h2>
 
-      <main class=" flex-col justify-center "> 
-        <h2 class="text-2xl font-bold mb-4 text-center ">Cadastrar Filme</h2>
-        <form @submit.prevent="cadastrarFilme" class="grid gap-4 w-70 ">
-          <input v-model="title" placeholder="Título" required />
-          <textarea v-model="description" placeholder="Descrição"></textarea>
-          <input v-model="image" placeholder="URL da imagem" />
-          <input type="date" v-model="releaseDate"
-           />
-          <input v-model="genre" placeholder="Gênero" />
-          <button type="submit" class="bg-blue-600 text-white py-2 rounded">Salvar</button>
-        </form>
-      </main>
-    </div>
+      <form @submit.prevent="cadastrarFilme" class="grid gap-4 w-full">
+      <!-- Título -->
+      <input 
+        v-model="title" 
+        placeholder="Título" 
+        required
+        class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <!-- Descrição -->
+      <textarea 
+        v-model="description" 
+        placeholder="Descrição"
+        class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      ></textarea>
+
+      <!-- URL da imagem -->
+      <input 
+        v-model="image" 
+        placeholder="URL da imagem"
+        class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <!-- Data de lançamento -->
+      <input 
+        type="date"
+        v-model="releaseDate"
+        class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <!-- Gênero -->
+      <input 
+        v-model="genre" 
+        placeholder="Gênero"
+        class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <!-- Botão -->
+      <div class="flex justify-center">
+        <button 
+          type="submit" 
+          class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+        >
+          Salvar
+        </button>
+      </div>
+    </form>
+  </main>
+</div>
   </div>
 </template>
 
