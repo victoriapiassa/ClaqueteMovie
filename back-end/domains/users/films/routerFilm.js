@@ -6,7 +6,7 @@ import Film from "./modelFilm.js";
 const router = Router();
 
 router.get("/", async (_req, res) => {
-  connectDB();
+    await connectDB();
   try {
     const films = await Film.find();
     res.json(films);
@@ -16,7 +16,7 @@ router.get("/", async (_req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  connectDB();
+   await connectDB();
   const { title, description, image, releaseDate, genre } = req.body;
 
   try {
@@ -32,5 +32,7 @@ router.post("/", async (req, res) => {
     res.status(500).json({ error: "Erro ao cadastrar filme" });
   }
 });
+
+
 
 export default router;

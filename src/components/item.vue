@@ -16,7 +16,7 @@
           :class="star <= rating ? 'text-yellow-400' : 'text-gray-400'"
           @click="setRating(star)"
         >
-          <!-- Preenchimento condicional -->
+          
           <path 
             stroke="currentColor" 
             stroke-width="2" 
@@ -41,7 +41,11 @@ export default {
   },
   methods: {
     setRating(star) {
-      this.rating = star;
+      if (this.rating === star) {
+        this.rating = 0
+      } else {
+        this.rating = star
+      }
     }
   }
 }
@@ -52,5 +56,3 @@ svg:hover {
   transform: scale(1.1);
 }
 </style>
-
-    
