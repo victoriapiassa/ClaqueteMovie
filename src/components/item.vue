@@ -2,7 +2,6 @@
 <div class=" rounded-lg shadow-md p-4 h-80 bg-blue-200 text-gray-800">
   <img src="https://th.bing.com/th/id/OIP.NwFkL28B2EyItuJGbypY3wHaHa?w=187&h=187&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3" alt="Álbum Maré Viva">
   <div class="flex flex-col mt-2">
-    <h3> Fresno </h3>
     <p> Maré Viva </p>
   <div class="flex justify-center items-center mt-2"> 
    <svg
