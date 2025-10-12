@@ -73,7 +73,7 @@ export default {
   methods: {
     async cadastrarFilme() {
       try {
-        const res = await axios.post('http://localhost:3000/films', {
+        const res = await axios.post('http://localhost:3000/films/modelFilm', {
           title: this.title,
           description: this.description,
           image: this.image,

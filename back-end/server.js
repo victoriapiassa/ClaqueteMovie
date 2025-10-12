@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 // usa as rotas
-app.use("/filmes", filmRoutes);
+app.use("/films", filmRoutes);
 
 app.listen(3000, () => {
   console.log("Servidor rodando em http://localhost:3000");

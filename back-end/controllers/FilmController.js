@@ -8,13 +8,13 @@ class FilmController {
           const films =  await Film.find();
           res.status(200).json(films);
         } catch (error) {
-        res.status(500).json({ error: "Erro ao buscar filmes"});
+          res.status(500).json({ error: "Erro ao buscar filmes"});
      } 
    }   
 
    static async createFilm (req, res) {
         await connectDB();
-        const { title, description, image, releaseDate, genre} = req.bory;
+        const { title, description, image, releaseDate, genre} = req.body;
         try {
             const newFilm = await Film.create({
                 title,
@@ -22,7 +22,9 @@ class FilmController {
                 image,
                 releaseDate,
                 genre,
-            })
+            });
+
+            res.status(201).json(newFilm);
         } catch (error) {
             res.status(500).json({ error: "Erro ao cadastrar filme"});
         } 
