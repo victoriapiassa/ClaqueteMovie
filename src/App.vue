@@ -4,6 +4,7 @@ import Appheader from './components/Appheader.vue'; // Importando o componente A
 import item from '../src/components/item.vue';
 import axios from 'axios';
 import { useUserStore } from '@/stores/user';
+import listFilm from './components/listFilm.vue';
 
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL; // Configurando a URL base do Axios
@@ -13,7 +14,7 @@ export default {
 
   components: {
     Appheader,
-    item,
+    listFilm
     
   },
 
