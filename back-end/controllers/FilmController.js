@@ -1,5 +1,5 @@
-import Film from "../domains/users/films/modelFilm";
-import { connectDB } from "../config/db";
+import Film from "../domains/users/films/modelFilm.js";
+import { connectDB } from "../config/db.js";
 
 class FilmController {
     static async getAllFilms (req, res) {

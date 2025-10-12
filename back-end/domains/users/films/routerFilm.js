@@ -1,38 +1,12 @@
-import { Router } from "express";
-import { connectDB } from "../../../config/db.js";
-import Film from "./modelFilm.js";
+import express from "express";
+import FilmController from "../../../controllers/FilmController.js";
 
+const router = express.Router();
 
-const router = Router();
-
-router.get("/", async (_req, res) => {
-    await connectDB();
-  try {
-    const films = await Film.find();
-    res.json(films);
-  } catch (error) {
-    res.status(500).json({ error: "Erro ao buscar filmes" });
-  }
-});
-
-router.post("/", async (req, res) => {
-   await connectDB();
-  const { title, description, image, releaseDate, genre } = req.body;
-
-  try {
-    const newFilm = await Film.create({
-      title,
-      description,
-      image,
-      releaseDate,
-      genre,
-    });
-    res.status(201).json(newFilm);
-  } catch (error) {
-    res.status(500).json({ error: "Erro ao cadastrar filme" });
-  }
-});
-
-
+router 
+  .get("/filmes/modelFilm", FilmController.getAllFilms)
+  .post("/filmes/modelFilm", FilmController.createFilm)
+  .get("/filmes/modelFilm/:id", FilmController.getFilmById)
+  .delete("/filmes/modelFilm/:id", FilmController.deletefilm)
 
 export default router;
