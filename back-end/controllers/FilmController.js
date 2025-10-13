@@ -14,13 +14,13 @@ class FilmController {
 
    static async createFilm (req, res) {
         await connectDB();
-        const { title, description, image, releaseDate, genre} = req.body;
+        const { title, description, image, year, genre} = req.body;
         try {
             const newFilm = await Film.create({
                 title,
                 description,
                 image,
-                releaseDate,
+                year,
                 genre,
             });
 

@@ -30,8 +30,8 @@
 
       <!-- Data de lançamento -->
       <input 
-        type="date"
-        v-model="releaseDate"
+        type="number"
+        v-model="year"
         class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 

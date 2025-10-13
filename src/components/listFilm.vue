@@ -1,40 +1,49 @@
 <template>
-  <div class="min-h-screen bg-gray-100 py-10 px-6">
-    <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">
-      🎬 Lista de Filmes
-    </h1>
-
-    <div v-if="films.length === 0" class="text-center text-gray-500 text-lg">
-      Nenhum filme encontrado 😔
-    </div>
-
+  <div class="min-h-screen bg-red-200 py-10 px-6">
+    
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <div
         v-for="film in films"
         :key="film._id"
-        class="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-shadow duration-300"
+        class="bg-blue-200 shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col items-center h-96"
       >
         <img
           :src="film.image || '/default-image.webp'"
           :alt="film.title"
-          class="w-full h-56 object-cover"
+          class="object-cover w-40 h-60 mt-4 rounded-lg"
         />
-        <div class="p-4 flex flex-col h-full justify-between">
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">
+        <div class="p-3 mt-1 text-center flex flex-col flex-1">
+          <h2 class="text-base font-semibold text-gray-800 mb-">
             {{ film.title }}
           </h2>
-          <p class="text-gray-600 text-sm mb-4 line-clamp-3">
-            {{ film.description }}
-          </p>
-          <div class="flex justify-between items-center mt-auto">
+        
+          <div class="text-gray-800 font-bold mt-1">
             <span class="text-gray-800 font-bold">
               {{ film.year }}
             </span>
-            <button
-              class="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-            >
-              Ver Detalhes
-            </button>
+      <div class="flex justify-center items-center mx-auto "> 
+      <svg
+          v-for="star in 5"
+          :key="star"
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          viewBox="0 0 24 24"
+          class="cursor-pointer transition-transform duration-200"
+          :class="star <= rating ? 'text-yellow-400' : 'text-gray-400'"
+          @click="setRating(star)"
+        >
+          
+          <path 
+            stroke="currentColor" 
+            stroke-width="2" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"
+            :fill="star <= rating ? 'currentColor' : 'none'"
+            d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"
+          />
+        </svg>
+      </div>
           </div>
         </div>
       </div>
@@ -67,3 +76,7 @@ onMounted(async () => {
   overflow: hidden;
 }
 </style>
+
+<!--   <p class="text-gray-600 text-sm line-clamp-3 mb-2">
+            {{ film.description }}
+          </p> -->

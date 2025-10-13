@@ -4,7 +4,7 @@ const FilmSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: String,
   image: String, // URL da imagem do filme
-  releaseDate: Date,
+  year: Number,
   genre: String
 });
 
