@@ -48,7 +48,7 @@ export default {
 
         const user = res.data;
         if ( user.isAdmin) {
-      this.$router.push('/registerFilm');
+          this.$router.push('/registerFilm');
 
         } else {
           this.erro = 'Acesso negado. Você não é admin.';

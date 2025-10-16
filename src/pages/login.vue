@@ -14,11 +14,11 @@
   },
   
   methods: {
-   async handleSubmit() {
+    async handleSubmit() {
 
       if (!this.email || !this.senha) {
-    alert('Por favor, preencha todos os campos.');
-    return;
+        alert('Por favor, preencha todos os campos.');
+        return;
       }
       try {
         const response = await api.post('http://localhost:3000/users/login', {
@@ -26,23 +26,22 @@
           password: this.senha
         }); 
 
-         if (typeof response.data === 'object') {
-          const userStore = useUserStore();
-           userStore.setUser(response.data);
-           localStorage.setItem('user', JSON.stringify(response.data));
-           this.$router.push('/home/:id');
+        if (typeof response.data === 'object') {
+            const userStore = useUserStore();
+            userStore.setUser(response.data);
+            localStorage.setItem('user', JSON.stringify(response.data));
+            this.$router.push('/home/:id');
         } else {
           alert(response.data); 
-         }
+        }
 
       } catch (error) {
         console.error('Erro ao fazer login:', error.response?.data || error.message);
         alert('Erro ao fazer login. Verifique seu e-mail e senha.');
-    
-     } 
+      } 
     }
-   }
- }
+  }
+}
 
 </script>
 
