@@ -42,7 +42,7 @@ export default {
 <template> 
   
   
-  <AdminHeader v-if="route.path === '/loginAdmin'" />
+  <AdminHeader v-if="['/loginAdmin', '/registerFilm', '/areaAdmin'].includes(route.path)" />
   <Appheader v-else />
 
   <router-view />

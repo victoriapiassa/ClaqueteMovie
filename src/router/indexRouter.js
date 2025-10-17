@@ -9,6 +9,8 @@ import register from '../pages/register.vue';
 import Admin from '@/pages/admin/registerFilm.vue';
 import loginAdmin from '@/pages/admin/loginAdmin.vue';
 
+import AreaAdmin from '@/pages/admin/areaAdmin.vue';
+
 
 const routes = [           
 
@@ -17,7 +19,8 @@ const routes = [
   { path: '/register', component: register},
   { path: '/home/:id', component: home},
   { path: '/registerFilm', component: Admin},
-  { path: '/loginAdmin', component: loginAdmin}
+  { path: '/loginAdmin', component: loginAdmin},
+  { path: '/areaAdmin', component : AreaAdmin}
   
 ]
 

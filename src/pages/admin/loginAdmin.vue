@@ -1,6 +1,6 @@
 <template>
 
-  <div class="flex justify-center items-center bg-blue-200"> 
+  <div class="flex justify-center items-center bg-white"> 
     <div class= "p-6 border rounded shadow w-full max-w-lg mx-auto bg-red-200">
       
       <h2 class="text-2xl font-bold mb-4  text-center">Login do Admin</h2>
