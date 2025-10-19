@@ -1,5 +1,5 @@
 <script>
-import listFilm from '@/components/listFilm.vue';
+import listFilm from '@/pages/admin/listFilm.vue';
 
 export default {
     name:'home',

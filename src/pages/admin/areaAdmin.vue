@@ -24,7 +24,7 @@
         </RouterLink>
 
         <RouterLink 
-          to="/registerFilm"
+          to="/admin/registerFilm"
           class="flex items-center gap-3 py-2 px-4 rounded-lg hover:bg-gray-700 transition"
           active-class="bg-gray-700"
         >
@@ -53,7 +53,7 @@
         </RouterLink>
 
         <RouterLink 
-          to="/admin/filmes"
+          to="/admin/listFilm"
           class="flex items-center gap-3 py-2 px-4 rounded-lg hover:bg-gray-700 transition"
           active-class="bg-gray-700"
         >
@@ -81,13 +81,11 @@
           Sair
         </RouterLink>
       </div>
-    </aside>
-
-    <!-- Main content -->
-    <main class="flex-1 p-10">
-      <h1 class="text-3xl font-bold mb-6">Dashboard do Administrador</h1>
+    </aside><!-- 🔥 Área onde as rotas filhas aparecem -->
+    <main class="flex-1 p-10 ml-64">
       <router-view />
     </main>
+
   </div>
 
 </template>

@@ -46,7 +46,7 @@
 </script>
 
 <template>
-    <div class="flex justify-center items-center bg-blue-200 "> 
+    <div class="flex justify-center items-center bg-black/90 "> 
         <main class="p-6 border rounded shadow w-full max-w-lg mx-auto bg-red-200">
 
             <h1 class=" flex justify-center my-2 text-2xl  font-bold "> Faça seu Login </h1>
