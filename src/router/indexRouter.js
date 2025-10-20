@@ -14,6 +14,7 @@ import loginAdmin from '@/pages/admin/loginAdmin.vue';
 import AreaAdmin from '@/pages/admin/areaAdmin.vue';
 import listFilm from '@/pages/admin/listFilm.vue';
 import registerFilm from '@/pages/admin/registerFilm.vue';
+import homeAdmin from '@/pages/admin/homeAdmin.vue';
 
 
 
@@ -33,6 +34,7 @@ const routes = [
     // { path: 'dashboard', component: Dashboard },
     { path: 'listFilm', component: listFilm },
     { path: 'registerFilm', component: registerFilm },
+    { path: 'homeAdmin', component: homeAdmin},
   ]
 }
 ]

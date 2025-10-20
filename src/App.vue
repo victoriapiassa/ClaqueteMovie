@@ -3,14 +3,15 @@
 import Appheader from './components/Appheader.vue'; // Importando o componente Appheader
 import axios from 'axios';
 import { useUserStore } from '@/stores/user';
-import listFilm from './components/listFilm.vue';
+import listFilm from './pages/admin/listFilm.vue';
 import RegisterFilm from './pages/admin/registerFilm.vue';
 import { useRoute } from 'vue-router';  
 import loginAdmin from './pages/admin/loginAdmin.vue';
 
 import AdminHeader from './components/AdminHeader.vue';
 import LoginHeader from './components/LoginHeader.vue';
-import AreaAdmin from './pages/admin/areaAdmin.vue';
+import homeAdmin from './pages/admin/homeAdmin.vue';
+
 
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL; // Configurando a URL base do Axios
@@ -25,6 +26,7 @@ export default {
     listFilm,
     RegisterFilm,
     loginAdmin,
+    homeAdmin
     
   },
 
@@ -45,7 +47,8 @@ export default {
 
 <template> 
   <LoginHeader v-if="['/login', '/register'].includes(route.path)" />
-  <AdminHeader v-else-if="['/loginAdmin', '/registerFilm', '/areaAdmin'].includes(route.path)" />
+  <AdminHeader v-else-if="route.path.startsWith('/admin') || route.path === '/loginAdmin'" />
+
   <Appheader v-else />
 
   <router-view />

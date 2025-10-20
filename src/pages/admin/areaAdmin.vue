@@ -2,9 +2,19 @@
 
 <div class="flex min-h-screen bg-gray-100">
     <!-- Sidebar -->
-    <aside class="w-64 bg-gray-900 text-white flex flex-col p-6 space-y-6">
+    <aside class="fixed top-20 left-0 w-64 h-[575px] bg-gray-900 text-white flex flex-col p-6 space-y-6 overflow-auto">
 
       <nav class="flex flex-col space-y-3">
+
+        <RouterLink 
+          to="/admin/homeAdmin"
+          class="flex items-center gap-3 py-2 px-4 rounded-lg hover:bg-gray-700 transition"
+          active-class="bg-gray-700" >
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fffafa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l-2 0l9 -9l9 9l-2 0" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" /><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" /></svg>
+
+          <p> Home </p>
+        </RouterLink>
         <RouterLink 
           to="/admin/dashboard"
           class="flex items-center gap-3 py-2 px-4 rounded-lg hover:bg-gray-700 transition"
@@ -81,7 +91,7 @@
           Sair
         </RouterLink>
       </div>
-    </aside><!-- 🔥 Área onde as rotas filhas aparecem -->
+    </aside>
     <main class="flex-1 p-10 ml-64">
       <router-view />
     </main>
