@@ -3,9 +3,11 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
 
+
 import login from '../pages/login.vue';
 import home from '../pages/home.vue';
 import registerUser from '../pages/register.vue';
+import { useUserStore } from '@/stores/user'
 
 import loginAdmin from '@/pages/admin/loginAdmin.vue';
 
@@ -20,12 +22,17 @@ import homeAdmin from '@/pages/admin/homeAdmin.vue';
 
 const routes = [           
 
-  { path: '/', component: home},
-  { path: '/login', component: login },
-  { path: '/register', component: registerUser},
+  { path: '/', component: home },
+  { path: '/login', component: login, meta: { requiresGuest: true } },
+  { path: '/register', component: registerUser, meta: { requiresGuest: true }},
   { path: '/home/:id', component: home},
-  { path: '/loginAdmin', component: loginAdmin},
+  { path: '/loginAdmin', component: loginAdmin, meta: { requiresGuest: true }},
   { path: '/areaAdmin', component : AreaAdmin},
+
+  { path: '/areaAdmin', 
+    component: AreaAdmin, 
+    meta: { requiresAdmin: true } 
+  },
 
   {
   path: '/admin',
@@ -36,14 +43,25 @@ const routes = [
     { path: 'registerFilm', component: registerFilm },
     { path: 'homeAdmin', component: homeAdmin},
   ]
-}
+ }
 ]
-
-
 
 const router = createRouter({
   history: createWebHistory(), 
   routes
 });
+
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore();
+  const isAdminLogged = !!userStore.user
+
+   
+   if (to.path === '/loginAdmin' && isAdminLogged) {
+         return next('/admin/homeAdmin')
+
+  }
+
+    next();
+  });
 
 export default router; 

@@ -65,6 +65,7 @@ export default {
       loading: false
     };
   },
+  
   methods: {
     async handleLogin() {
       const userStore = useUserStore();
