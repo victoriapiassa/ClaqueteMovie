@@ -5,6 +5,15 @@
                 <RouterLink to="/"> <img  class="h-12 border-2 border-white rounded" src="../assets/image/logo_ClaqueteMovie.png" alt=""> </RouterLink>  
           </div>
 
+
+          <div class="hidden md:flex space-x-6 text-white font-semibold"> 
+           <div> Home </div>
+           <div> Filmes </div>
+           <div> Sobre Nós </div> 
+          </div>
+
+
+
           <div v-if="user" class="flex items-center p-3">
                 <img src="../assets/image/user-circle-white.svg"  alt="User Account" />
                 <RouterLink to="/profile" class="ml-2 text-white">  {{ user.name }} </RouterLink>
