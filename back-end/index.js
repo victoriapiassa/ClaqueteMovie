@@ -1,30 +1,34 @@
- import 'dotenv/config.js'; // importa dotenv(.env) para utilizar as variaveis de ambiente
- import express from "express"; // importa o express(fremerwork) para criar o servidor
- import UserRouters from './domains/users/routes.js';
- import cors from 'cors'; // importa o cors para permitir requisições de diferentes origens
- import filmRoutes from './domains/users/films/routerFilm.js';
- import routerAdmin from './admin/routerAdmin.js';
- 
+import { createRouter, createWebHistory } from 'vue-router'
+import Home from '../pages/Home.vue'
+import LoginAdmin from '../pages/admin/LoginAdmin.vue'
+import HomeAdmin from '../pages/admin/HomeAdmin.vue'
+import { useUserStore } from '@/stores/user'
 
+const routes = [
+  { path: '/', component: Home },
+  { path: '/login', component: LoginAdmin },
+  {
+    path: '/admin',
+    component: HomeAdmin,
+    meta: { requiresAuth: true }, // 🔒 rota protegida
+  },
+]
 
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+})
 
-const app = express(); //cria seu servidor usando o Express e retorna app(objeto)
-const { PORT } = process.env; // define a porta do servidor a partir das variáveis de ambiente
+// ✅ Navigation Guard
+router.beforeEach((to, from, next) => {
+  const store = useUserStore()
+  store.loadUser() // garante que o estado do login seja carregado
 
-app.use(express.json()); // permite que sua API entenda o corpo das requisições em formato JSON (middleware )
-app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials:true,
-}));
+  if (to.meta.requiresAuth && !store.isAuthenticated) {
+    next('/login') // redireciona se não estiver logado
+  } else {
+    next()
+  }
+})
 
-app.use("/users", UserRouters); // define a rota base para usuários
-
-app.use("/films", filmRoutes);
-
-app.use("/admin", routerAdmin);
-
-app.listen(PORT, () => {
-    console.log(`Servidor está rodando na porta ${PORT}`);
-});
-
-
+export default router

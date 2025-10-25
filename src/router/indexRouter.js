@@ -61,6 +61,11 @@ router.beforeEach((to, from, next) => {
 
   }
 
+  if (to.path === '/login' && store.isAuthenticated) {
+    next('/admin') // redireciona pra área protegida
+    return
+  }
+
     next();
   });
 
