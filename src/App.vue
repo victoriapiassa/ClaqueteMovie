@@ -42,11 +42,12 @@ export default {
       userStore.setUser(JSON.parse(savedUser));
     }
    },
+   
 }
 </script>
 
 <template> 
-  <LoginHeader v-if="['/login', '/register'].includes(route.path)" />
+  <LoginHeader v-if="['/loginAdmin', '/register'].includes(route.path)" />
   <AdminHeader v-else-if="route.path.startsWith('/admin') || route.path === '/loginAdmin'" />
 
   <Appheader v-else />

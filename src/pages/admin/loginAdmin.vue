@@ -51,30 +51,55 @@
   </div>
 </template>
 
-<script setup>
-import { useUserStore } from '@/stores/user'
-import { useRouter } from 'vue-router'
-import axios from 'axios'
-import { ref } from 'vue'
+<script>
+import axios from "axios";
+import { useUserStore } from "@/stores/user";
 
-const store = useUserStore()
-const router = useRouter()
-const email = ref('')
-const password = ref('')
+export default {
+  name: "loginAdmin",
+  data() {
+    return {
+      email: "",
+      password: "",
+      erro: "",
+      loading: false
+    };
+  },
+  
+  methods: {
+    async handleLogin() {
+      const userStore = useUserStore();
+      this.loading = true;
 
-async function handleLogin() {
-  try {
-    const res = await axios.post('http://localhost:3000/admin/loginAdmin', {
-      email: email.value,
-      password: password.value,
-    })
+      try {
+        const res = await axios.post(
+          "http://localhost:3000/admin/loginAdmin",
+          { email: this.email, password: this.password },
+          { withCredentials: true }
+        );
 
-    // Exemplo: se o backend retorna dados do admin
-    store.login(res.data.user)
-    router.push('/admin/homeAdmin') // vai para a área protegida
-  } catch (err) {
-    alert('Login inválido')
-  }
-}
+        const adminData = res.data;
+
+        if (adminData.isAdmin) {
+          // salva no Pinia
+          userStore.setUser(adminData);
+
+          // salva no localStorage
+          localStorage.setItem("user", JSON.stringify(adminData));
+
+          // redireciona para a homeAdmin
+          this.$router.push("/admin/homeAdmin");
+        } else {
+          this.erro = "Acesso negado. Você não é admin.";
+        }
+
+      } catch (err) {
+        console.error("Erro no login:", err);
+        this.erro = err.response?.data?.message || "Erro no login";
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+};
 </script>
-
