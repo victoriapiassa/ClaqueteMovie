@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { useAdminStore } from '@/stores/admin' // 🧩 Import do store de admin
 
 // Páginas gerais
 import login from '../pages/login.vue'
@@ -40,19 +41,27 @@ const router = createRouter({
   routes,
 })
 
-// Guarda de navegação
+//  Guarda de navegação global
 router.beforeEach((to, from, next) => {
-  const store = useUserStore()
-  const isAdminLogged = !!store.user
+  const userStore = useUserStore()
+  const adminStore = useAdminStore()
 
-  //  Se estiver logado e tentar acessar loginAdmin → redireciona
-  if (to.path === '/loginAdmin' && isAdminLogged) {
+  const isUserLogged = !!userStore.token
+  const isAdminLogged = !!adminStore.token
+
+  //  Se admin estiver logado e tentar acessar área de usuário
+  if (isAdminLogged && (to.path === '/login' || to.path === '/register')) {
     return next('/admin/homeAdmin')
   }
 
-  //  Se a rota exigir login e o admin não estiver logado → redireciona pro loginAdmin
+  // Bloqueia rotas admin se admin não estiver logado
   if (to.meta.requiresAdmin && !isAdminLogged) {
     return next('/loginAdmin')
+  }
+
+  //  Bloqueia rotas de usuário comum se não estiver logado (se quiser)
+  if (to.meta.requiresAuth && !isUserLogged) {
+    return next('/login')
   }
 
   next()

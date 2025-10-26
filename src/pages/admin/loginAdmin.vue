@@ -1,15 +1,11 @@
 <template>
   <div class="flex justify-center items-center min-h-screen bg-black/90">
-    <!-- Claquete -->
     <div class="relative w-full max-w-lg mx-auto shadow-2xl overflow-hidden border-4 border-white bg-black/90 rounded-lg">
-      
-      <!-- Parte superior (tampa da claquete) -->
       <div
         class="bg-[repeating-linear-gradient(40deg,white,white_20px,black_20px,black_40px)] 
                h-16 flex items-center justify-center text-black font-bold text-lg shadow-md border-b-4 border-white">
       </div>
 
-      <!-- Corpo principal -->
       <div class="p-6">
         <h2 class="text-2xl font-bold mb-4 text-center text-white">Bem-vindo!</h2>
         
@@ -19,6 +15,7 @@
             type="email"
             placeholder="Email"
             required
+            autocomplete="username"
             class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
@@ -27,6 +24,7 @@
             type="password"
             placeholder="Senha"
             required
+            autocomplete="current-password"
             class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
@@ -36,8 +34,6 @@
             :disabled="loading"
           >
             <span v-if="!loading">Entrar</span>
-            
-            <!-- Spinner quando loading -->
             <svg v-else class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
@@ -53,7 +49,7 @@
 
 <script>
 import axios from "axios";
-import { useUserStore } from "@/stores/user";
+import { useAdminStore } from "@/stores/admin";
 
 export default {
   name: "loginAdmin",
@@ -68,8 +64,9 @@ export default {
   
   methods: {
     async handleLogin() {
-      const userStore = useUserStore();
+      const adminStore = useAdminStore();
       this.loading = true;
+      this.erro = "";
 
       try {
         const res = await axios.post(
@@ -80,14 +77,8 @@ export default {
 
         const adminData = res.data;
 
-        if (adminData.isAdmin) {
-          // salva no Pinia
-          userStore.setUser(adminData);
-
-          // salva no localStorage
-          localStorage.setItem("user", JSON.stringify(adminData));
-
-          // redireciona para a homeAdmin
+        if (adminData?.isAdmin) {
+          adminStore.login(adminData);  // ✅ usa o método do store
           this.$router.push("/admin/homeAdmin");
         } else {
           this.erro = "Acesso negado. Você não é admin.";

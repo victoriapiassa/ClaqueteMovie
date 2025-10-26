@@ -16,7 +16,7 @@
 
           <div v-if="user" class="flex items-center p-3">
                 <img src="../assets/image/user-circle-white.svg"  alt="User Account" />
-                <RouterLink to="/profile" class="ml-2 text-white">  {{ user.name }} </RouterLink>
+                <RouterLink to="/" class="ml-2 text-white">  {{ user.name }} </RouterLink>
           <button @click="logout" class="ml-4 px-2 py-1 bg-red-500 rounded text-white">Sair</button>
           </div>
           <div v-else class="flex items-center p-3">
