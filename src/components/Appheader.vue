@@ -9,13 +9,6 @@
         </RouterLink>  
       </div>
 
-      <!-- Menu principal -->
-      <div class="hidden md:flex space-x-6 font-semibold text-white"> 
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/filmes">Filmes</RouterLink>
-        <RouterLink to="/sobre">Sobre Nós</RouterLink>
-      </div>
-
       <!-- Área do usuário -->
       <div class="flex items-center space-x-4">
         <img src="../assets/image/user-circle-white.svg" alt="User Account" class="h-8 w-8" />

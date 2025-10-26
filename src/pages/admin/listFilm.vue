@@ -1,16 +1,16 @@
 <template>
-  <div class=" bg-red-200 py-10 px-4">
+  <div class=" bg-red-200 mt-5 w-full ">
     
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <div
         v-for="film in films"
         :key="film._id"
-        class="bg-blue-200 shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col items-center h-96"
+        class="bg-blue-200 shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-96"
       >
         <img
           :src="film.image || '/default-image.webp'"
           :alt="film.title"
-          class="object-cover w-40 h-60 mt-4 rounded-lg"
+          class="object-cover w-40 h-60 mt-4 rounded-lg flex justify-center mx-auto "
         />
         <div class="p-3 mt-1 text-center flex flex-col flex-1">
           <h2 class="text-base font-semibold text-gray-800 mb-">

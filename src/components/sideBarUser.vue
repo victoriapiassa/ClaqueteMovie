@@ -8,21 +8,21 @@
           class="hover:text-white transition"
           :class="{ 'text-white font-semibold': $route.path === '/' }"
         >
-          🎬 Home
+           Home
         </RouterLink>
         <RouterLink
           to="/filmes"
           class="hover:text-white transition"
           :class="{ 'text-white font-semibold': $route.path === '/filmes' }"
         >
-          🍿 Filmes
+          Filmes
         </RouterLink>
         <RouterLink
           to="/profile"
           class="hover:text-white transition"
           :class="{ 'text-white font-semibold': $route.path === '/profile' }"
         >
-          👤 Meu Perfil
+           Meu Perfil
         </RouterLink>
       </nav>
 
