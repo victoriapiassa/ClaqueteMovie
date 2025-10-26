@@ -11,6 +11,7 @@ import loginAdmin from './pages/admin/loginAdmin.vue';
 import AdminHeader from './components/AdminHeader.vue';
 import LoginHeader from './components/LoginHeader.vue';
 import homeAdmin from './pages/admin/homeAdmin.vue';
+import ProfilePage from './pages/profile.vue';
 
 
 
@@ -26,7 +27,8 @@ export default {
     listFilm,
     RegisterFilm,
     loginAdmin,
-    homeAdmin
+    homeAdmin,
+    ProfilePage
     
   },
 
@@ -51,6 +53,8 @@ export default {
   <AdminHeader v-else-if="route.path.startsWith('/admin') || route.path === '/loginAdmin'" />
 
   <Appheader v-else />
+
+
 
   <router-view />
 </template>

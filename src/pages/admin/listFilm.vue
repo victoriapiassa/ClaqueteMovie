@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-red-200 py-10 px-6">
+  <div class=" bg-red-200 py-10 px-4">
     
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <div
