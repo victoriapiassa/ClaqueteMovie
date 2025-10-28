@@ -7,50 +7,64 @@
         class="relative w-full max-w-5xl h-64 rounded-2xl overflow-hidden shadow"
       
       >
-        <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/70"></div>
+        <div class="absolute  inset-0 bg-gradient-to-b "></div>
 
         <!-- Informações do usuário (agora à esquerda) -->
-        <div class="absolute bottom-6 left-8 flex items-center mb-15 gap-4 text-white">
+        <div class="absolute  bottom-6 left-8 flex items-center mb-13 gap-4 text-white">
           <img
             :src="userPhoto"
             alt="User"
             class="w-28 h-28 rounded-full border-4 border-white shadow-xl object-cover"
           />
-          <div class="flex ">
+          <div class="flex gap-3">
             <h1 class="text-2xl font-bold">{{ userData.name || 'Usuário Claquete' }}</h1>
-            <p class="text-gray-300 text-sm">@{{ userData.username || 'user' }}</p>
+            
             <button
-              class="mt-2 px-4 py-1 text-sm border border-gray-400 rounded hover:bg-white/10 transition"
+              class=" p-1 text-sm border border-gray-400 rounded hover:bg-white/10 transition"
             >
               Editar Perfil
             </button>
+          </div>
+          <div class="flex gap-8 ml-90"> 
+            <div class="text-center ">
+              <p> 10 </p>
+              <h1> Filmes </h1>
+            </div>
+            <div>
+              <p>5</p>
+              <h1>Seguidores</h1>
+            </div>
+            <div>
+              <p>8</p>
+              <h1>Seguindo</h1>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Conteúdo -->
-      <div class="w-full max-w-5xl bg-white shadow-md -mt-6 z-10 rounded-b-2xl">
+      <div class="w-full max-w-5xl bg-white shadow-md -mt-6 z-10 rounded-b-2xl bg-[#14181c]">
         <!-- Estatísticas -->
-        <div class="flex flex-col md:flex-row justify-around text-center p-4 border-b mb-5">
+        <div class="flex flex-col md:flex-row justify-around text-center p-4 border border border-gray-400  bg-[#14181c]">
           <div>
-            <p class="text-gray-500 text-sm">Filmes Avaliados</p>
+            <p class="text-gray-400 text-sm">Filmes Avaliados</p>
           </div>
           <div>
-            <p class="text-gray-500 text-sm">Opiniões</p>
+            <p class="text-gray-400 text-sm">Opiniões</p>
           </div>
           <div>
-            <p class="text-gray-500 text-sm">Listas</p>
+            <p class="text-gray-400 text-sm">Listas</p>
           </div>
           <div>
-            <p class="text-gray-500 text-sm">Quero Assistir</p>
+            <p class="text-gray-400 text-sm">Quero Assistir</p>
           </div>
           <div>
-            <p class="text-gray-500 text-sm">Favoritos</p>
+            <p class="text-gray-400 text-sm">Favoritos</p>
           </div>
         </div>
 
         <!-- Filmes Favoritos -->
-        <div class="px-6 pb-8">
+        <div class="px-6 pb-8 pt-10 bg-[#14181c]">
           <h2 class="font-semibold text-gray-800 mb-4 border-b pb-2">
             Filmes Favoritos
           </h2>
@@ -75,7 +89,7 @@
         </div>
 
         <!-- Comentários -->
-        <div class="px-6 pb-8">
+        <div class="px-6 pb-8 bg-[#14181c]">
           <h2 class="font-semibold text-gray-800 mb-4 border-b pb-2">Comentários</h2>
         </div>
       </div>
