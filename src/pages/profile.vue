@@ -1,57 +1,59 @@
 <template>
-  <div class="flex min-h-screen bg-gray-50">
-    <!-- SIDEBAR -->
-   
-
+  <div class="flex min-h-screen bg-[#14181c]">
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="flex-1 flex flex-col items-center overflow-y-auto p-6">
       <!-- Capa -->
       <div
         class="relative w-full max-w-5xl h-64 rounded-2xl overflow-hidden shadow"
-        style="background-image: url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=1400&q=80'); background-size: cover; background-position: center;"
+      
       >
         <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/70"></div>
 
-        <!-- Informações do usuário -->
-        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center text-center">
+        <!-- Informações do usuário (agora à esquerda) -->
+        <div class="absolute bottom-6 left-8 flex items-center mb-15 gap-4 text-white">
           <img
             :src="userPhoto"
             alt="User"
-            class="w-32 h-32 rounded-full border-4 border-white shadow-xl object-cover"
+            class="w-28 h-28 rounded-full border-4 border-white shadow-xl object-cover"
           />
-          <h1 class="text-white text-2xl font-bold mt-3">{{ userData.name || 'Usuário Claquete' }}</h1>
-          <p class="text-gray-200 text-sm">{{ userData.email || 'usuario@claquete.com' }}</p>
+          <div class="flex ">
+            <h1 class="text-2xl font-bold">{{ userData.name || 'Usuário Claquete' }}</h1>
+            <p class="text-gray-300 text-sm">@{{ userData.username || 'user' }}</p>
+            <button
+              class="mt-2 px-4 py-1 text-sm border border-gray-400 rounded hover:bg-white/10 transition"
+            >
+              Editar Perfil
+            </button>
+          </div>
         </div>
       </div>
 
       <!-- Conteúdo -->
-      <div class="w-full max-w-5xl bg-white rounded-2xl shadow-md -mt-12 p-8 z-10">
+      <div class="w-full max-w-5xl bg-white shadow-md -mt-6 z-10 rounded-b-2xl">
         <!-- Estatísticas -->
-        <div class="flex flex-col md:flex-row justify-around text-center mb-8">
+        <div class="flex flex-col md:flex-row justify-around text-center p-4 border-b mb-5">
           <div>
-            <h3 class="text-2xl font-bold text-gray-800">{{ favoriteMovies.length }}</h3>
-            <p class="text-gray-500 text-sm">Filmes Favoritos</p>
+            <p class="text-gray-500 text-sm">Filmes Avaliados</p>
           </div>
           <div>
-            <h3 class="text-2xl font-bold text-gray-800">12</h3>
-            <p class="text-gray-500 text-sm">Avaliações</p>
+            <p class="text-gray-500 text-sm">Opiniões</p>
           </div>
           <div>
-            <h3 class="text-2xl font-bold text-gray-800">8</h3>
-            <p class="text-gray-500 text-sm">Listas Criadas</p>
+            <p class="text-gray-500 text-sm">Listas</p>
           </div>
-        </div>
-
-        <!-- Bio -->
-        <div class="text-center mb-8">
-          <p class="text-gray-600 max-w-2xl mx-auto">
-            {{ userData.bio || 'Amante do cinema, apaixonado por boas histórias e trilhas sonoras. 🎬' }}
-          </p>
+          <div>
+            <p class="text-gray-500 text-sm">Quero Assistir</p>
+          </div>
+          <div>
+            <p class="text-gray-500 text-sm">Favoritos</p>
+          </div>
         </div>
 
         <!-- Filmes Favoritos -->
-        <div>
-          <h2 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">🎞️ Meus Filmes</h2>
+        <div class="px-6 pb-8">
+          <h2 class="font-semibold text-gray-800 mb-4 border-b pb-2">
+            Filmes Favoritos
+          </h2>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             <div
               v-for="movie in favoriteMovies"
@@ -63,11 +65,18 @@
                 :alt="movie.title"
                 class="w-full h-64 object-cover group-hover:scale-105 transition duration-500"
               />
-              <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-end justify-center p-3">
+              <div
+                class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-end justify-center p-3"
+              >
                 <p class="text-white text-center text-sm font-medium">{{ movie.title }}</p>
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Comentários -->
+        <div class="px-6 pb-8">
+          <h2 class="font-semibold text-gray-800 mb-4 border-b pb-2">Comentários</h2>
         </div>
       </div>
     </main>
@@ -116,7 +125,6 @@ export default {
 </script>
 
 <style scoped>
-/* Animação sutil */
 @keyframes fadeIn {
   from {
     opacity: 0;
