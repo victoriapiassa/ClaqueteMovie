@@ -1,12 +1,12 @@
 <template>
-  <div class="flex min-h-screen bg-blue-100">
+  <div class="flex min-h-screen ">
     <!-- Sidebar só aparece se o usuário estiver logado -->
     <SidebarUser v-if="isLogged" />
 
     <!-- Área principal -->
-    <div :class="isLogged ? ' w-full bg-blue-100' : 'w-full bg-blue-100'">
+    <div :class="isLogged ? ' w-full bg-[#14181c]' : 'w-full bg-[#14181c]'">
      
-      <main class="p-1">
+      <main class="">
         <router-view />
       </main>
     </div>

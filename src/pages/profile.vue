@@ -26,16 +26,16 @@
             </button>
           </div>
           <div class="flex gap-8 ml-90"> 
-            <div class="text-center ">
-              <p> 10 </p>
+            <div>
+              <p class="text-center"> 10 </p>
               <h1> Filmes </h1>
             </div>
             <div>
-              <p>5</p>
+              <p class="text-center">5</p>
               <h1>Seguidores</h1>
             </div>
             <div>
-              <p>8</p>
+              <p class="text-center">8</p>
               <h1>Seguindo</h1>
             </div>
           </div>
@@ -64,15 +64,15 @@
         </div>
 
         <!-- Filmes Favoritos -->
-        <div class="px-6 pb-8 pt-10 bg-[#14181c]">
-          <h2 class="font-semibold text-gray-800 mb-4 border-b pb-2">
+        <div class="px-1 pb-8 pt-7 bg-[#14181c]">
+          <h2 class="font-semibold text-gray-400 mb-4 border-b pb-2">
             Filmes Favoritos
           </h2>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          <div class="grid gap-2 mt-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             <div
               v-for="movie in favoriteMovies"
               :key="movie.id"
-              class="group relative bg-gray-100 rounded-xl overflow-hidden shadow hover:shadow-lg transition"
+              class="group relative bg-gray-100 overflow-hidden shadow hover:shadow-lg transition"
             >
               <img
                 :src="movie.poster"
@@ -89,8 +89,8 @@
         </div>
 
         <!-- Comentários -->
-        <div class="px-6 pb-8 bg-[#14181c]">
-          <h2 class="font-semibold text-gray-800 mb-4 border-b pb-2">Comentários</h2>
+        <div class="px-1 pb-8 bg-[#14181c]">
+          <h2 class="font-semibold text-gray-400 mb-4 border-b pb-2">Comentários</h2>
         </div>
       </div>
     </main>
