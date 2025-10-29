@@ -6,6 +6,7 @@ import { useAdminStore } from '@/stores/admin'
 import login from '../pages/login.vue'
 import home from '../pages/home.vue'
 import registerUser from '../pages/register.vue'
+import MovieDescription from '@/pages/detailedMovie.vue'
 
 // Admin
 import loginAdmin from '@/pages/admin/loginAdmin.vue'
@@ -22,6 +23,7 @@ const routes = [
   { path: '/login', component: login, meta: { requiresGuest: true } },
   { path: '/register', component: registerUser, meta: { requiresGuest: true } },
   { path: '/home/:id', component: home },
+  { path: '/detailedMovie', component: MovieDescription},
   
   // Login do admin
   { path: '/loginAdmin', component: loginAdmin, meta: { requiresGuest: true } },

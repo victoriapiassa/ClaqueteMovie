@@ -12,6 +12,7 @@ import AdminHeader from './components/AdminHeader.vue';
 import LoginHeader from './components/LoginHeader.vue';
 import homeAdmin from './pages/admin/homeAdmin.vue';
 import ProfilePage from './pages/profile.vue';
+import MovieDescription from '@/pages/detailedMovie.vue';
 
 
 
@@ -28,7 +29,8 @@ export default {
     RegisterFilm,
     loginAdmin,
     homeAdmin,
-    ProfilePage
+    ProfilePage,
+    MovieDescription
     
   },
 
