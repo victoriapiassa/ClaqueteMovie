@@ -8,11 +8,13 @@ import home from '../pages/home.vue'
 import registerUser from '../pages/register.vue'
 import MovieDescription from '@/pages/detailedMovie.vue'
 
+
 // Admin
 import loginAdmin from '@/pages/admin/loginAdmin.vue'
 import AreaAdmin from '@/pages/admin/areaAdmin.vue'
 import listFilm from '@/pages/admin/listFilm.vue'
 import registerFilm from '@/pages/admin/registerFilm.vue'
+
 import homeAdmin from '@/pages/admin/homeAdmin.vue'
 import ProfilePage from '@/pages/profile.vue'
 import LayoutUser from '@/LayoutUser.vue'
@@ -23,9 +25,9 @@ const routes = [
   { path: '/login', component: login, meta: { requiresGuest: true } },
   { path: '/register', component: registerUser, meta: { requiresGuest: true } },
   { path: '/home/:id', component: home },
-  { path: '/detailedMovie', component: MovieDescription},
+  { path: '/detailedMovie/:id', name: 'MovieDescription', component: MovieDescription, props: true },
   
-  // Login do admin
+  // Login do admin 
   { path: '/loginAdmin', component: loginAdmin, meta: { requiresGuest: true } },
 
    {

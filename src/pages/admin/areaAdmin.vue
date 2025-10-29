@@ -1,8 +1,8 @@
 <template> 
 
-<div class="flex min-h-screen bg-gray-100">
+<div class="flex min-h-screen bg-blue-100 justify-center ml-50 items-center">
     <!-- Sidebar -->
-    <aside class="fixed top-20 left-0 w-64 h-[575px] bg-gray-900 text-white flex flex-col p-6 space-y-6 overflow-auto">
+    <aside class="fixed top-20 left-0 w-64 h-[575px] bg-gray-900 text-white flex flex-col space-y-6 overflow-auto">
 
       <nav class="flex flex-col space-y-3">
 
@@ -83,7 +83,7 @@
         </RouterLink>
       </nav>
 
-      <div class="mt-auto">
+      <div class="mt-auto mb-6 px-4">
         <RouterLink 
           to="/"
           class="block text-center py-2 px-4 bg-red-600 hover:bg-red-700 rounded-lg transition"
@@ -92,7 +92,7 @@
         </RouterLink>
       </div>
     </aside>
-    <main class="flex-1 p-10 ml-64">
+    <main class="">
       <router-view />
     </main>
 

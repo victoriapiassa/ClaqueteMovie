@@ -40,29 +40,36 @@
 </template>
 
 <script>
-export default {
+
+import axios from "axios"
+
+export default  {
   name: "MovieDescription",
+  props: ["id"],
   data() {
     return {
-      movie: {
-        title: "Nome do Filme",
-        year: 2025,
-        director: "Jane Doe",
-        cast: ["Ator 1", "Ator 2", "Ator 3"],
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        cover: "https://via.placeholder.com/250x350.png?text=Capa+do+Filme"
-      },
-      rating: 0
-    };
+      movie: {},
+      rating: 0,
+      loading: true,
+      error: null
+    }
   },
   methods: {
     setRating(value) {
-      this.rating = value;
+      this.rating = value
+    }
+  },
+  async created() {
+    try {
+      const response = await axios.get(`http://localhost:3000/films/${this.id}`)
+      this.movie = response.data
+    } catch (err) {
+      this.error = "Erro ao carregar o filme. Tente novamente."
+      console.error(err)
+    } finally {
+      this.loading = false
     }
   }
-};
+}
 </script>
 
-<style scoped>
-/* Pode adicionar hover ou animações aqui se quiser */
-</style>

@@ -5,7 +5,10 @@ const FilmSchema = new mongoose.Schema({
   description: String,
   image: String, // URL da imagem do filme
   year: Number,
-  genre: String
+  genre: String,
+  director: String,
+  cast: [String] // Array de nomes do elenco
+
 });
 
 const Film = mongoose.model("Film", FilmSchema);

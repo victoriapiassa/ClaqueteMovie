@@ -7,11 +7,13 @@
         :key="film._id"
         class=" overflow-hidden transition-shadow duration-300 flex flex-col "
       >
-        <img
+        <router-link :to="`/detailedMovie/${film._id}`">
+        <img 
           :src="film.image || '/default-image.webp'"
           :alt="film.title"
           class="object-cover w-40 h-60   flex justify-center mx-auto  "
         />
+        </router-link>
       </div>
     </div>
   </div>
