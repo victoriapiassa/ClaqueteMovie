@@ -22,10 +22,10 @@ import LayoutUser from '@/LayoutUser.vue'
 
 const routes = [
   
-  { path: '/login', component: login, meta: { requiresGuest: true } },
+  { path: '/login', component: login, meta: { requiresGuest: true  } },
   { path: '/register', component: registerUser, meta: { requiresGuest: true } },
   { path: '/home/:id', component: home },
-  { path: '/detailedMovie/:id', name: 'MovieDescription', component: MovieDescription, props: true },
+  { path: '/detailedMovie/:id', component: MovieDescription, props: true }, 
   
   // Login do admin 
   { path: '/loginAdmin', component: loginAdmin, meta: { requiresGuest: true } },
@@ -36,7 +36,7 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: '', component: home },
-      { path: '/profile', component: ProfilePage, meta: { requiresAuth: true } },
+      { path: 'profile', component: ProfilePage, meta: { requiresAuth: true } },
 
     ],
   },

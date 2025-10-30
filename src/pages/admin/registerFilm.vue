@@ -47,6 +47,12 @@
             placeholder="Elenco (separar por vírgula)"
             class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+      <input 
+        
+        v-model="duraction"
+        placeholder="Duração do Filme"
+        class="p-2 border h-10 resize-none rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
 
       <!-- Descrição -->
       <textarea 

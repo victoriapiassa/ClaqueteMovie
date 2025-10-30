@@ -3,7 +3,7 @@
     
     <!-- Imagem do Filme -->
     <div class="flex-shrink-0">
-      <img :src="movie.cover" :alt="`Capa do ${movie.title}`" class="rounded-lg w-full md:w-64 object-cover shadow-md">
+      <img :src="movie.image" :alt="`Capa do ${movie.title}`" class="rounded-lg w-full md:w-64 object-cover shadow-md">
     </div>
     
     <!-- Informações do Filme -->
@@ -12,6 +12,7 @@
         <h1 class="text-3xl font-bold mb-2">{{ movie.title }}</h1>
         <p class="text-gray-600 mb-1"><strong>Ano:</strong> {{ movie.year }}</p>
         <p class="text-gray-600 mb-1"><strong>Diretor:</strong> {{ movie.director }}</p>
+         <p class="text-gray-600 mb-1"><strong>Duração:</strong> {{ movie.duraction }}</p>
         <p class="text-gray-600 mb-4"><strong>Elenco:</strong> {{ movie.cast.join(', ') }}</p>
         <p class="text-gray-700">{{ movie.description }}</p>
       </div>
@@ -40,7 +41,6 @@
 </template>
 
 <script>
-
 import axios from "axios"
 
 export default  {
@@ -48,7 +48,7 @@ export default  {
   props: ["id"],
   data() {
     return {
-      movie: {},
+      movie: {},  
       rating: 0,
       loading: true,
       error: null
@@ -61,7 +61,7 @@ export default  {
   },
   async created() {
     try {
-      const response = await axios.get(`http://localhost:3000/films/${this.id}`)
+      const response = await axios.get(`http://localhost:3000/films/modelFilm/${this.id}`)
       this.movie = response.data
     } catch (err) {
       this.error = "Erro ao carregar o filme. Tente novamente."
