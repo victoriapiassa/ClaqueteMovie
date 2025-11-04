@@ -1,16 +1,16 @@
 <template>
     <div class="min-h-screen bg-[#14181c] p-4"> 
-      <div class=" rounded-xl shadow-lg max-w-3xl w-full p-6 flex flex-col md:flex-row gap-6 mx-auto mt-10 bg-[#14181c]">
+      <div class=" w-230 p-6  flex md:flex-row gap-6 mx-auto mt-10 bg-white">
         
         <!-- Imagem do Filme -->
         <div class="flex-shrink-0">
-          <img :src="movie.image" :alt="`Capa do ${movie.title}`" class="rounded-lg w-full md:w-64 object-cover shadow-md">
+          <img :src="movie.image" :alt="`Capa do ${movie.title}`" class="w-full md:w-64 object-cover shadow-md">
         </div>
         
         <!-- Informações do Filme -->
-        <div class="flex-1 flex flex-col justify-between">
+        <div class="flex-1 flex gap-5 ">
           <div>
-            <h1 class="text-3xl text-white font-bold mb-2">{{ movie.title }}</h1>
+            <h1 class="text-3xl text-white font-bold ">{{ movie.title }}</h1>
             <p class="text-gray-600 mb-1"><strong>Ano:</strong> {{ movie.year }}</p>
             <p class="text-gray-600 mb-1"><strong>Diretor:</strong> {{ movie.director }}</p>
             <p class="text-gray-600 mb-1"><strong>Duração:</strong> {{ movie.duraction }}</p>
@@ -19,9 +19,43 @@
           </div>
 
           <!-- Avaliação -->
-          <div class="mt-6">
-            <p class="font-semibold mb-2">Avalie este filme:</p>
-            <div class="flex gap-1 text-yellow-400 cursor-pointer">
+          <div class=" w-60 p-2  mt-2 border border-black">
+            <div class="flex gap-1 justify-center"> 
+               <svg xmlns="http://www.w3.org/2000/svg" 
+               width="24" 
+               height="24" 
+               viewBox="0 0 24 24" 
+               fill="none"
+               stroke="currentColor" 
+               stroke-width="2" 
+               stroke-linecap="round" 
+               stroke-linejoin="round" 
+               class="icon h-9 w-9 icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+              
+              
+           
+           
+              <svg xmlns="http://www.w3.org/2000/svg" 
+              width="24" height="24" viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              stroke-width="2" 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              class="icon h-8 w-9 icon-tabler icons-tabler-outline icon-tabler-heart"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" stroke="currentColor" 
+            stroke-width="2" stroke-linecap="round" 
+            stroke-linejoin="round" 
+            class="icon h-8 w-9 icon-tabler icons-tabler-outline icon-tabler-clock-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.984 12.535a9 9 0 1 0 -8.468 8.45" /><path d="M16 19h6" /><path d="M19 16v6" /><path d="M12 7v5l3 3" /></svg>  
+            </div>
+
+
+          <div class="flex gap-1 justify-center text-yellow-400 cursor-pointer">
               <svg 
                 v-for="index in 5" 
                 :key="index" 
