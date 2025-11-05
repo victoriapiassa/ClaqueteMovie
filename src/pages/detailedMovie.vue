@@ -43,7 +43,7 @@
               </div>
               
               <div class="flex flex-col items-center  cursor-pointer"
-              @click="toggleFavorito">
+              @click="toggleFavorites">
                 <svg xmlns="http://www.w3.org/2000/svg" 
                 width="24" height="24" viewBox="0 0 24 24" 
                 fill="none" 
@@ -53,7 +53,7 @@
                 stroke-linejoin="round"
                 :class="[
                 'icon h-9 w-9 icon-tabler icons-tabler-outline icon-tabler-eye transition-colors duration-200',
-                favorito ? 'text-red-500' : 'text-black'
+                favorites ? 'text-red-500' : 'text-black'
               ]">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
@@ -114,7 +114,7 @@ export default {
       loading: true,
       error: null,
       assistido: false, 
-      favorito: false, // Novo estado
+      favorites: false, // Novo estado
       verDepois: false
     }
   },
@@ -126,10 +126,21 @@ export default {
       this.assistido = !this.assistido // inverte o valor booleano
       localStorage.setItem(`assistido_${this.id}`, this.assistido) // salva o estado no localStorage
     },
-    toggleFavorito() {
-      this.favorito = !this.favorito
-      localStorage.setItem(`favorito_${this.id}`, this.favorito)
-    },
+    async toggleFavorites() {
+      this.favorites = !this.favorites;
+      try {
+      await axios.post(`http://localhost:3000/users/model`, {
+      userId: 1,
+      movieId: this.id,
+      favorites: this.favorites
+    });
+
+     console.log("Favorito atualizado com sucesso!");
+   } catch (err) {
+     console.error("Erro ao salvar favorito no banco:", err);
+  }
+      
+  },
     toggleverDepois() {
       this.verDepois = !this.verDepois
       localStorage.setItem(`verDepois_${this.id}`, this.verDepois)

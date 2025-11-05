@@ -74,4 +74,31 @@ router.post("/login", async (req, res) => {  // rota para fazer login do usuári
     }
 });
 
+router.post("/favorites", async (req, res) => {
+  const { userId, movieId, favorito } = req.body;
+
+  if (!userId || !movieId) {
+    return res.status(400).json({ message: "Dados incompletos." });
+  }
+
+  try {
+    if (favorito) {
+      // Adiciona o filme aos favoritos, evitando duplicatas
+      await User.findByIdAndUpdate(userId, {
+        $addToSet: { favorites: movieId },
+      });
+    } else {
+      // Remove o filme da lista de favoritos
+      await User.findByIdAndUpdate(userId, {
+        $pull: { favorites: movieId },
+      });
+    }
+
+    res.status(200).json({ message: "Favoritos atualizados com sucesso!" });
+  } catch (error) {
+    console.error("Erro ao atualizar favoritos:", error);
+    res.status(500).json({ message: "Erro no servidor." });
+  }
+});
+
 export default router; 

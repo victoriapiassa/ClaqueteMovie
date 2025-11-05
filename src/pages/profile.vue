@@ -97,45 +97,38 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from "vue";
 import { useUserStore } from "@/stores/user";
 
-export default {
-  name: "ProfilePage",
-  setup() {
-    const userStore = useUserStore();
-    const userData = computed(() => userStore.user || {});
-    const userPhoto = computed(
-      () => userStore.user?.photo || "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-    );
+const userStore = useUserStore();
+const userData = computed(() => userStore.user || {});
+const userPhoto = computed(
+  () => userStore.user?.photo || "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+);
 
-    const favoriteMovies = [
-      {
-        id: 1,
-        title: "Oppenheimer",
-        poster: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2Zt.jpg",
-      },
-      {
-        id: 2,
-        title: "Barbie",
-        poster: "https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
-      },
-      {
-        id: 3,
-        title: "Duna: Parte 2",
-        poster: "https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg",
-      },
-      {
-        id: 4,
-        title: "Inside Out 2",
-        poster: "https://image.tmdb.org/t/p/w500/zu5O8mJ9dW6n4hFzv7b8gRrBtCz.jpg",
-      },
-    ];
-
-    return { userData, userPhoto, favoriteMovies };
+const favoriteMovies = [
+  {
+    id: 1,
+    title: "Oppenheimer",
+    poster: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2Zt.jpg",
   },
-};
+  {
+    id: 2,
+    title: "Barbie",
+    poster: "https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+  },
+  {
+    id: 3,
+    title: "Duna: Parte 2",
+    poster: "https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg",
+  },
+  {
+    id: 4,
+    title: "Inside Out 2",
+    poster: "https://image.tmdb.org/t/p/w500/zu5O8mJ9dW6n4hFzv7b8gRrBtCz.jpg",
+  },
+];
 </script>
 
 <style scoped>
