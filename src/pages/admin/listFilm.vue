@@ -11,7 +11,7 @@
         <img 
           :src="film.image || '/default-image.webp'"
           :alt="film.title"
-          class="object-cover w-40 h-60   flex justify-center mx-auto  "
+          class="object-cover w-40 h-60  transform transition duration-300 hover:scale-120 flex justify-center mx-auto  "
         />
         </router-link>
       </div>
