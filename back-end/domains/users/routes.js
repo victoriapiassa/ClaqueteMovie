@@ -74,7 +74,7 @@ router.post("/login", async (req, res) => {  // rota para fazer login do usuári
     }
 });
 
-router.post("/favorites", async (req, res) => {
+router.post("/favorites", async (req, res) => {  //add
   const { userId, movieId, favorites } = req.body;
 
   if (!userId || !movieId) {

@@ -133,18 +133,22 @@ export default {
       const userStore = useUserStore();
       const userId = userStore.user._id;
 
+      localStorage.setItem(`favorite_${this.id}`, !this.favorites);
+
       this.favorites = !this.favorites;
       try {
       await axios.post(`http://localhost:3000/users/favorites`, {
       userId: userId,
       movieId: this.id,
       favorites: this.favorites
-    });
 
+    });
+      
      console.log("Favorito atualizado com sucesso!");
    } catch (err) {
      console.error("Erro ao salvar favorito no banco:", err);
   }
+     
       
   },
     toggleverDepois() {
@@ -159,8 +163,10 @@ export default {
 
       // recupera o estado salvo do "assistido" quando o componente é carregado
       const salvo = localStorage.getItem(`assistido_${this.id}`)
+      const favoritoSalvo = localStorage.getItem(`favorite_${this.id}`)
       if (salvo !== null) {
         this.assistido = salvo === "true"
+        this.favorites = favoritoSalvo === "true"
       }
     } catch (err) {
       this.error = "Erro ao carregar o filme. Tente novamente."
