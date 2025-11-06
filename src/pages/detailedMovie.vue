@@ -103,6 +103,7 @@
 
 <script>
 import axios from "axios"
+import { useUserStore} from "@/stores/user.js"
 
 export default {
   name: "MovieDescription", //define o nome do componente 
@@ -126,11 +127,16 @@ export default {
       this.assistido = !this.assistido // inverte o valor booleano
       localStorage.setItem(`assistido_${this.id}`, this.assistido) // salva o estado no localStorage
     },
+
     async toggleFavorites() {
+
+      const userStore = useUserStore();
+      const userId = userStore.user._id;
+
       this.favorites = !this.favorites;
       try {
-      await axios.post(`http://localhost:3000/users/model`, {
-      userId: 1,
+      await axios.post(`http://localhost:3000/users/favorites`, {
+      userId: userId,
       movieId: this.id,
       favorites: this.favorites
     });

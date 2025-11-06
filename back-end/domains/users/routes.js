@@ -75,14 +75,14 @@ router.post("/login", async (req, res) => {  // rota para fazer login do usuári
 });
 
 router.post("/favorites", async (req, res) => {
-  const { userId, movieId, favorito } = req.body;
+  const { userId, movieId, favorites } = req.body;
 
   if (!userId || !movieId) {
     return res.status(400).json({ message: "Dados incompletos." });
   }
 
   try {
-    if (favorito) {
+    if (favorites) {
       // Adiciona o filme aos favoritos, evitando duplicatas
       await User.findByIdAndUpdate(userId, {
         $addToSet: { favorites: movieId },
