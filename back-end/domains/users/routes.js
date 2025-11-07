@@ -77,7 +77,7 @@ router.post("/login", async (req, res) => {  // rota para fazer login do usuári
 router.post("/favorites", async (req, res) => {  //add
   const { userId, movieId, favorites } = req.body;
 
-  if (!userId || !movieId) {
+  if (!userId || !movieId) { // se user ou movie for diferente  de true retorne..
     return res.status(400).json({ message: "Dados incompletos." });
   }
 
@@ -100,5 +100,53 @@ router.post("/favorites", async (req, res) => {  //add
     res.status(500).json({ message: "Erro no servidor." });
   }
 });
+
+router.post("/verDepois", async (req, res) => {
+  const { userId, movieId, verDepois } = req.body;
+
+  if (!userId || !movieId) { 
+    return res.status(400).json({ message: "Dados incompletos."});
+  }
+     try {
+       if (verDepois) {
+        await User.findByIdAndUpdate(userId, {
+          $addToSet: { verDepois: movieId },
+        });
+       } else {
+         await User.findByIdAndUpdate(userId, {
+          $pull: { verDepois: movieId },
+        });
+      }
+      res.status(200).json({ message: "Lista 'ver depois' atualizada com sucesso!" });
+      
+    } catch (error) {
+      console.error("Erro ao atualizar Ver Depois:", error);
+      res.status(500).json({ message: "Erro no servidor." });
+   }
+ });
+
+router.post("/watched", async (req, res) => {
+  const { userId, movieId, watched } = req.body;
+
+  if (!userId || !movieId) { 
+    return res.status(400).json({ message: "Dados incompletos."});
+  }
+     try {
+       if (watched) {
+        await User.findByIdAndUpdate(userId, {
+          $addToSet: { watched: movieId },
+        });
+       } else {
+         await User.findByIdAndUpdate(userId, {
+          $pull: { watched: movieId },
+        });
+      }
+      res.status(200).json({ message: "Lista 'ver depois' atualizada com sucesso!" });
+      
+    } catch (error) {
+      console.error("Erro ao atualizar Assistido:", error);
+      res.status(500).json({ message: "Erro no servidor." });
+  }
+ });
 
 export default router; 

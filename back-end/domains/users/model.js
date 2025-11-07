@@ -6,6 +6,8 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true,  },
     password: String,
     favorites: [String],
+    verDepois: [String],
+    watched: [String],
     isAdmin: { type: Boolean, default: false }
 });
 

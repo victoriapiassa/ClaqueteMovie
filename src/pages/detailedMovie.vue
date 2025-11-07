@@ -21,7 +21,7 @@
           <div class=" w-70 p-2 h-30 mt-2 border border-black">
             <div class="flex gap-1 justify-between mb-3  "> 
               <div class="flex flex-col items-center cursor-pointer"
-               @click="toggleAssistido"> 
+               @click="togglewatched"> 
                 <svg xmlns="http://www.w3.org/2000/svg" 
                 width="24" 
                 height="24" 
@@ -33,7 +33,7 @@
                 stroke-linejoin="round"
                  :class="[
                 'icon h-9 w-9 icon-tabler icons-tabler-outline icon-tabler-eye transition-colors duration-200',
-                assistido ? 'text-green-500' : 'text-black'
+                watched ? 'text-green-500' : 'text-black'
               ]" 
                 class="icon h-9 w-9 icon-tabler icons-tabler-outline icon-tabler-eye">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -73,13 +73,11 @@
                 verDepois ? 'text-blue-500' : 'text-black'
               ]">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M20.984 12.535a9 9 0 1 0 -8.468 8.45" />
-              <path d="M16 19h6" /><path d="M19 16v6" /><path d="M12 7v5l3 3" /></svg>  
+                <path d="M20.984 12.535a9 9 0 1 0 -8.468 8.45" />
+               <path d="M16 19h6" /><path d="M19 16v6" /><path d="M12 7v5l3 3" /></svg>  
               <p class="text-center text-xs"> Ver Depois </p>
              </div>
             </div>
-
-
           <div class="flex gap-1 justify-center text-yellow-400 cursor-pointer">
               <svg 
                 v-for="index in 5" 
@@ -114,7 +112,7 @@ export default {
       rating: 0,  //
       loading: true,
       error: null,
-      assistido: false, 
+      watched: false, 
       favorites: false, // Novo estado
       verDepois: false
     }
@@ -123,38 +121,57 @@ export default {
     setRating(value) {
       this.rating = value
     },
-    toggleAssistido() { // metodo 'interruptor' para alternar o estado de assistido
-      this.assistido = !this.assistido // inverte o valor booleano
-      localStorage.setItem(`assistido_${this.id}`, this.assistido) // salva o estado no localStorage
-    },
+  async togglewatched() { // metodo 'interruptor' para alternar o estado de assistido
+      const userStore = useUserStore();
+      const userId = userStore.user
+      this.watched = !this.watched // inverte o valor booleano
+      localStorage.setItem(`watched_${this.id}`, this.watched); // salva o estado no localStorage
+    try {
+      await axios.post(`http://localhost:3000/users/watched`, {
+        userId: userId,
+        movieId: this.id,
+        watched: this.watched
+      });
+       console.log("Estado de assistido atualizado com sucesso!");
+    } catch (err) {
+       console.error("Erro ao salvar estado de assistido no banco:", err);
+  }
+},
 
-    async toggleFavorites() {
-
+  async toggleFavorites() {
       const userStore = useUserStore();
       const userId = userStore.user._id;
-
-      localStorage.setItem(`favorite_${this.id}`, !this.favorites);
-
       this.favorites = !this.favorites;
-      try {
+     
+     try {
       await axios.post(`http://localhost:3000/users/favorites`, {
       userId: userId,
       movieId: this.id,
       favorites: this.favorites
+ });
+        console.log("Favorito atualizado com sucesso!");
+    } catch (err) {
+        console.error("Erro ao salvar favorito no banco:", err);
+  }  
+},  
+   async toggleverDepois() {
 
-    });
-      
-     console.log("Favorito atualizado com sucesso!");
-   } catch (err) {
-     console.error("Erro ao salvar favorito no banco:", err);
-  }
-     
-      
-  },
-    toggleverDepois() {
-      this.verDepois = !this.verDepois
-      localStorage.setItem(`verDepois_${this.id}`, this.verDepois)
-    }
+      const userStore = useUserStore();
+      const userId = userStore.user._id;
+
+      this.verDepois = !this.verDepois;
+    try {
+         await axios.post(`http://localhost:3000/users/verDepois`, {
+         userId: userId,
+         movieId: this.id,
+         verDepois: this.verDepois
+      });
+        console.log("Filme adicionado na lista de assistir depois!");
+
+      } catch (err) {
+        console.error("Erro ao salvar no banco de dados:", err);
+      }   
+    },
   },
   async created() { //roda automaticamente logo depois que o componente é criado na memória (antes de ser exibido na tela)
     try {
@@ -162,10 +179,10 @@ export default {
       this.movie = response.data //Quando a resposta chega, ele guarda os dados dentro de this.movie, que está no data()
 
       // recupera o estado salvo do "assistido" quando o componente é carregado
-      const salvo = localStorage.getItem(`assistido_${this.id}`)
+      const salvo = localStorage.getItem(`watched_${this.id}`)
       const favoritoSalvo = localStorage.getItem(`favorite_${this.id}`)
       if (salvo !== null) {
-        this.assistido = salvo === "true"
+        this.watched = salvo === "true"
         this.favorites = favoritoSalvo === "true"
       }
     } catch (err) {
