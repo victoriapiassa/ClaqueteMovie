@@ -74,6 +74,7 @@ router.post("/login", async (req, res) => {  // rota para fazer login do usuári
     }
 });
 
+// rota para favoritar um filme 
 router.post("/favorites", async (req, res) => {  //add
   const { userId, movieId, favorites } = req.body;
 
@@ -101,6 +102,7 @@ router.post("/favorites", async (req, res) => {  //add
   }
 });
 
+//rota para ver depois um filme
 router.post("/verDepois", async (req, res) => {
   const { userId, movieId, verDepois } = req.body;
 
@@ -125,6 +127,7 @@ router.post("/verDepois", async (req, res) => {
    }
  });
 
+ // rota para marcar um filme como assistido
 router.post("/watched", async (req, res) => {
   const { userId, movieId, watched } = req.body;
 
@@ -148,5 +151,22 @@ router.post("/watched", async (req, res) => {
       res.status(500).json({ message: "Erro no servidor." });
   }
  });
+
+ // rota para obter a lista de filmes favoritos de um usuaário
+router.get("/:userId/favorites", async (req, res) => { 
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId).populate("favorites"); // ← isso traz os filmes completos
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado." });
+    }
+
+    res.json(user.favorites);
+  } catch (error) {
+    console.error("Erro ao buscar favoritos:", error);
+    res.status(500).json({ message: "Erro no servidor." });
+  }
+});
 
 export default router; 

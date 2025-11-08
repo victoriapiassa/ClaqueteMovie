@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen bg-[#14181c] p-4"> 
-      <div class=" h-screen  w-230 p-6  flex md:flex-row gap-6 mx-auto mt-10 bg-white">
+      <div class=" h-120  w-230 p-6  flex md:flex-row gap-6 mx-auto mt-10 bg-gray-100">
         
         <!-- Imagem do Filme -->
         <div class="flex-shrink-0">
@@ -18,7 +18,7 @@
             <p class="text-gray-700 text-justify">{{ movie.description }}</p>
           </div>
           <!-- Avaliação -->
-          <div class=" w-70 p-2 h-30 mt-2 border border-black">
+          <div class=" w-70 p-2 h-30 mt-2 ">
             <div class="flex gap-1 justify-between mb-3  "> 
               <div class="flex flex-col items-center cursor-pointer"
                @click="togglewatched"> 
@@ -96,6 +96,11 @@
         </div>
 
       </div>
+    </div>
+
+    <!-- Comentários -->
+    <div>
+      
     </div>
 </template>
 
@@ -179,11 +184,13 @@ export default {
       this.movie = response.data //Quando a resposta chega, ele guarda os dados dentro de this.movie, que está no data()
 
       // recupera o estado salvo do "assistido" quando o componente é carregado
-      const salvo = localStorage.getItem(`watched_${this.id}`)
-      const favoritoSalvo = localStorage.getItem(`favorite_${this.id}`)
+      const salvo = localStorage.getItem(`watched_${this.id}`);
+      const favoritoSalvo = localStorage.getItem(`favorite_${this.id}`);
+      const verDepoisSalvo = localStorage.getItem(`verDepois_${this.id}`);
       if (salvo !== null) {
-        this.watched = salvo === "true"
-        this.favorites = favoritoSalvo === "true"
+        this.watched = salvo === "true";
+        this.favorites = favoritoSalvo === "true";
+        this.verDepois = verDepoisSalvo === "true";
       }
     } catch (err) {
       this.error = "Erro ao carregar o filme. Tente novamente."
