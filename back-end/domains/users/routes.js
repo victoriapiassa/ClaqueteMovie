@@ -153,20 +153,33 @@ router.post("/watched", async (req, res) => {
  });
 
  // rota para obter a lista de filmes favoritos de um usuaário
-router.get("/:userId/favorites", async (req, res) => { 
-  const { userId } = req.params;
+router.post("/:id/favorites", async (req, res) => {
+  const { id } = req.params; // id do usuário
+  const { movie } = req.body; // filme enviado pelo frontend (objeto com id, title, poster etc.)
 
   try {
-    const user = await User.findById(userId).populate("favorites"); // ← isso traz os filmes completos
-    if (!user) {
-      return res.status(404).json({ message: "Usuário não encontrado." });
+    const user = await User.findById(id);
+    if (!user) return res.status(404).json({ message: "Usuário não encontrado" });
+
+    // Verifica se o filme já está nos favoritos
+    const isFavorited = user.favorites.some((f) => f.id === movie.id);
+
+    if (isFavorited) {
+      // Remove o filme dos favoritos
+      user.favorites = user.favorites.filter((f) => f.id !== movie.id);
+    } else {
+      // Adiciona o filme aos favoritos
+      user.favorites.push(movie);
     }
 
-    res.json(user.favorites);
+    await user.save();
+    res.json({ message: "Favoritos atualizados!", favorites: user.favorites });
   } catch (error) {
-    console.error("Erro ao buscar favoritos:", error);
-    res.status(500).json({ message: "Erro no servidor." });
+    console.error("Erro ao atualizar favoritos:", error);
+    res.status(500).json({ message: "Erro interno ao atualizar favoritos" });
   }
 });
+
+
 
 export default router; 

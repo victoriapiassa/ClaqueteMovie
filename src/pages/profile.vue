@@ -75,7 +75,7 @@
               class="group relative bg-gray-100 overflow-hidden shadow hover:shadow-lg transition"
             >
               <img
-                :src="movie.poster"
+                :src="movie.image"
                 :alt="movie.title"
                 class="w-full h-64 object-cover group-hover:scale-105 transition duration-500"
               />
@@ -98,8 +98,12 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+
 import { useUserStore } from "@/stores/user";
+
+import axios from "axios";
+
+import { ref, computed, onMounted } from "vue";
 
 const userStore = useUserStore();
 const userData = computed(() => userStore.user || {});
@@ -107,28 +111,26 @@ const userPhoto = computed(
   () => userStore.user?.photo || "https://cdn-icons-png.flaticon.com/512/149/149071.png"
 );
 
-const favoriteMovies = [
-  {
-    id: 1,
-    title: "Oppenheimer",
-    poster: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2Zt.jpg",
-  },
-  {
-    id: 2,
-    title: "Barbie",
-    poster: "https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
-  },
-  {
-    id: 3,
-    title: "Duna: Parte 2",
-    poster: "https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg",
-  },
-  {
-    id: 4,
-    title: "Inside Out 2",
-    poster: "https://image.tmdb.org/t/p/w500/zu5O8mJ9dW6n4hFzv7b8gRrBtCz.jpg",
-  },
-];
+const favoriteMovies = ref([]);
+
+// Função para buscar os favoritos no backend
+const fetchFavorites = async () => {
+  try {
+    if (!userData.value._id) return;
+
+    const response = await axios.get(
+      `http://localhost:3000/users/${userData.value._id}/favorites`
+    );
+    console.log("Filmes favoritos:", favoriteMovies.value);
+
+    favoriteMovies.value = response.data.favorites || [];
+  } catch (error) {
+    console.error("Erro ao carregar favoritos:", error);
+  }
+};
+
+// Carrega ao iniciar
+onMounted(fetchFavorites);
 </script>
 
 

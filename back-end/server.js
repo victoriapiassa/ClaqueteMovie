@@ -5,7 +5,7 @@ import routes from "./domains/users/routes.js";
 
 const app = express();
 
-
+connectDB();
 
 app.use(cors());
 app.use(express.json());
