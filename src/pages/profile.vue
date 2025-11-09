@@ -71,7 +71,7 @@
           <div class="grid gap-2 mt-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             <div
               v-for="movie in favoriteMovies"
-              :key="movie.id"
+              :key="movie._id"
               class="group relative bg-gray-100 overflow-hidden shadow hover:shadow-lg transition"
             >
               <img

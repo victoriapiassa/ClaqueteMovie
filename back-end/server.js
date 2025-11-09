@@ -3,9 +3,8 @@ import cors from "cors";
 import filmRoutes from "./domains/users/films/routerFilm.js";
 import routes from "./domains/users/routes.js";
 
-const app = express();
 
-connectDB();
+const app = express();
 
 app.use(cors());
 app.use(express.json());

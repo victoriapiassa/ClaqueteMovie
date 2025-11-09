@@ -4,6 +4,7 @@
  import cors from 'cors'; // importa o cors para permitir requisições de diferentes origens
  import filmRoutes from './domains/users/films/routerFilm.js';
  import routerAdmin from './admin/routerAdmin.js';
+ import mongoose from 'mongoose';
  
 
 

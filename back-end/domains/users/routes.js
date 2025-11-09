@@ -5,6 +5,7 @@ import { connectDB } from "../../config/db.js"; // importa a função(connectDB)
 import User from './model.js'; // importa o modelo de usuário(User) 
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
+import Film from './films/modelFilm.js';
 
 
 const router = Router(); //
@@ -76,24 +77,42 @@ router.post("/login", async (req, res) => {  // rota para fazer login do usuári
 
 // rota para favoritar um filme 
 router.post("/favorites", async (req, res) => {  //add
+  connectDB();
   const { userId, movieId, favorites } = req.body;
 
   if (!userId || !movieId) { // se user ou movie for diferente  de true retorne..
     return res.status(400).json({ message: "Dados incompletos." });
   }
 
+  let user = await User.findById(userId);
+
+  console.log(user);
+
+  let __favorites = user.favorites;
+
+
+
+
+  if(__favorites.find((e) => { return e == movieId})){
+    __favorites = __favorites.filter(e => {
+      return e != movieId;
+    })
+  }else{  
+    __favorites.push(movieId);
+  }
+
   try {
-    if (favorites) {
-      // Adiciona o filme aos favoritos, evitando duplicatas
-      await User.findByIdAndUpdate(userId, {
-        $addToSet: { favorites: movieId },
-      });
-    } else {
-      // Remove o filme da lista de favoritos
-      await User.findByIdAndUpdate(userId, {
-        $pull: { favorites: movieId },
-      });
-    }
+   
+    // Adiciona o filme aos favoritos, evitando duplicatas
+    //await User.findByIdAndUpdate(userId, {
+    //  $addToSet: { favorites: __favorites },
+    //});
+
+    await User.findById(userId).updateOne({
+      favorites: __favorites
+    });
+
+    
 
     res.status(200).json({ message: "Favoritos atualizados com sucesso!" });
   } catch (error) {
@@ -101,7 +120,6 @@ router.post("/favorites", async (req, res) => {  //add
     res.status(500).json({ message: "Erro no servidor." });
   }
 });
-
 //rota para ver depois um filme
 router.post("/verDepois", async (req, res) => {
   const { userId, movieId, verDepois } = req.body;
@@ -149,37 +167,33 @@ router.post("/watched", async (req, res) => {
     } catch (error) {
       console.error("Erro ao atualizar Assistido:", error);
       res.status(500).json({ message: "Erro no servidor." });
-  }
+    }
  });
+ 
+router.get("/:userId/favorites", async (req, res) => {
+  connectDB();
+  const { userId } = req.params;
 
- // rota para obter a lista de filmes favoritos de um usuaário
-router.post("/:id/favorites", async (req, res) => {
-  const { id } = req.params; // id do usuário
-  const { movie } = req.body; // filme enviado pelo frontend (objeto com id, title, poster etc.)
+  console.log("Buscando favoritos do usuário:",  userId);
 
   try {
-    const user = await User.findById(id);
-    if (!user) return res.status(404).json({ message: "Usuário não encontrado" });
+    const user = await User.findById(userId);
 
-    // Verifica se o filme já está nos favoritos
-    const isFavorited = user.favorites.some((f) => f.id === movie.id);
+    let favorites = user.favorites.filter(e => {
+      return e != '';
+    });
 
-    if (isFavorited) {
-      // Remove o filme dos favoritos
-      user.favorites = user.favorites.filter((f) => f.id !== movie.id);
-    } else {
-      // Adiciona o filme aos favoritos
-      user.favorites.push(movie);
+    const movies = await Film.find().where('_id').all(favorites);
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado." });
     }
 
-    await user.save();
-    res.json({ message: "Favoritos atualizados!", favorites: user.favorites });
+    res.json({ favorites: movies });
   } catch (error) {
-    console.error("Erro ao atualizar favoritos:", error);
-    res.status(500).json({ message: "Erro interno ao atualizar favoritos" });
+    console.error("Erro ao buscar favoritos:", error);
+    res.status(500).json({ message: "Erro no servidor." });
   }
 });
-
-
 
 export default router; 
