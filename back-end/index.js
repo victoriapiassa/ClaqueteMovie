@@ -4,11 +4,7 @@
  import cors from 'cors'; // importa o cors para permitir requisições de diferentes origens
  import filmRoutes from './domains/users/films/routerFilm.js';
  import routerAdmin from './admin/routerAdmin.js';
- import mongoose from 'mongoose';
  
-
-
-
 const app = express(); //cria seu servidor usando o Express e retorna app(objeto)
 const { PORT } = process.env; // define a porta do servidor a partir das variáveis de ambiente
 

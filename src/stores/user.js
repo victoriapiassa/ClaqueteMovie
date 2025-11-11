@@ -1,10 +1,10 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'; // Pinia é uma biblioteca do Vue que armazena dados para serem usados por outros componentes
 
-export const useUserStore = defineStore('user', {
-  state: () => ({
+export const useUserStore = defineStore('user', { 
+  state: () => ({ //armazena dados que se alteram rapidamente 
     user: JSON.parse(localStorage.getItem('user')) || null,
   }),
-  actions: {
+   actions: {
     setUser(userData) {
       this.user = userData;
       if (userData) {
@@ -19,3 +19,8 @@ export const useUserStore = defineStore('user', {
     }
   }
 });
+
+
+// Uma store é um local central onde você guarda dados que precisam ser acessados por vários componentes diferentes do seu aplicativo.
+
+//defineStore() é do Pinia define o store (dados a serem usados por outros componentes) que no caso é user 

@@ -78,30 +78,24 @@ router.post("/login", async (req, res) => {  // rota para fazer login do usuári
 // rota para favoritar um filme 
 router.post("/favorites", async (req, res) => {  //add
   connectDB();
-  const { userId, movieId, favorites } = req.body;
+  const { userId, movieId } = req.body; //variavel que armazena o user,movie e filmes fav
 
   if (!userId || !movieId) { // se user ou movie for diferente  de true retorne..
     return res.status(400).json({ message: "Dados incompletos." });
   }
 
-  let user = await User.findById(userId);
+    let user = await User.findById(userId);  // user armazena o id de user com findById
+    let favorites = user.favorites; // favorites atribui o mesmo valor de user.favorites
 
-  console.log(user);
-
-  let __favorites = user.favorites;
-
-
-
-
-  if(__favorites.find((e) => { return e == movieId})){
-    __favorites = __favorites.filter(e => {
-      return e != movieId;
-    })
-  }else{  
-    __favorites.push(movieId);
+  if(favorites.find((e) => { return e == movieId})){ // o find procura 'e' se é igual a movieId
+      favorites = favorites.filter(e => { // o filter cria um array com os filmes q  são diferentes de fav
+      return e != movieId; 
+    });
+  } else {   // se não achar na lista o push adiciona na lista
+    favorites.push(movieId);
   }
 
-  try {
+    try {
    
     // Adiciona o filme aos favoritos, evitando duplicatas
     //await User.findByIdAndUpdate(userId, {
@@ -109,11 +103,8 @@ router.post("/favorites", async (req, res) => {  //add
     //});
 
     await User.findById(userId).updateOne({
-      favorites: __favorites
-    });
-
-    
-
+      favorites: favorites
+   });
     res.status(200).json({ message: "Favoritos atualizados com sucesso!" });
   } catch (error) {
     console.error("Erro ao atualizar favoritos:", error);
@@ -169,7 +160,8 @@ router.post("/watched", async (req, res) => {
       res.status(500).json({ message: "Erro no servidor." });
     }
  });
- 
+
+ //pega os filmes favoritos do usuario
 router.get("/:userId/favorites", async (req, res) => {
   connectDB();
   const { userId } = req.params;
@@ -180,7 +172,7 @@ router.get("/:userId/favorites", async (req, res) => {
     const user = await User.findById(userId);
 
     let favorites = user.favorites.filter(e => {
-      return e != '';
+      return e != ''; 
     });
 
     const movies = await Film.find().where('_id').all(favorites);

@@ -34,29 +34,24 @@ export default {
     
   },
 
-  setup() {
-    const route = useRoute()
+  setup() { // setup() é uma função do Vue que  permite executar os dados antes do componente renderiza-los
+    const route = useRoute() //acessa a informação da rota devolvendo um obj cm infos da rota atual
     return { route }
-  },
-
-   mounted() {
-    const userStore = useUserStore();
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      userStore.setUser(JSON.parse(savedUser));
-    }
    },
-   
+
+     /*  mounted() { // mounted() é executado depois que o componente é carregado
+      const userStore = useUserStore();
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        userStore.setUser(JSON.parse(savedUser));
+    }
+  },   */
 }
 </script>
 
 <template> 
   <LoginHeader v-if="['/loginAdmin', '/register'].includes(route.path)" />
   <AdminHeader v-else-if="route.path.startsWith('/admin') || route.path === '/loginAdmin'" />
-
   <Appheader v-else />
-
-
-
   <router-view />
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen bg-[#14181c] p-4"> 
-      <div class=" h-120  w-230 p-6  flex md:flex-row gap-6 mx-auto mt-10 bg-gray-100">
+      <div class=" h-130  w-230 p-6  flex md:flex-row gap-6 mx-auto mt-10 bg-gray-100">
         
         <!-- Imagem do Filme -->
         <div class="flex-shrink-0">
@@ -43,21 +43,21 @@
               </div>
               
               <div class="flex flex-col items-center  cursor-pointer"
-              @click="toggleFavorites">
+                @click="toggleFavorites">
                 <svg xmlns="http://www.w3.org/2000/svg" 
-                width="24" height="24" viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="2" 
-                stroke-linecap="round" 
-                stroke-linejoin="round"
-                :class="[
-                'icon h-9 w-9 icon-tabler icons-tabler-outline icon-tabler-eye transition-colors duration-200',
-                favorites ? 'text-red-500' : 'text-black'
-              ]">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                <p class="text-center text-xs"> Favorito </p>
+                    width="24" height="24" viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="2" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round"
+                    :class="['icon h-9 w-9 icon-tabler icons-tabler-outline icon-tabler-eye transition-colors duration-200',
+                    favorites ? 'text-red-500' : 'text-black'
+                    ]">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                </svg>
+                <p class="text-center text-xs">Favorito</p>
               </div>
               <div class="flex flex-col items-center cursor-pointer"
               @click="toggleverDepois"> 
@@ -144,21 +144,21 @@ export default {
 },
 
   async toggleFavorites() {
-      const userStore = useUserStore();
-      const userId = userStore.user._id;
-      this.favorites = !this.favorites;
-     
-     try {
+    const userStore = useUserStore();
+    const userId = userStore.user._id;
+    this.favorites = !this.favorites;
+
+    try {
       await axios.post(`http://localhost:3000/users/favorites`, {
-      userId: userId,
-      movieId: this.id,
-      favorites: this.favorites
- });
-        console.log("Favorito atualizado com sucesso!");
+        userId: userId,
+        movieId: this.id,
+        favorites: this.favorites
+      });
+      console.log("Favorito atualizado com sucesso!");
     } catch (err) {
-        console.error("Erro ao salvar favorito no banco:", err);
-  }  
-},  
+      console.error("Erro ao salvar favorito no banco:", err);
+    }  
+  },  
    async toggleverDepois() {
 
       const userStore = useUserStore();
@@ -178,14 +178,17 @@ export default {
       }   
     },
   },
-  async created() { //roda automaticamente logo depois que o componente é criado na memória (antes de ser exibido na tela)
+  
+ async created() { 
     try {
       const response = await axios.get(`http://localhost:3000/films/modelFilm/${this.id}`)
-      this.movie = response.data //Quando a resposta chega, ele guarda os dados dentro de this.movie, que está no data()
+      this.movie = response.data.film //Quando a resposta chega, ele guarda os dados dentro de this.movie, que está no data()
 
       // recupera o estado salvo do "assistido" quando o componente é carregado
       const salvo = localStorage.getItem(`watched_${this.id}`);
-      const favoritoSalvo = localStorage.getItem(`favorite_${this.id}`);
+
+      const favoritoSalvo = response.data.is_favorited ? true : false
+
       const verDepoisSalvo = localStorage.getItem(`verDepois_${this.id}`);
       if (salvo !== null) {
         this.watched = salvo === "true";

@@ -35,8 +35,15 @@ class FilmController {
         const id = req.params.id;
         try {
             const film = await Film.findById(id);
-            res.status(200).json(film);
 
+            //Find movie id no user
+
+            //res.status(200).json(film);
+            res.status(200).json({
+                film: film,
+                is_favorited: true
+            });
+            
         } catch (error) {
             res.status(500).json({ error: "Erro ao buscar Filme"})
         }
