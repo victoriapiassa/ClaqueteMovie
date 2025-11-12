@@ -11,7 +11,7 @@ const { PORT } = process.env; // define a porta do servidor a partir das variáv
 app.use(express.json()); // permite que sua API entenda o corpo das requisições em formato JSON (middleware )
 app.use(cors({
     origin: 'http://localhost:5173',
-    credentials:true,
+    credentials:true, //permite aceitar cookie
 }));
 
 app.use("/users", UserRouters); // define a rota base para usuários

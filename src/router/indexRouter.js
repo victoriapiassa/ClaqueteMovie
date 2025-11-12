@@ -61,8 +61,8 @@ const router = createRouter({
 
 //  Guarda de navegação global
 router.beforeEach((to, from, next) => {
-  const userStore = useUserStore()
-  const adminStore = useAdminStore()
+  const userStore = useUserStore();
+  const adminStore = useAdminStore();
 
   const isUserLogged = !!userStore.user
   const isAdminLogged = !!adminStore.token

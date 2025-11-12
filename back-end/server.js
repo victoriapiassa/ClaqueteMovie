@@ -1,4 +1,4 @@
-import express from "express";
+/* import express from "express";
 import cors from "cors";
 import filmRoutes from "./domains/users/films/routerFilm.js";
 import routes from "./domains/users/routes.js";
@@ -16,4 +16,9 @@ app.use("/users", routes);
 app.listen(3000, () => {
   console.log("Servidor rodando em http://localhost:3000");
 });
+
+IGNORAR ESSE ARQUIVO - DUPLICADO NO BACK-END/INDEX.JS
+
+ */
+
 

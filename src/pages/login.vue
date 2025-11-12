@@ -3,8 +3,9 @@
 
   import { useUserStore } from '@/stores/user'
   import api from  '@/axios';
+  
 
-    export default {
+  export default {
     name:'login',
     data() {
     return {
@@ -14,22 +15,22 @@
   },
   
   methods: {
-    async handleSubmit() {
+    async handleSubmit() {  //formulário de login
 
+    
       if (!this.email || !this.senha) {
         alert('Por favor, preencha todos os campos.');
         return;
       }
       try {
-        const response = await api.post('http://localhost:3000/users/login', {
+         const response = await api.post('http://localhost:3000/users/login', {
           email: this.email,
           password: this.senha
         }); 
 
-        if (typeof response.data === 'object') {
-            const userStore = useUserStore();
-            userStore.setUser(response.data);
-            localStorage.setItem('user', JSON.stringify(response.data));
+        if (typeof response.data === 'object') { // typeof revifica se se a resposta é um obj de string
+            const userStore = useUserStore(); //Pinia store que guarda o usuário
+            userStore.setUser(response.data); //salva o usuário logado na store
             this.$router.push('/home/:id');
         } else {
           alert(response.data); 
