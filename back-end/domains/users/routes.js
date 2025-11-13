@@ -46,17 +46,28 @@ router.post("/", async (req, res) => { // rota para criar um novo usuário
     }
 });
 
- /* router.post("/login", async (req, res) => {  // rota para fazer login do usuário
+  router.post("/login", async (req, res) => {  // rota para fazer login do usuário
     connectDB();
 
     const {email, password} = req.body; // obtém o email e a senha do corpo da requisição
 
     try { 
-        const userDoc = await User.findOne({email}); // findOne busca um usuário com o email fornecido
+        const user = await User.findOne({email}); // findOne busca um usuário com o email fornecido
+        if (!user) 
+          return res.status(401).json({ msg: "Usuário não encontrado" });
 
-        if (userDoc) {
+         let senhaCorreta = await bcrypt.compare(password, user.password);
+          console.log('Usuário encontrado:', user); //ta funcionando
+
+         if (!senhaCorreta) 
+          return res.status(401).json({ msg: "Senha incorreta" });
+
+         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" }); 
+          res.json({ token, _id: user._id, msg: "Login realizado com sucesso" });
+
+           /*    if (user) {
             const passwordCorrect = bcrypt.compareSync(password, userDoc.password); 
-            const {name, _id} = userDoc;
+            const {name, _id} = user;
 
             if(passwordCorrect) {
                 const newUserObj = { name, email, _id};
@@ -69,11 +80,11 @@ router.post("/", async (req, res) => { // rota para criar um novo usuário
                 
         } else {
             res.json("Usuário não encontrado!"); 
-        }
+        } */
     }catch (error) {
         res.status(500).json(error);
     }
-}); */
+}); 
 
 // rota para favoritar um filme 
 router.post("/favorites", async (req, res) => {  //add

@@ -69,16 +69,15 @@ export default {
       this.erro = "";
 
       try {
-        const res = await axios.post(
+        const response = await axios.post(
           "http://localhost:3000/admin/loginAdmin",
-          { email: this.email, password: this.password },
-          { withCredentials: true }
+          { email: this.email, password: this.password, withCredentials: true },
         );
 
-        const adminData = res.data;
+        const adminData = response.data;
 
         if (adminData?.isAdmin) {
-          adminStore.login(adminData);  // ✅ usa o método do store
+          adminStore.login(adminData);  // alterar para o pinia 
           this.$router.push("/admin/homeAdmin");
         } else {
           this.erro = "Acesso negado. Você não é admin.";

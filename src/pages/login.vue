@@ -28,13 +28,24 @@
           password: this.senha
         }); 
 
-        if (typeof response.data === 'object') { // typeof revifica se se a resposta é um obj de string
+         const dadosUsuario = response.data;
+      if (dadosUsuario && dadosUsuario._id) {
+
+         const userStore = useUserStore(); //Pini store que guarda o usuário
+         console.log(dadosUsuario);
+
+         this.$router.push('/home/:id}'); 
+        
+      };
+        
+
+        /* if (typeof response.data === 'object') { // typeof revifica se se a resposta é um obj de string
             const userStore = useUserStore(); //Pinia store que guarda o usuário
             userStore.setUser(response.data); //salva o usuário logado na store
             this.$router.push('/home/:id');
         } else {
           alert(response.data); 
-        }
+        } */
 
       } catch (error) {
         console.error('Erro ao fazer login:', error.response?.data || error.message);
