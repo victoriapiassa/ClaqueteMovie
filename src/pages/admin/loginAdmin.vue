@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"; // importa a biblioteca axios que é para fazer as requisições HTTP
 import { useAdminStore } from "@/stores/admin";
 
 export default {
@@ -62,23 +62,76 @@ export default {
     };
   },
   
-  methods: {
-    async handleLogin() {
-      const adminStore = useAdminStore();
-      this.loading = true;
+
+  /**
+   * Methods(método) contem as funções que podem ser chamadas no componente 
+   * tratar eventos de clique, enviar formulários, atualizar dados, etc..
+   */
+  methods: { 
+
+    /**
+     * HandleLogin (tratar login) é uma função assíncrona usada para gerenciar o login do admin
+     */
+    async handleLogin() { 
+
+
+
+
+    /**
+     * Foi criado uma váriavel constante para armazenar a função useAdminStore que é a store do admin,
+     * 
+     */
+      const adminStore = useAdminStore(); // guarda os dados do admin na store
+      this.loading = true; 
       this.erro = "";
 
+
+
+    
+    /**
+     * Bloco try...catch é usado para lidar com operações assíncronas que podem falhar, como requisições HTTP,
+     * 
+     * try(tentar) tenta esperar(await) a resposta da requisição POST para o endpoint de login do admin
+     * 
+     * post é usado para enviar dados ao servidor, neste caso o email e a senha do admin
+     * 
+     */
       try {
-        const response = await axios.post(
-          "http://localhost:3000/admin/loginAdmin",
-          { email: this.email, password: this.password, withCredentials: true },
+        const response = await axios.post("http://localhost:3000/admin/loginAdmin",
+          { email: this.email, 
+            password: this.password,
+            withCredentials: true },
         );
 
-        const adminData = response.data;
+    /**
+     * Após a resposta(response) da requisição, os dados do admin são armazenados na váriavel adminData
+     */
+        const adminData = response.data; //aqui os dados do admin vindo do back-end
+  
 
-        if (adminData?.isAdmin) {
-          adminStore.login(adminData);  // alterar para o pinia 
+
+
+    /**
+     * o "?" significa evitar erros caso adminData não exista,
+     * if(se) verifica se adminData existe e se a propriedade isAdmin é verdadeira
+     */
+        if (adminData?.isAdmin) { 
+
+
+    /**
+     * adminStore é usado para chamar a action 'login' da store do admin,
+     */
+          adminStore.login(adminData);  
+
+
+    /**
+     * $router é um objeto que fornece métodos para navegar entre rotas no Vue.js
+     */
           this.$router.push("/admin/homeAdmin");
+
+    /** 
+     * else(senão) o admin será notificado que o acesso foi negado
+     */
         } else {
           this.erro = "Acesso negado. Você não é admin.";
         }

@@ -42,22 +42,18 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
-  setup() {
-    const userStore = useUserStore();
-    const router = useRouter();
+  setup() { // declara a lógica do componente 
+    const userStore = useUserStore(); //variavel que guarda a função useUserStore que importa a store do user
+    const router = useRouter(); 
 
-    const user = computed(() => userStore.user);
+    const user = computed(() => userStore.user); //cria uma váriavel reativa baseada no user da store
 
-    const logout = () => {
-      userStore.logout();
+    const logout = () => { // executa a função logout da store e redireciona para págiana de login 
+      userStore.logout(); 
       router.push('/login');
     };
 
-    return { user, logout };
+    return { user, logout }; 
   }
 };
 </script>
-
-<style scoped>
-/* Pequenos ajustes visuais, se quiser */
-</style>

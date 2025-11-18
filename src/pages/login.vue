@@ -2,7 +2,7 @@
 <script>
 
   import { useUserStore } from '@/stores/user'
-  import api from  '@/axios';
+  import api from  '@/axios'; //importa a instância do axios configurada
   
 
   export default {
@@ -16,8 +16,7 @@
   
   methods: {
     async handleSubmit() {  //formulário de login
-
-    
+  
       if (!this.email || !this.senha) {
         alert('Por favor, preencha todos os campos.');
         return;
@@ -32,10 +31,9 @@
       if (dadosUsuario && dadosUsuario._id) {
 
          const userStore = useUserStore(); //Pini store que guarda o usuário
-         console.log(dadosUsuario);
+         console.log('Os dados do usuário:',dadosUsuario);
 
-         this.$router.push('/home/:id}'); 
-        
+         this.$router.push('/home/:id}');        
       };
         
 
