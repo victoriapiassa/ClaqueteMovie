@@ -1,18 +1,21 @@
 import Film from "../domains/users/films/modelFilm.js";
 import { connectDB } from "../config/db.js";
 
+
+/**
+ * É o arquivo ou função responsável por controlar a lógica da sua aplicação para uma rota específica
+ */
 class FilmController {
     static async getAllFilms (req, res) {
         await connectDB();
         try {
-          const films =  await Film.find();
-          res.status(200).json(films);
+            const films =  await Film.find();
+            res.status(200).json(films);
         } catch (error) {
-          res.status(500).json({ error: "Erro ao buscar filmes"});
-     } 
-   }   
-
-   static async createFilm (req, res) {
+            res.status(500).json({ error: "Erro ao buscar filmes"});
+        } 
+    }   
+    static async createFilm (req, res) {
         await connectDB();
         const { title, description, image, year, genre} = req.body;
         try {
