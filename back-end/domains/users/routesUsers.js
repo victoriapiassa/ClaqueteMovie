@@ -5,7 +5,7 @@ import { connectDB } from "../../config/db.js"; // importa a função(connectDB)
 import User from './model.js'; // importa o modelo de usuário(User) 
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
-import Film from './films/modelFilm.js';
+import Film from '../films/modelFilm.js';
 
 
 const router = Router(); //
@@ -13,29 +13,31 @@ const bcryptSalt = bcrypt.genSaltSync();
 const { JWT_SECRET_KEY } = process.env;
 
 
-router.get("/", async (req, res) => {   // rota para buscar todos os usuários
+/* router.get("/", async (req, res) => {   // rota para buscar todos os usuários
     connectDB();
     
     try {
         const userDoc = await User.find(); // busca todos os usuários no banco de dados
+        console.log('usuarios:', userDoc)
         res.json(userDoc);  // retorna os usuários encontrados em formato JSON
+        
     }catch (error) {
         res.status(500).json(error); // retorna um erro 404 se não encontrar usuários
     }   
-});
+}); */
 
-router.post("/", async (req, res) => { // rota para criar um novo usuário
-    connectDB();
+/* router.post("/", async (req, res) => { // rota para criar um novo usuário
+  connectDB();
 
     const { name, email, password, isAdmin } = req.body; 
     const encryptePassword = bcrypt.hashSync(password, bcryptSalt); // criptografa a senha do usuário
 
     try {
-        const newUserDoc = await User.create({
-            name,
-            email,
-            password: encryptePassword,
-            isAdmin: isAdmin
+      const newUserDoc = await User.create({
+          name,
+          email,
+          password: encryptePassword,
+          isAdmin: isAdmin
         }); 
 
         res.json(newUserDoc); // retorna o novo usuário criado em formato JSON
@@ -44,7 +46,7 @@ router.post("/", async (req, res) => { // rota para criar um novo usuário
         res.status(500).json(error)
 
     }
-});
+}); */
 
   router.post("/login", async (req, res) => {  // rota para fazer login do usuário
     connectDB();
