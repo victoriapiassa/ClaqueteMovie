@@ -48,6 +48,7 @@ const { JWT_SECRET_KEY } = process.env;
     }
 }); */
 
+ /*
   router.post("/login", async (req, res) => {  // rota para fazer login do usuário
     connectDB();
 
@@ -67,7 +68,7 @@ const { JWT_SECRET_KEY } = process.env;
          const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" }); 
           res.json({ token, _id: user._id, msg: "Login realizado com sucesso" });
 
-           /*    if (user) {
+              if (user) {
             const passwordCorrect = bcrypt.compareSync(password, userDoc.password); 
             const {name, _id} = user;
 
@@ -82,11 +83,15 @@ const { JWT_SECRET_KEY } = process.env;
                 
         } else {
             res.json("Usuário não encontrado!"); 
-        } */
+        } 
     }catch (error) {
         res.status(500).json(error);
     }
-}); 
+}); */
+
+
+
+
 
 // rota para favoritar um filme 
 router.post("/favorites", async (req, res) => {  //add

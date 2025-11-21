@@ -7,6 +7,7 @@ const router = express.Router();
 router 
     .get("/model", UserController.GetAllUsers) 
     .post("/model", UserController.CreateUser)
+    .post("/login", UserController.LoginUser)
 
 
     
