@@ -9,9 +9,4 @@ router
     .post("/model", UserController.CreateUser)
     .post("/login", UserController.LoginUser)
 
-
-    
-
-
-
 export default router;

@@ -22,18 +22,18 @@
         return;
       }
       try {
-         const response = await api.post('http://localhost:3000/users/login', {
+        const response = await api.post('http://localhost:3000/users/login', {
           email: this.email,
           password: this.senha
         }); 
 
-         const dadosUsuario = response.data;
+        const dadosUsuario = response.data;
+        const userStore = useUserStore(); //Pinia store que guarda o usuário
+
       if (dadosUsuario && dadosUsuario._id) {
-
-         const userStore = useUserStore(); //Pini store que guarda o usuário
-         console.log('Os dados do usuário:',dadosUsuario);
-
-         this.$router.push('/home/:id}');        
+        
+        userStore.setUser(dadosUsuario); //salva o usuário logado na store
+        this.$router.push('/home/:id}');        
       };
         
 
@@ -43,6 +43,7 @@
             this.$router.push('/home/:id');
         } else {
           alert(response.data); 
+
         } */
 
       } catch (error) {
@@ -59,24 +60,24 @@
     <div class="flex justify-center items-center bg-black/90 "> 
         <main class="p-6 border rounded shadow w-full max-w-lg mx-auto bg-red-200">
 
-            <h1 class=" flex justify-center my-2 text-2xl  font-bold "> Faça seu Login </h1>
+          <h1 class=" flex justify-center my-2 text-2xl  font-bold "> Faça seu Login </h1>
 
             <form  class="flex w-full flex-col gap-4" @submit.prevent="handleSubmit">
 
-                <input  type="text" 
+              <input  type="text" 
                 placeholder="Digite seu e-mail"
                 class="p-2 border rounded w-full focus:outline-none focus:ring-2 mt-2 focus:ring-blue-500" v-model="email">
 
-                <input  type="password"
+              <input  type="password"
                  placeholder="Digite sua senha"  
                  class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"  v-model="senha">
 
-                <button class=" flex justify-center w-full py-2 px-4 cursor-pointer bg-blue-400"> Login </button>
+              <button class=" flex justify-center w-full py-2 px-4 cursor-pointer bg-blue-400"> Login </button>
                 
-                <div class="flex justify-center text-sm text-gray-700 mt-4"> 
+              <div class="flex justify-center text-sm text-gray-700 mt-4"> 
                   <p>Ainda não tem uma conta? <RouterLink to="/register" class="underline font-sans"> Registre-se aqui  </RouterLink>
                   </p>
-                </div>
+              </div>
                 
             </form>
         </main>

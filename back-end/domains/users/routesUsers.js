@@ -1,16 +1,16 @@
 // tem como finalidade definir as rotas da API relacionadas ao usuário
-import  'dotenv/config.js'; //importa as variaveis de ambiente do arquivo .env 
+/* import  'dotenv/config.js'; //importa as variaveis de ambiente do arquivo .env 
 import { Router } from "express";
 import { connectDB } from "../../config/db.js"; // importa a função(connectDB) para conectar ao banco de dados
 import User from './model.js'; // importa o modelo de usuário(User) 
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
-import Film from '../films/modelFilm.js';
+import Film from '../films/modelFilm.js'; */
 
 
-const router = Router(); //
+/* const router = Router(); //
 const bcryptSalt = bcrypt.genSaltSync(); 
-const { JWT_SECRET_KEY } = process.env;
+const { JWT_SECRET_KEY } = process.env; */
 
 
 /* router.get("/", async (req, res) => {   // rota para buscar todos os usuários
