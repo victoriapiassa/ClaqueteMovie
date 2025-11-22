@@ -125,6 +125,87 @@ class UserController {
             res.status(500).json(error);
         }
     }
-}
+
+    /**
+     * FavoriteMovie - Função para adicionar ou remover um filme dos favoritos 
+     */
+    static async FavoriteMovie(req, res) {
+     await connectDB();
+
+
+
+
+
+     /**
+      * Obtém o userId e filmeId do corpo da requisção
+      */
+    const { userId, filmId } = req.body;
+
+
+
+
+
+    /**
+     * Se userId ou FilmIdd não existirem, return  um  erro 400
+     */
+
+    if (!userId || !filmId) {
+        return res.status(400).json({ msg: "Dados incompletos" });
+    }
+
+
+
+
+
+    try {
+       /**
+        * Busca o usuário pelo ID fornecido por meio do FindById(buscarPorId)
+        */
+        const user = await User.findById(userId);
+
+
+
+
+
+        /**
+         * Se o usuário não for encontrado, retorna um erro 404
+         */
+
+        if (!user) {
+            return res.status(404).json({ msg: "Usuário não encontrado" });
+        }
+
+
+
+
+        /**
+         * 
+         */
+        // 2️⃣ Carregar lista de favoritos
+        let favorites = user.favorites || [];
+
+        // 3️⃣ Verificar se já está nos favoritos
+        if (favorites.includes(filmId)) {
+            // remover o filme
+            favorites = favorites.filter(id => id !== filmId);
+        } else {  
+            // adicionar o filme
+            favorites.push(filmId);
+        }
+
+        // 4️⃣ Atualizar no MongoDB
+        await User.findByIdAndUpdate(userId, { favorites });
+
+        return res.status(200).json({
+            message: "Favoritos atualizados com sucesso!",
+            favorites
+        });
+
+    } catch (error) {
+        console.error("Erro ao atualizar favoritos:", error);
+        res.status(500).json({ message: "Erro no servidor." });
+    }
+  }
+} 
 
 export default UserController;

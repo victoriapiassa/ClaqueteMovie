@@ -149,9 +149,10 @@ export default {
     try {
       await axios.post(`http://localhost:3000/users/favorites`, {
         userId: userId,
-        movieId: this.id,
+        filmId: this.id,
         favorites: this.favorites
       });
+      
       console.log("Favorito atualizado com sucesso!");
     } catch (err) {
       console.error("Erro ao salvar favorito no banco:", err);

@@ -89,12 +89,8 @@ const { JWT_SECRET_KEY } = process.env; */
     }
 }); */
 
-
-
-
-
 // rota para favoritar um filme 
-router.post("/favorites", async (req, res) => {  //add
+/* router.post("/favorites", async (req, res) => {  //add
   connectDB();
   const { userId, movieId } = req.body; //variavel que armazena o user,movie e filmes fav
 
@@ -102,7 +98,7 @@ router.post("/favorites", async (req, res) => {  //add
     return res.status(400).json({ message: "Dados incompletos." });
   }
 
-    let user = await User.findById(userId);  // user armazena o id de user com findById
+    let user = await user.findById(userId);  // user armazena o id de user com findById
     let favorites = user.favorites; // favorites atribui o mesmo valor de user.favorites
 
   if(favorites.find((e) => { return e == movieId})){ // o find procura 'e' se é igual a movieId
@@ -120,7 +116,7 @@ router.post("/favorites", async (req, res) => {  //add
     //  $addToSet: { favorites: __favorites },
     //});
 
-    await User.findById(userId).updateOne({
+    await user.findById(userId).updateOne({
       favorites: favorites
    });
     res.status(200).json({ message: "Favoritos atualizados com sucesso!" });
@@ -128,7 +124,9 @@ router.post("/favorites", async (req, res) => {  //add
     console.error("Erro ao atualizar favoritos:", error);
     res.status(500).json({ message: "Erro no servidor." });
   }
-});
+}); */
+
+
 //rota para ver depois um filme
 router.post("/verDepois", async (req, res) => {
   const { userId, movieId, verDepois } = req.body;
