@@ -146,7 +146,7 @@ class UserController {
 
 
     /**
-     * Se userId ou FilmIdd não existirem, return  um  erro 400
+     * Se userId ou FilmId não existirem, return  um  erro 400
      */
 
     if (!userId || !filmId) {
@@ -168,8 +168,8 @@ class UserController {
 
 
         /**
-         * Se o usuário não for encontrado, retorna um erro 404
-         */
+        * Se o usuário não for encontrado, retorna um erro 404
+        */
 
         if (!user) {
             return res.status(404).json({ msg: "Usuário não encontrado" });
@@ -179,26 +179,38 @@ class UserController {
 
 
         /**
-         * 
+         * Carregar lista de favoritos OU um array vazio (porque o user pode não ter filmes favoritos)
          */
-        // 2️⃣ Carregar lista de favoritos
         let favorites = user.favorites || [];
 
-        // 3️⃣ Verificar se já está nos favoritos
+
+        // Verificar se já está nos favoritos. O método includes() determina se um conjunto de caracteres pode ser encontrado dentro de outra string, retornando true ou false. No caso seria filmId. "Em favorites existe filmId? se sim."
         if (favorites.includes(filmId)) {
-            // remover o filme
+            
+
+
+
+            /**
+             * Se a resposta for sim, o Filter cria um novo array com todos os elementos DIFERENTES de FilmId. Ou seja, cria um array com filmes não favoritados. 
+             */
             favorites = favorites.filter(id => id !== filmId);
+
+
+        /**
+         * Se não adiciona com Push() no array de filme favoritados
+         */
         } else {  
             // adicionar o filme
             favorites.push(filmId);
         }
 
-        // 4️⃣ Atualizar no MongoDB
+        /**
+         * FindByIdAndUpdate() atualize o UserId com o array atualizado
+         */
         await User.findByIdAndUpdate(userId, { favorites });
 
         return res.status(200).json({
-            message: "Favoritos atualizados com sucesso!",
-            favorites
+            message: "Favoritos atualizados com sucesso!", favorites
         });
 
     } catch (error) {
@@ -206,6 +218,8 @@ class UserController {
         res.status(500).json({ message: "Erro no servidor." });
     }
   }
+
+    static async 
 } 
 
 export default UserController;
