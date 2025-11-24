@@ -81,6 +81,25 @@
                 :alt="movie.title"
                 class="w-full h-64 object-cover group-hover:scale-105 transition duration-500"
               />
+              <button class="bg-gray-900 text-white rounded-full absolute top-1 right-1 opacity-0 group-hover:opacity-60 hover:opacity-100 transition duration-500 hover:cursor-pointer size-8 flex items-center justify-center z-20">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor" 
+                    stroke-width="2"
+                    stroke-linecap="round" 
+                    stroke-linejoin="round"
+                    class="">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M4 7l16 0" />
+                      <path d="M10 11l0 6" />
+                      <path d="M14 11l0 6" />
+                      <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                      <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                  </svg>
+              </button>
               <div
                 class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-end justify-center p-3"
               >
@@ -115,7 +134,7 @@ const userPhoto = computed(
 
 const favoriteMovies = ref([]);
 
-// Função para buscar os favoritos no backend. 
+// Função para buscar  os favoritos no backend e renderizar no profile
 const fetchFavorites = async () => {
 
   /**
@@ -132,14 +151,11 @@ const fetchFavorites = async () => {
     );
     
     
-
-
     /**
      * O valor de favoriteMovie passa a ser de response
      */
 
     favoriteMovies.value = response.data.favorites || [];
-    console.log("Filmes favoritoS:", favoriteMovies.value);
     
   } catch (error) {
     console.error("Erro ao carregar favoritos:", error);
