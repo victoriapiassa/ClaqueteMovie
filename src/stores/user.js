@@ -1,12 +1,13 @@
 // Pinia é uma biblioteca do Vue que armazena dados para serem usados por outros componentes
 import { defineStore } from 'pinia';
+import axios from 'axios'
 
-/**
- * 
- * Store para armazenar dados do usuário um 'mini banco de dados' local
- * 
- */
-export const useUserStore = defineStore('user', { 
+    /**
+     * 
+     * Store para armazenar dados do usuário um 'mini banco de dados' local
+     * 
+     */
+ export const useUserStore = defineStore('user', { 
 
   /**
    * 
@@ -19,14 +20,16 @@ export const useUserStore = defineStore('user', {
     user: JSON.parse(localStorage.getItem('user')) || null,
   }),
 
-  /**
+   /**
    * 
    * Actions são métodos que podem alterar o estado da store.
    * 
    * É onde define a função principal que altera o estado.
    * 
    */
-  actions: {   
+   actions: {   
+
+    
     /**
      * 
      * SetUser (definir usuário) define o usuário na store e no localStorage.
@@ -48,6 +51,8 @@ export const useUserStore = defineStore('user', {
         //Se userData for null, remove o item 'user' do localStorage
         localStorage.removeItem('user'); //
       }
+
+      
     },
 
     /**
@@ -59,7 +64,6 @@ export const useUserStore = defineStore('user', {
       this.user = null;
       localStorage.removeItem('user');
     }
-
   },
 });
 

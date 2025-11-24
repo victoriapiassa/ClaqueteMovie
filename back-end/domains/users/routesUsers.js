@@ -177,15 +177,15 @@ router.post("/watched", async (req, res) => {
     }
  });
 
- //pega os filmes favoritos do usuario
-router.get("/:userId/favorites", async (req, res) => {
+
+ /* router.get("/:userId/favorites", async (req, res) => {
   connectDB();
   const { userId } = req.params;
 
   console.log("Buscando favoritos do usuário:",  userId);
 
   try {
-    const user = await User.findById(userId);
+    const user = await user.findById(userId);
 
     let favorites = user.favorites.filter(e => {
       return e != ''; 
@@ -203,5 +203,5 @@ router.get("/:userId/favorites", async (req, res) => {
     res.status(500).json({ message: "Erro no servidor." });
   }
 });
-
+ */
 export default router; 

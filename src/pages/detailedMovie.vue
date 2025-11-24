@@ -154,6 +154,7 @@ export default {
       });
       
       console.log("Favorito atualizado com sucesso!");
+
     } catch (err) {
       console.error("Erro ao salvar favorito no banco:", err);
     }  
@@ -181,7 +182,13 @@ export default {
  async created() { 
     try {
       const response = await axios.get(`http://localhost:3000/films/modelFilm/${this.id}`)
+
+      console.log("RETORNO DA API (film):", response.data.film); 
+
       this.movie = response.data.film //Quando a resposta chega, ele guarda os dados dentro de this.movie, que está no data()
+
+      console.log("RETORNO DA API (film):", response.data.film); 
+
 
       // recupera o estado salvo do "assistido" quando o componente é carregado
       const salvo = localStorage.getItem(`watched_${this.id}`);
@@ -194,6 +201,8 @@ export default {
         this.favorites = favoritoSalvo === "true";
         this.verDepois = verDepoisSalvo === "true";
       }
+
+
     } catch (err) {
       this.error = "Erro ao carregar o filme. Tente novamente."
       console.error(err)

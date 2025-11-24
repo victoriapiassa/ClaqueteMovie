@@ -68,6 +68,8 @@
           <h2 class="font-semibold text-gray-400 mb-4 border-b pb-2">
             Filmes Favoritos
           </h2>
+
+
           <div class="grid gap-2 mt-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             <div
               v-for="movie in favoriteMovies"
@@ -113,20 +115,36 @@ const userPhoto = computed(
 
 const favoriteMovies = ref([]);
 
-// Função para buscar os favoritos no backend
+// Função para buscar os favoritos no backend. 
 const fetchFavorites = async () => {
+
+  /**
+   * Se não tiver o id do usuário retorna 
+   */
   try {
     if (!userData.value._id) return;
-
+    
+    /**
+     *  requisição para os favoritos do usuário
+     */
     const response = await axios.get(
       `http://localhost:3000/users/${userData.value._id}/favorites`
     );
-    console.log("Filmes favoritos:", favoriteMovies.value);
+    
+    
+
+
+    /**
+     * O valor de favoriteMovie passa a ser de response
+     */
 
     favoriteMovies.value = response.data.favorites || [];
+    console.log("Filmes favoritoS:", favoriteMovies.value);
+    
   } catch (error) {
     console.error("Erro ao carregar favoritos:", error);
   }
+
 };
 
 // Carrega ao iniciar
