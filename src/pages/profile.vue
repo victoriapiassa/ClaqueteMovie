@@ -4,12 +4,15 @@
     <main class="flex-1 flex flex-col items-center overflow-y-auto p-6">
       <!-- Capa -->
       <div
-        class="relative w-full max-w-5xl h-64 rounded-2xl overflow-hidden shadow"
-      
-      >
+        class="relative w-full max-w-5xl h-64 rounded-2xl overflow-hidden shadow">
         <div class="absolute  inset-0 bg-gradient-to-b "></div>
 
-        <!-- Informações do usuário (agora à esquerda) -->
+
+
+
+
+
+        <!-- Informações do usuário -->
         <div class="absolute  bottom-6 left-8 flex items-center mb-13 gap-4 text-white">
           <img
             :src="userPhoto"
@@ -20,11 +23,26 @@
             <h1 class="text-2xl font-bold">{{ userData.name || 'Usuário Claquete' }}</h1>
             
             <button
-              class=" p-1 text-sm border border-gray-400 rounded hover:bg-white/10 transition"
-            >
-              Editar Perfil
+              @click="openModal=true"
+               class="p-2 rounded-full bg-white/10 hover:bg-white/20 transition cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                width="20" 
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none" stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round" 
+                stroke-linejoin="round">
+
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+                <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+             </svg>
             </button>
           </div>
+
+
+
           <div class="flex gap-8 ml-90"> 
             <div>
               <p class="text-center"> 10 </p>
@@ -115,7 +133,40 @@
         </div>
       </div>
     </main>
+
+      <div  v-if="openModal"
+       class="fixed inset-0 bg-black/60 flex items-center justify-center z-50" >
+       <div class="bg-white p-6 rounded-lg w-80">
+        <h2 class="text-xl font-semibold mb-4">Editar Perfil</h2>
+
+       <!-- FOTO -->
+       <label class="block mb-3 text-black">
+          <span>Nova foto:</span>
+          <input type="file" @change="handlePhoto" class="mt-1 block w-full" />
+       </label>
+
+      <!-- BIO -->
+      <label class="block mb-3 text-black">
+        <span>Biografia:</span>
+        <textarea
+          v-model="tempBio"
+          class="w-full border p-2 rounded"
+        ></textarea>
+      </label>
+
+      <div class="flex justify-end gap-2 mt-4">
+        <button @click="openModal = false" class="px-3 py-1 bg-gray-300 rounded">
+          Cancelar
+        </button>
+
+        <button @click="saveChanges" class="px-3 py-1 bg-blue-600 text-white rounded">
+          Salvar
+        </button>
+      </div>
+    </div>
   </div>
+
+ </div>
 </template>
 
 <script setup>
@@ -162,6 +213,12 @@ const fetchFavorites = async () => {
   }
 
 };
+
+const openModal = ref(false); 
+
+ 
+
+
 
 // Carrega ao iniciar
 onMounted(fetchFavorites);
