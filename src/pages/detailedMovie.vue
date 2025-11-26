@@ -5,6 +5,11 @@
           <div class="flex-shrink-0">
             <img :src="movie.image" :alt="`Capa do ${movie.title}`" class="w-full md:w-64 object-cover shadow-md">
           </div>    
+          
+
+
+
+
         <!-- Informações do Filme -->
         <div class="flex-1 flex gap-5">
           <div>
@@ -15,6 +20,11 @@
             <p class="text-gray-600 mb-4"><strong>Elenco:</strong> {{ movie.cast.join(', ') }}</p>
             <p class="text-gray-700 text-justify">{{ movie.description }}</p>
           </div>
+
+
+
+
+
           <!-- Avaliação -->
           <div class=" w-70 p-2 h-30 mt-2 ">
             <div class="flex gap-1 justify-between mb-3  "> 
@@ -38,6 +48,10 @@
                 </svg>
                   <p class="text-center text-xs"> Assistido </p>
               </div>
+
+
+
+
               
               <div class="flex flex-col items-center  cursor-pointer"
                 @click="toggleFavorites">
@@ -55,6 +69,10 @@
                 </svg>
                   <p class="text-center text-xs">Favorito</p>
               </div>
+
+
+
+
 
               <div class="flex flex-col items-center cursor-pointer"
                @click="toggleverDepois"> 
@@ -75,6 +93,9 @@
                 <p class="text-center text-xs"> Ver Depois </p>
              </div>
             </div>
+
+
+            
 
             <div class="flex gap-1 justify-center text-yellow-400 cursor-pointer">
               <svg 

@@ -8,11 +8,32 @@
         class=" overflow-hidden transition-shadow duration-300 flex flex-col "
       >
         <router-link :to="`/detailedMovie/${film._id}`">
-        <img 
-          :src="film.image || '/default-image.webp'"
-          :alt="film.title"
-          class="object-cover w-40 h-60  transform transition duration-300 hover:scale-120 flex justify-center mx-auto  "
-        />
+          <div  class="relative w-fit mx-auto"> 
+            <img 
+              :src="film.image || '/default-image.webp'"
+              :alt="film.title"
+              class="object-cover w-40 h-60  transform transition duration-300 hover:scale-120 flex justify-center mx-auto">
+
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" 
+
+                  class="absolute top-1 right-1 text-white size-8 flex items-center justify-center hover:cursor-pointe"
+                  
+                  width="24" 
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+              </svg>
+            </button>
+          </div>
+
+            
         </router-link>
       </div>
     </div>
@@ -34,54 +55,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped>
-/* Controla o número de linhas no texto da descrição */
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-</style>
-
-<!--   <p class="text-gray-600 text-sm line-clamp-3 mb-2">
-            {{ film.description }}
-          </p> -->
-
-
-
- <!--
-        <div class="p-3 mt-1 text-center flex flex-col flex-1">
-          <h2 class="text-base font-semibold text-gray-800 mb-">
-            {{ film.title }}
-          </h2>
-        
-          <div class="text-gray-800 font-bold mt-1">
-            <span class="text-gray-800 font-bold">
-              {{ film.year }}
-            </span>
-        
-      <div class="flex justify-center items-center mx-auto "> 
-       <svg
-          v-for="star in 5"
-          :key="star"
-          xmlns="http://www.w3.org/2000/svg"
-          width="30"
-          height="30"
-          viewBox="0 0 24 24"
-          class="cursor-pointer transition-transform duration-200"
-          :class="star <= rating ? 'text-yellow-400' : 'text-gray-400'"
-          @click="setRating(star)"
-        >
-          
-          <path 
-            stroke="currentColor" 
-            stroke-width="2" 
-            stroke-linecap="round" 
-            stroke-linejoin="round"
-            :fill="star <= rating ? 'currentColor' : 'none'"
-            d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"
-          />
-        </svg> 
-      </div> --> 

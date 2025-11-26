@@ -310,32 +310,32 @@ class UserController {
         */
         try {
 
-         const user = await User.findById(userId);
+            const user = await User.findById(userId);
 
 
             /**
             * Se user for diferente retorne 'usuário não encontrado'
             */
-         if (!user) {
-            return res.status(404).json({ msg: "Usuário não encontrado" });
+            if (!user) {
+                return res.status(404).json({ msg: "Usuário não encontrado" });
 
-         }
+            }
 
 
-        /**
-        *Filter() cria um novo array filtrando cada item de acordo com o parametro. Para cada item se pergunta: esse id 
-        *é diferente do filmId que quero remover?' Se for diferente do Id do parametro, os filmes ficam. Se for igual, 
-        *é removido.
-        * É usado toString()  pois o mongo as vezes devolve IDs como ObjectId
-        * 
-        *  Ex: ObjectId("123") / !== "123"(errado)
-        *  123" === "123"    certo 
-        */
-         user.favorites = user.favorites.filter(id => id.toString() !== filmId);
+            /**
+            *Filter() cria um novo array filtrando cada item de acordo com o parametro. Para cada item se pergunta: esse id 
+            *é diferente do filmId que quero remover?' Se for diferente do Id do parametro, os filmes ficam. Se for igual, 
+            *é removido.
+            * É usado toString()  pois o mongo as vezes devolve IDs como ObjectId
+            * 
+            *  Ex: ObjectId("123") / !== "123"(errado)
+            *  123" === "123"    certo 
+            */
+            user.favorites = user.favorites.filter(id => id.toString() !== filmId);
 
-         await user.save(); // salva a alteração
+            await user.save(); // salva a alteração
 
-         return res.status(200).json({ msg: "Filme removido dos favoritos" });
+            return res.status(200).json({ msg: "Filme removido dos favoritos" });
 
 
          /**
@@ -352,7 +352,7 @@ class UserController {
 
         } catch (error) {
 
-         res.status(500).json({ error: error.message });
+            res.status(500).json({ error: error.message });
             
         }
 
