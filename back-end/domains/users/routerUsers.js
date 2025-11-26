@@ -14,6 +14,7 @@ router
      * Rotas favorites, watched e toWatch
      */
     .post("/favorites", UserController.FavoriteMovie)
+    .delete("/favorites/:userId/:filmId", UserController.DeleteFilmFavorite)
     .get("/:userId/favorites", UserController.FavoriteMovieId)
 
 export default router;

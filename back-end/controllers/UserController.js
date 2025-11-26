@@ -150,7 +150,6 @@ class UserController {
     /**
      * Se userId ou FilmId não existirem, return  um  erro 400
      */
-
     if (!userId || !filmId) {
         return res.status(400).json({ msg: "Dados incompletos" });
     }
@@ -164,7 +163,6 @@ class UserController {
         * Busca o usuário pelo ID fornecido por meio do FindById(buscarPorId)
         */
         const user = await User.findById(userId);
-
 
 
 
@@ -283,6 +281,81 @@ class UserController {
          res.status(500).json({ message: "Erro no servidor." });
 
         }
+
+    }
+
+
+    static async DeleteFilmFavorite (req, res) {
+       await connectDB()
+
+
+        /**
+        * Na requisição é pego o userId e filmId 
+        */
+        const { userId, filmId } = req.params;
+
+         
+
+
+
+        /**
+        *Se o usuário for diferente de user retorna uma mensagem de usuário não encontrado
+        */
+        if(!userId || !filmId) 
+            return res.status(404).json({ msg: "Usuário não encontrado" });
+            
+
+        /**
+        * Try(tenta) pegar buscar com findById() o id do usuário
+        */
+        try {
+
+         const user = await User.findById(userId);
+
+
+            /**
+            * Se user for diferente retorne 'usuário não encontrado'
+            */
+         if (!user) {
+            return res.status(404).json({ msg: "Usuário não encontrado" });
+
+         }
+
+
+        /**
+        *Filter() cria um novo array filtrando cada item de acordo com o parametro. Para cada item se pergunta: esse id 
+        *é diferente do filmId que quero remover?' Se for diferente do Id do parametro, os filmes ficam. Se for igual, 
+        *é removido.
+        * É usado toString()  pois o mongo as vezes devolve IDs como ObjectId
+        * 
+        *  Ex: ObjectId("123") / !== "123"(errado)
+        *  123" === "123"    certo 
+        */
+         user.favorites = user.favorites.filter(id => id.toString() !== filmId);
+
+         await user.save(); // salva a alteração
+
+         return res.status(200).json({ msg: "Filme removido dos favoritos" });
+
+
+         /**
+          * Erro que estava dando erro 500
+          */
+         /*  let favorites = user.favorites 
+
+         if (favorites.includes(filmId)) {
+
+         favorites = favorites.findByIdAndDelete(filmId) //aqui deu erro, favorites é um array, não um modelo Mongoose. 
+
+         } */
+        
+
+        } catch (error) {
+
+         res.status(500).json({ error: error.message });
+            
+        }
+
 
     }
 } 

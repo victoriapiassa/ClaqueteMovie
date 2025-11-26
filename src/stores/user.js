@@ -1,10 +1,10 @@
 // Pinia é uma biblioteca do Vue que armazena dados para serem usados por outros componentes
 import { defineStore } from 'pinia';
-import axios from 'axios'
+
 
     /**
      * 
-     * Store para armazenar dados do usuário um 'mini banco de dados' local
+     * Store para armazenar dados do usuário um 'mini banco de dados' local no front end
      * 
      */
  export const useUserStore = defineStore('user', { 
