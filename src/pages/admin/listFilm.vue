@@ -5,16 +5,18 @@
       <div
         v-for="film in films"
         :key="film._id"
-        class=" overflow-hidden transition-shadow duration-300 flex flex-col "
-      >
+        class=" overflow-hidden transition-shadow duration-300 flex flex-col ">
+
+
         <router-link :to="`/detailedMovie/${film._id}`">
+
           <div  class="relative w-fit mx-auto"> 
             <img 
               :src="film.image || '/default-image.webp'"
               :alt="film.title"
               class="object-cover w-40 h-60  transform transition duration-300 hover:scale-120 flex justify-center mx-auto">
 
-            <button>
+             <button>
                 <svg xmlns="http://www.w3.org/2000/svg" 
 
                   class="absolute top-1 right-1 text-white size-8 flex items-center justify-center hover:cursor-pointe"
@@ -29,8 +31,8 @@
                   stroke-linejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                   <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-              </svg>
-            </button>
+                </svg>
+             </button>
           </div>
 
             

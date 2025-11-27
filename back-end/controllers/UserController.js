@@ -358,6 +358,47 @@ class UserController {
 
 
     }
+
+
+    /**
+     *  UPGRADE DA IMAGEM DO PROFILE 
+     */
+
+    
+    static async UploadPhotoProfile (req, res) {
+        await connectDB()
+
+        try {
+
+            const userId = req.params.id // aqui o express pega o valor do id da requisição
+            
+            /**
+            * Se a requisição(req) não for igual a file(arquivo que o multer salva a img) retorna uma mensagem
+            */
+            if (!req.file) {
+
+             return res.status(400).json({ msg: "Nenhuma imagem enviada" });
+            }
+            
+            const imagePath = req.file.path; // caminho onde foi salva
+
+            const updatedUser = await User.findByIdAndUpdate(userId,
+                { profileImage: imagePath },
+                { new: true } // retorna o user atualizado
+           );
+
+            if (!updatedUser) {
+              return res.status(404).json({ msg: "Usuário não encontrado" });
+
+            }else {
+              return res.status(200).json({ msg: "Imagem enviada e salva no banco!", user: updatedUser}); 
+                 
+            }
+
+        } catch (error) {
+            
+        }
+    }
 } 
 
 export default UserController;

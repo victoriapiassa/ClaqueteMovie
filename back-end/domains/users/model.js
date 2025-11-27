@@ -4,6 +4,7 @@ const userSchema = new Schema({
   name: String,
   email: { type: String, required: true, unique: true,  },
   password: String,
+  profileImage: String,
   favorites: [String],
   verDepois: [String],
   watched: [String],
