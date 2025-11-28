@@ -128,7 +128,7 @@ const { JWT_SECRET_KEY } = process.env; */
 
 
 //rota para ver depois um filme
-router.post("/verDepois", async (req, res) => {
+/* router.post("/verDepois", async (req, res) => {
   const { userId, movieId, verDepois } = req.body;
 
   if (!userId || !movieId) { 
@@ -150,7 +150,7 @@ router.post("/verDepois", async (req, res) => {
       console.error("Erro ao atualizar Ver Depois:", error);
       res.status(500).json({ message: "Erro no servidor." });
    }
- });
+ }); */
 
  // rota para marcar um filme como assistido
 router.post("/watched", async (req, res) => {

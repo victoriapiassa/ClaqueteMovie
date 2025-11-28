@@ -360,6 +360,34 @@ class UserController {
     }
 
 
+
+    static async watchlistMovie ( req, res) {
+        const { userId, movieId, verDepois } = req.body;
+
+        if (!userId || !movieId) { 
+         return res.status(400).json({ message: "Dados incompletos."});
+        }
+
+     try {
+       if (verDepois) {
+        await User.findByIdAndUpdate(userId, {
+          $addToSet: { verDepois: movieId },
+        });
+
+       } else {
+         await User.findByIdAndUpdate(userId, {
+          $pull: { verDepois: movieId },
+        });
+      }
+         res.status(200).json({ message: "Lista 'ver depois' atualizada com sucesso!" });
+      
+     } catch (error) {
+      console.error("Erro ao atualizar Ver Depois:", error);
+      res.status(500).json({ message: "Erro no servidor." });
+   }
+}
+
+
     /**
      *  UPGRADE DA IMAGEM DO PROFILE 
      */
@@ -396,6 +424,7 @@ class UserController {
             }
 
         } catch (error) {
+            return res.status(500).json({ msg: "Erro ao enviar imagem", error})
             
         }
     }

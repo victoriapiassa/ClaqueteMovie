@@ -62,7 +62,9 @@
 
       <!-- Conteúdo -->
       <div class="w-full max-w-5xl bg-white shadow-md -mt-6 z-10 rounded-b-2xl bg-[#14181c]">
-        <!-- Estatísticas -->
+
+
+        <!-- Barra de navegação -->
         <div class="flex flex-col md:flex-row justify-around text-center p-4 border border border-gray-400  bg-[#14181c]">
           <div>
             <p class="text-gray-400 text-sm">Filmes Avaliados</p>
@@ -155,15 +157,17 @@
       </div>
     </main>
 
+
+      <!-- modal -->
       <div  v-if="openModal"
        class="fixed inset-0 bg-black/60 flex items-center justify-center z-50" >
        <div class="bg-white p-6 rounded-lg w-80">
         <h2 class="text-xl font-semibold mb-4">Editar Perfil</h2>
 
        <!-- FOTO -->
-       <label class="block mb-3 text-black">
+       <label class="block mb-3 text-black ">
           <span>Nova foto:</span>
-          <input type="file" @change="handlePhoto" class="mt-1 block w-full" />
+          <input type="file"  @change="handlePhoto" class="mt-1 block w-full border rounded hover:cursor-pointer " />
        </label>
 
       <!-- BIO -->
@@ -200,6 +204,7 @@ import { ref, computed, onMounted } from "vue";
 
 
 
+
 /**
  * UseUserStore() instancia('pegando') o store para  usar neste componente 
  */
@@ -233,72 +238,72 @@ const favoriteMovies = ref([]);
 
 
 // Função para buscar  os favoritos no backend e renderizar no profile
-const fetchFavorites = async () => {
+  const fetchFavorites = async () => {
 
 
 
 
-
-  /**
-   * Se não tiver o id do usuário retorna 
-   */
-  try {
-    if (!userData.value._id) return;
-
-    
-
-    
 
     /**
-     *  requisição para os favoritos do usuário
+     * Se não tiver o id do usuário retorna 
      */
-    const response = await axios.get(
-      `http://localhost:3000/users/${userData.value._id}/favorites`
+    try {
+      if (!userData.value._id) return;
+
       
-    );
-    
- 
-    
+
+      
+
+      /**
+       *  requisição para os favoritos do usuário
+       */
+      const response = await axios.get(
+        `http://localhost:3000/users/${userData.value._id}/favorites`
+        
+      );
+      
+  
+      
 
 
-    /**
-     * O valor de favoriteMovie passa a ser de response
-     */
-    favoriteMovies.value = response.data.favorites || [];
-    
-  } catch (error) {
-    console.error("Erro ao carregar favoritos:", error);
-  }
+      /**
+       * O valor de favoriteMovie passa a ser de response
+       */
+      favoriteMovies.value = response.data.favorites || [];
+      
+    } catch (error) {
+      console.error("Erro ao carregar favoritos:", error);
+    }
 
-};
+  };
 
   async function DeleteFilmFavorite(filmId) {
 
-    
-    const userStore = useUserStore();
-    const userId = userStore.user._id;
-
-
-    try {
       
-      const response = await axios.delete(`http://localhost:3000/users/favorites/${userId}/${filmId}`, {
-      method: 'DELETE'
-    });
+      const userStore = useUserStore();
+      const userId = userStore.user._id;
 
-     const data = response.data
 
-     // Atualiza os dados localmente 
-     userStore.user.favorites = data.favorites;
-     
-      fetchFavorites()
+      try {
+        
+        const response = await axios.delete(`http://localhost:3000/users/favorites/${userId}/${filmId}`, {
+        method: 'DELETE'
+      });
 
-    } catch (error) {
-      console.error("Erro ao deletar favoritos:", error);
-    } 
+      const data = response.data
+
+      // Atualiza os dados localmente 
+      userStore.user.favorites = data.favorites;
+      
+        fetchFavorites()
+
+      } catch (error) {
+        console.error("Erro ao deletar favoritos:", error);
+      } 
   }
 
 
-const openModal = ref(false); 
+  const openModal = ref(false); 
 
 
 
