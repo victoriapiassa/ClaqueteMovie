@@ -1,4 +1,4 @@
-import { connect } from 'mongoose';
+
 import { connectDB } from '../config/db.js';
 import User from '../domains/users/model.js';
 import Film from '../domains/films/modelFilm.js'
@@ -224,7 +224,7 @@ class UserController {
 
     /**
      * 
-     * Função responsavel por mostrar os filmes favoritados no profile
+     *FUNÇÕES RESPONSAVEIS POR ADMINISTRAR OS BUTTONS DE FAVORITAR, ASSISTIDO, VER DEPOIS E DELETAR FILME
      */
     static async FavoriteMovieId(req, res) {
         connectDB()
@@ -360,7 +360,6 @@ class UserController {
     }
 
 
-
     static async watchlistMovie ( req, res) {
         const { userId, movieId, verDepois } = req.body;
 
@@ -414,6 +413,10 @@ class UserController {
         res.status(500).json({ message: "Erro no servidor." });
       }
     }
+
+
+
+
 
     /**
      *  UPGRADE DA IMAGEM DO PROFILE 

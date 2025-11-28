@@ -153,7 +153,7 @@ const { JWT_SECRET_KEY } = process.env; */
  }); */
 
  // rota para marcar um filme como assistido
-router.post("/watched", async (req, res) => {
+/* router.post("/watched", async (req, res) => {
   const { userId, movieId, watched } = req.body;
 
   if (!userId || !movieId) { 
@@ -175,7 +175,7 @@ router.post("/watched", async (req, res) => {
       console.error("Erro ao atualizar Assistido:", error);
       res.status(500).json({ message: "Erro no servidor." });
     }
- });
+ }); */
 
 
  /* router.get("/:userId/favorites", async (req, res) => {
@@ -203,5 +203,4 @@ router.post("/watched", async (req, res) => {
     res.status(500).json({ message: "Erro no servidor." });
   }
 });
- */
-export default router; 
+ *

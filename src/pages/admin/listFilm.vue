@@ -43,17 +43,42 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 
+
+import { useUserStore } from "@/stores/user";
+
 const films = ref([]);
+
+const favoritesMovieHome = ref([])
+
+const userStore = useUserStore()
+const userData = computed(() => userStore.user || {});
+
+
+
 
 onMounted(async () => {
   try {
     const response = await axios.get("http://localhost:3000/films/modelFilm");
     films.value = response.data;
+
+    const responseFilmFavorite = await axios.get(
+      `http://localhost:3000/users/${userData.value._id}/favorites`      
+    );
+
+    favoritesMovieHome.value = responseFilmFavorite.data.favorites || [];
+     console.log('Filmes favoritos são:', favoritesMovieHome)
+
   } catch (error) {
     console.error("Erro ao carregar filmes:", error);
   }
 });
+
+
+
+
+
+
 </script>

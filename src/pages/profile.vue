@@ -220,7 +220,7 @@ const userStore = useUserStore();
  * 
  * userStore.user() pega o estado atual do user no Pinia. Exemplo: 'se userStore existir, usa ele. Se não existir, ou seja, ser nulo. Use um objeto vazio'
  */
-const userData = computed(() => userStore.user || {});
+
 
 
 const userPhoto = computed(
@@ -232,6 +232,7 @@ const userPhoto = computed(
  * ref é  uma 'caixa' usada quando se quer que o Vue observe um valor e atualize a interface toda vez que esse valor mudar.
  */
 const favoriteMovies = ref([]);
+const userData = computed(() => userStore.user || {});
 
 
 
