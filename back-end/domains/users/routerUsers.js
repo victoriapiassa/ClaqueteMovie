@@ -20,6 +20,7 @@ router
     .delete("/favorites/:userId/:filmId", UserController.DeleteFilmFavorite)
     .get("/:userId/favorites", UserController.FavoriteMovieId)
     .post("/user/:id/uploud", UserController.UploadPhotoProfile)
+    .post("/watched", UserController.WatchedMovie)
 
 
 export default router;

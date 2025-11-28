@@ -388,6 +388,33 @@ class UserController {
 }
 
 
+    static async WatchedMovie (req, res) {
+
+     const { userId, movieId, watched } = req.body;
+
+     if (!userId || !movieId) { 
+            return res.status(400).json({ message: "Dados incompletos."});
+        }
+
+         
+     try {
+       if (watched) {
+        await User.findByIdAndUpdate(userId, {
+          $addToSet: { watched: movieId },
+        });
+       } else {
+         await User.findByIdAndUpdate(userId, {
+          $pull: { watched: movieId },
+        });
+      }
+        res.status(200).json({ message: "Lista 'ver depois' atualizada com sucesso!" });
+      
+        } catch (error) {
+        console.error("Erro ao atualizar Assistido:", error);
+        res.status(500).json({ message: "Erro no servidor." });
+      }
+    }
+
     /**
      *  UPGRADE DA IMAGEM DO PROFILE 
      */
