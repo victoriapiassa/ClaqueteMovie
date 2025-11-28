@@ -87,8 +87,7 @@ class FilmController {
              * Retorna um objeto em JSON com os dados do filme 
              */
             res.status(200).json({
-                film: film,
-                is_favorited: true
+                film: film
             });
             
         } catch (error) {

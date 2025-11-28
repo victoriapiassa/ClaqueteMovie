@@ -56,18 +56,21 @@
               <div class="flex flex-col items-center  cursor-pointer"
                 @click="toggleFavorites">
                 <svg xmlns="http://www.w3.org/2000/svg" 
-                    width="24" height="24" viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    stroke-width="2" 
-                    stroke-linecap="round" 
-                    stroke-linejoin="round"
-                    :class="['icon h-9 w-9 icon-tabler icons-tabler-outline icon-tabler-eye transition-colors duration-200',
-                    favorites ? 'text-red-500' : 'text-black']">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+
+                  :class="[ 'icon h-9 w-9 icon-tabler icons-tabler-outline icon-tabler-eye transition-colors duration-200', favorites ? 'text-red-500' : 'text-black']"
+
+                  width="24" 
+                  height="24" 
+                  viewBox="0 0 24 24" 
+                  fill="currentColor">
+
+                  <path d="M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z" />
                 </svg>
+
+                
+
                   <p class="text-center text-xs">Favorito</p>
+
               </div>
 
 
@@ -166,13 +169,19 @@ export default {
     const userStore = useUserStore();
     const userId = userStore.user._id;
     this.favorites = !this.favorites;
+      console.log('favorites agora =', this.favorites);
 
     try {
-      await axios.post(`http://localhost:3000/users/favorites`, {
+      
+      const response = await axios.post(`http://localhost:3000/users/favorites`, {
         userId: userId,
         filmId: this.id,
         favorites: this.favorites
       });
+
+      
+
+      
       
       console.log("Favorito atualizado com sucesso!");
 
@@ -202,26 +211,30 @@ export default {
   
  async created() { 
     try {
+
+      //1. Enviar o ID do usuario para o backend
+      //2. Encontrar usuario no banco de dados e verificar se o filme esta no favoritos dele
+      //3. retornar is_favorited para o front end
+      
+
       const response = await axios.get(`http://localhost:3000/films/modelFilm/${this.id}`)
 
-      console.log("RETORNO DA API (film):", response.data.film); 
+      console.log("RETORNO DA API (film):", response); 
 
       this.movie = response.data.film //Quando a resposta chega, ele guarda os dados dentro de this.movie, que está no data()
 
       console.log("RETORNO DA API (film):", response.data.film); 
 
 
-      // recupera o estado salvo do "assistido" quando o componente é carregado
-      const salvo = localStorage.getItem(`watched_${this.id}`);
+      const userStore = useUserStore();
+      const user = userStore;
 
-      const favoritoSalvo = response.data.is_favorited ? true : false
+      console.log(user);
 
-      const verDepoisSalvo = localStorage.getItem(`verDepois_${this.id}`);
-      if (salvo !== null) {
-        this.watched = salvo === "true";
-        this.favorites = favoritoSalvo === "true";
-        this.verDepois = verDepoisSalvo === "true";
-      }
+
+
+
+      //this.favorites = user.favo
 
 
     } catch (err) {

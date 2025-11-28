@@ -226,63 +226,7 @@ class UserController {
      * 
      *FUNÇÕES RESPONSAVEIS POR ADMINISTRAR OS BUTTONS DE FAVORITAR, ASSISTIDO, VER DEPOIS E DELETAR FILME
      */
-    static async FavoriteMovieId(req, res) {
-        connectDB()
-
-        /**
-        * Separa da requisição o userId
-        */
-        const { userId } = req.params;
-
-        console.log("Buscando favoritos do usuário:",  userId);
-
-        try {
-
-
-         /**
-         *  Espera a busca do Id do user
-         */
-         const user = await User.findById(userId);
-
-         /**
-         * Se user for diferente retorne a mensagem Usuário não encontrado 
-         */
-         if (!user) {
-            return res.status(404).json({ message: "Usuário não encontrado." });
-         } 
-
-
-          /**
-          * Filter() filtra os favoritos com o parametro 'e', e se e for diferente retorne um string fazia
-          */
-
-         let favorites = user.favorites.filter(e => {
-          return e != ''; 
-            
-         });
-
-
-
-         /**
-         * Aqui faz uma Query(Busca) no banco de dados, e pega todos os filmes cujo _id está na lista de favoritos
-         * Find(encontre) os filmes / where(onde) onde o id é / in(em) favoritos
-         */
-         const movies = await Film.find().where('_id').in(favorites);
-
-        
-         // retorna um objeto com todas as 
-         console.log('Filmes favoritos:', movies)
-         res.json({ favorites: movies });
-
-
-        } catch (error) {
-
-         console.error("Erro ao buscar favoritos:", error);
-         res.status(500).json({ message: "Erro no servidor." });
-
-        }
-
-    }
+    
 
 
     static async DeleteFilmFavorite (req, res) {
