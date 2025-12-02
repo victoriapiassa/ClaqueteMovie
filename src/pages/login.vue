@@ -57,8 +57,8 @@
 </script>
 
 <template>
-    <div class="flex justify-center items-center bg-black/90 "> 
-        <main class="p-6 border rounded shadow w-full max-w-lg mx-auto bg-red-200">
+    <div class="min-h-screen flex justify-center items-center bg-black/90  p-4 "> 
+        <main class="w-full max-w-md bg-red-200 p-6 rounded-2xl shadow-lg">
 
           <h1 class=" flex justify-center my-2 text-2xl  font-bold "> Faça seu Login </h1>
 
@@ -66,20 +66,24 @@
 
               <input  type="text" 
                 placeholder="Digite seu e-mail"
-                class="p-2 border rounded w-full focus:outline-none focus:ring-2 mt-2 focus:ring-blue-500" v-model="email">
+                class="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" v-model="email">
 
               <input  type="password"
                  placeholder="Digite sua senha"  
-                 class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"  v-model="senha">
+                 class="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"  v-model="senha">
 
-              <button class=" flex justify-center w-full py-2 px-4 cursor-pointer bg-blue-400"> Login </button>
+              <button class="w-full py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition"> Login </button>
                 
-              <div class="flex justify-center text-sm text-gray-700 mt-4"> 
+              <div class="text-center text-sm text-gray-700 mt-2"> 
                   <p>Ainda não tem uma conta? <RouterLink to="/register" class="underline font-sans"> Registre-se aqui  </RouterLink>
                   </p>
               </div>
                 
             </form>
         </main>
+
+        <footer class=''>
+
+        </footer>
     </div>
 </template>
