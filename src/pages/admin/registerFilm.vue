@@ -120,7 +120,7 @@ export default {
          */
         this.title = this.description = this.image = this.releaseDate = this.genre = '';
 
-        
+        //teste
       } catch (error) {
         console.error('Erro ao cadastrar filme:', error.response?.data || error.message);
       }

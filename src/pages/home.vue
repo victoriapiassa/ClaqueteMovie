@@ -12,15 +12,10 @@ export default {
 
 
 <template>
-    <div class="flex justify-center text-white px-4"> 
-        <main class="grid gap-4 sm:gap-6
-            grid-cols-1 
-            sm:grid-cols-2 
-            md:grid-cols-3 
-            lg:grid-cols-4 
-            xl:grid-cols-5 
-            w-full max-w-7xl text-center">
+    <div class="flex justify-center text-white bg-black/90 px-4"> 
+        <main class= "grid grid-cols-[repeat(auto-fit,minmax(225px,1fr))]  w-full max-w-7xl  text-center">
             <listFilm/>
+            
         </main>
     </div>
 
