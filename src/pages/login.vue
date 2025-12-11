@@ -13,38 +13,52 @@
       senha: ''
     }
   },
-  
+
+ 
+  /**
+  *  faz parte de export e executa o metodo 
+  */ 
   methods: {
-    async handleSubmit() {  //formulário de login
-  
+
+    /**
+     * função para enviar formulário
+     */
+    async handleSubmit() {  
+
+
+      /**
+      * Se email ou senha for diferente retorna uma alert 
+      */
       if (!this.email || !this.senha) {
         alert('Por favor, preencha todos os campos.');
         return;
       }
+
+      /**
+      *  Try(espera) a requisição da API email 
+      */
+
+      
       try {
         const response = await api.post('http://localhost:3000/users/login', {
+
+          /**
+          * Esse objeto é enviado para o backend como corpo da requisição
+          */
           email: this.email,
           password: this.senha
         }); 
+        
+        // alterar e fazer um controller de login para o user  
 
         const dadosUsuario = response.data;
         const userStore = useUserStore(); //Pinia store que guarda o usuário
 
-      if (dadosUsuario && dadosUsuario._id) {
+       if (dadosUsuario && dadosUsuario._id) {
         
         userStore.setUser(dadosUsuario); //salva o usuário logado na store
         this.$router.push('/home/:id}');        
       };
-        
-
-        /* if (typeof response.data === 'object') { // typeof revifica se se a resposta é um obj de string
-            const userStore = useUserStore(); //Pinia store que guarda o usuário
-            userStore.setUser(response.data); //salva o usuário logado na store
-            this.$router.push('/home/:id');
-        } else {
-          alert(response.data); 
-
-        } */
 
       } catch (error) {
         console.error('Erro ao fazer login:', error.response?.data || error.message);
