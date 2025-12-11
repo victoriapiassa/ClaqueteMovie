@@ -72,7 +72,7 @@ class UserController {
     static async LoginUser (req, res) {
         await connectDB();
 
-        /**
+        /*
          * Assim que conectar com o banco de dados, obtem o email e a senha do corpo da requisição.
          */
         const {email, password} = req.body;
@@ -119,7 +119,11 @@ class UserController {
              * se o usuário for encontrado e a senha estiver correta, gera um token JWT com o ID do usuário e uma expiração de 1 hora
              */
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" }); 
-            res.json({ token, _id: user._id, name: user.name, msg: "Login realizado com sucesso" });
+
+            
+            res.json({ token, _id: user._id, name: user.name, msg: "Login realizado com sucesso!" });
+
+            
 
 
 
