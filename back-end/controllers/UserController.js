@@ -120,29 +120,37 @@ class UserController {
              */
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" }); 
 
-           
-
-
-            res.cookie("token", token, {
+            res.cookie('token', token, {
             httpOnly: true,
-            secure: false, // colocar "true" se usar HTTPS
-            sameSite: "strict",
-            maxAge: 60 * 60 * 60 * 1000 // 1 dia
-            
+            secure: false,   // true em produção https
+            sameSite: 'lax',
+            maxAge: 1000 * 60 * 60   // 1 hora
             });
+            return res.json({ token, _id: user._id, name: user.name, msg: "Login realizado com sucesso!" });
 
-            
-            res.json({ token, _id: user._id, name: user.name, msg: "Login realizado com sucesso!" });
-
-            
-
-
-
+        
 
         } catch (error) {
             res.status(500).json(error);
         }
     }
+
+    
+    static async logout(req, res) {
+        try {
+            // Remove o cookie chamado "token"
+            res.clearCookie('token', {
+                httpOnly: true,
+                secure: false, // coloque true em produção https
+                sameSite: 'lax'
+            });
+
+            return res.status(200).json({ message: "Deslogado com sucesso" });
+        } catch (error) {
+            return res.status(500).json({ message: "Erro ao deslogar" });
+        }
+    
+}
 
     /**
      * FavoriteMovie - Função para adicionar ou remover um filme dos favoritos 
