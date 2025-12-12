@@ -116,14 +116,26 @@ class UserController {
 
 
             /**
-             * se o usuário for encontrado e a senha estiver correta, gera um token JWT com o ID do usuário e uma expiração de 1 hora
+             * se o usuário for encontrado e a senha estiver correta, gera um token JWT com o ID do usuário e uma expiração de 1 0hora
              */
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" }); 
+
+           
+
+
+            res.cookie("token", token, {
+            httpOnly: true,
+            secure: false, // colocar "true" se usar HTTPS
+            sameSite: "strict",
+            maxAge: 60 * 60 * 60 * 1000 // 1 dia
+            
+            });
 
             
             res.json({ token, _id: user._id, name: user.name, msg: "Login realizado com sucesso!" });
 
             
+
 
 
 

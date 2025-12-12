@@ -4,6 +4,8 @@
  import cors from 'cors'; // importa o cors para permitir requisições de diferentes origens
  import filmRoutes from './domains/films/routerFilm.js';
  import routerAdmin from './admin/routerAdmin.js';
+
+ import cookieParser from 'cookie-parser';
  
 const app = express(); //cria seu servidor usando o Express e retorna app(objeto)
 const { PORT } = process.env; // define a porta do servidor a partir das variáveis de ambiente
@@ -19,6 +21,9 @@ app.use("/users", UserRoute); // define a rota base para usuários
 app.use("/films", filmRoutes);
 
 app.use("/admin", routerAdmin);
+
+app.use(cookieParser());
+
 
 app.listen(PORT, () => {
     console.log(`Servidor está rodando na porta ${PORT}`);
