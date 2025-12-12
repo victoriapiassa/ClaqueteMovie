@@ -36,24 +36,46 @@
   </header>
 </template>
 
-<script>
-import { useUserStore } from '@/stores/user';
-import { computed } from 'vue';
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 import { useRouter } from 'vue-router';
 
-export default {
-  setup() { // declara a lógica do componente 
-    const userStore = useUserStore(); //variavel que guarda a função useUserStore que importa a store do user
-    const router = useRouter(); 
+axios.defaults.withCredentials = true;
 
-    const user = computed(() => userStore.user); //cria uma váriavel reativa baseada no user da store
+const router = useRouter();
+const user = ref(null);
 
-    const logout = () => { // executa a função logout da store e redireciona para págiana de login 
-      userStore.logout(); 
-      router.push('/login');
-    };
+// Busca o usuário quando carregar o header
+async function fetchUser() {
+  try {
+    const response = await axios.get("http://localhost:3000/users/me", {
+      withCredentials: true
+    });
 
-    return { user, logout }; 
+    user.value = response.data;
+  } catch (err) {
+    user.value = null; // não logado
   }
-};
+}
+
+onMounted(() => {
+  fetchUser();
+});
+
+// Logout
+async function logout() {
+  try {
+    await axios.post(
+      "http://localhost:3000/logout",
+      {},
+      { withCredentials: true }
+    );
+
+    user.value = null;  
+    router.push("/login");
+  } catch (err) {
+    console.error("Erro ao deslogar:", err);
+  }
+}
 </script>

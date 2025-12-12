@@ -12,17 +12,14 @@ router
     .post("/model", UserController.CreateUser)
     .post("/login", UserController.LoginUser)
 
-    .get("/me", auth, (req, res) => {
-        res.json({
-            message: "Token funcionando!",
-            userId: req.userId
-        });
-    })
+    .post('/logout', auth, UserController.logout)
+    .get("/me", auth, UserController.Me)
+
 
 
     /**
-     * Rotas favorites, watched e toWatch
-     */
+    * Rotas favorites, watched e toWatch
+    */
     .post("/favorites", UserController.FavoriteMovie)
     .post("/verDepois", UserController.watchlistMovie)
 

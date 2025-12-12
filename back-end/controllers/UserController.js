@@ -147,9 +147,34 @@ class UserController {
 
             return res.status(200).json({ message: "Deslogado com sucesso" });
         } catch (error) {
+            
             return res.status(500).json({ message: "Erro ao deslogar" });
         }
     
+}
+
+    static async Me(req, res) {
+    await connectDB();
+
+    try {
+        const token = req.cookies.token;
+        if (!token) {
+            return res.status(401).json({ msg: "Não autenticado" });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        const user = await User.findById(decoded.id).select("-password");
+
+        if (!user) {
+            return res.status(404).json({ msg: "Usuário não encontrado" });
+        }
+
+        return res.status(200).json(user);
+
+    } catch (error) {
+        return res.status(500).json({ msg: "Erro ao buscar usuário", error });
+    }
 }
 
     /**
