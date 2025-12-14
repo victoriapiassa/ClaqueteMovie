@@ -18,12 +18,25 @@ export default function auth(req, res, next) {
  * variavel 'token' para armazenar o token vindo da requisição
  */
   let token = undefined;
+  console.log("Headers Authorization:", token);
 
   /**
    *  Existe o header Authorization (cabeçalho de requisição )?
    */
   if (req.headers.authorization) {
+    
+
+    /**
+     * desestruturação de array. Pega o token do header Authorization
+     * o _ é usado para ignorar o primeiro valor do array (que é "Bearer")
+     * O metodo split() transforma string em array
+     */
     const [_, tokenHeader] = req.headers.authorization.split(" ");
+
+
+    /**
+     * atribui o token do header à variavel token
+     */
     token = tokenHeader;
   }
 
@@ -45,3 +58,6 @@ export default function auth(req, res, next) {
     return res.status(401).json({ message: "Token inválido" });
   }
 }
+
+
+// precisa resolver o problema do logout
