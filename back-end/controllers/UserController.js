@@ -135,7 +135,7 @@ class UserController {
         }
     }
 
-    
+    /** função para fazer logout */
     static async logout(req, res) {
         try {
             // Remove o cookie chamado "token"
@@ -152,18 +152,35 @@ class UserController {
         }
     
 }
-
+    /**
+     * Função para ter os dados do ousuario que esta autenticado com o token
+     */
     static async Me(req, res) {
     await connectDB();
 
+
+    /**
+     * Aqui o token é obtido pela requisição
+     */
     try {
         const token = req.cookies.token;
+
+        /**
+         * Se não tiver o token, vai retornar uma mensagem de 'não autenticado'
+         */
         if (!token) {
             return res.status(401).json({ msg: "Não autenticado" });
         }
 
+        
+        /**
+         * Verifica e decodifica o token usado com o metodo verify do jwt
+         */
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+        /**
+         * Busca o usuário pelo ID decodificado do token, excluindo a senha dos dados retornados 
+         */
         const user = await User.findById(decoded.id).select("-password");
 
         if (!user) {
