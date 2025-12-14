@@ -183,6 +183,9 @@ class UserController {
          */
         const user = await User.findById(decoded.id).select("-password");
 
+        /**
+         * Se o usuário for diferente, retona uma mensagem 
+         */
         if (!user) {
             return res.status(404).json({ msg: "Usuário não encontrado" });
         }

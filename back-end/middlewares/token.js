@@ -1,9 +1,27 @@
 import jwt from 'jsonwebtoken';
+/**
+ * Esse middleware verifica o token enviado na requisição e se ele é válido.
+ * Um middleware é uma função intermediária que fica entre a requisição do cliente e a resposta do servidor.
+ */
 
+
+/**
+ * função auth é para verificar a autenticação do usuário via token JWT
+ * 
+ * req: objeto de requisição HTTP
+ * res: objeto de resposta HTTP
+ * next: função para passar para o próximo middleware 
+ */
 export default function auth(req, res, next) {
-  let token;
 
-  // 1. Tenta pegar o token pelo header Authorization
+/**
+ * variavel 'token' para armazenar o token vindo da requisição
+ */
+  let token = undefined;
+
+  /**
+   *  Existe o header Authorization (cabeçalho de requisição )?
+   */
   if (req.headers.authorization) {
     const [_, tokenHeader] = req.headers.authorization.split(" ");
     token = tokenHeader;
