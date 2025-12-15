@@ -40,19 +40,31 @@ export default function auth(req, res, next) {
     token = tokenHeader;
   }
 
-  // 2. Se não tiver no header, tenta pelos cookies
+  //  Se não tiver no header, tenta pelos cookies
   if (!token && req.cookies?.token) {
     token = req.cookies.token;
   }
 
-  // 3. Se ainda não tiver token → erro
+  //  Se ainda não tiver token vai retornar uma mensagem de erro
   if (!token) {
     return res.status(401).json({ message: "Token não enviado" });
   }
 
+
+  /**
+   * Tente verificar o token usando a chave secreta 
+   */
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    /**
+     * Se o token for válido, adiciona o ID do usuário ao objeto req
+     */
     req.userId = decoded.id;
+
+    /**
+     * 
+     */
     next();
   } catch (error) {
     return res.status(401).json({ message: "Token inválido" });
