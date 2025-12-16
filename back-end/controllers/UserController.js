@@ -6,6 +6,13 @@ import Film from '../domains/films/modelFilm.js'
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
+
+/**
+ * Controller é agir como intermediário entre a View (interface com o usuário) e o Model (a lógica de dados da 
+ * aplicação). Ele é responsável por processar as entradas do usuário (geralmente via ações na interface), 
+ * manipular os dados de acordo com as necessidades, e então retornar a resposta apropriada à View.
+ *  */
+
 class UserController {
  
     /**
@@ -64,7 +71,6 @@ class UserController {
         
         }       
     }
-
 
     /**
      * LoginUser - Função para fazer login do usuário
@@ -135,7 +141,7 @@ class UserController {
         }
     }
 
-    /** função para fazer logout */
+    /** logout - função para fazer logout */
     static async logout(req, res) {
         try {
             // Remove o cookie chamado "token"
@@ -152,8 +158,9 @@ class UserController {
         }
     
 }
+
     /**
-     * Função para ter os dados do ousuario que esta autenticado com o token
+     * Me - Função para ter os dados do ousuario que esta autenticado com o token
      */
     static async Me(req, res) {
     await connectDB();
@@ -198,8 +205,49 @@ class UserController {
 }
 
     /**
-     * FavoriteMovie - Função para adicionar ou remover um filme dos favoritos 
+     * verifyFavoriteMovie - Encontrar usuario no banco de dados e verificar se o filme esta no favoritos dele
      */
+    static async verifyFavoriteMovie(userId,movieId) {
+        await connectDB();
+
+
+        /**
+         * Busca o usuário pelo ID fornecido por meio do 'Faind'ById
+         */
+        const user = await User.findById(userId);
+
+
+        /**
+         * Se o usuario for diferente de 'user' retor false
+         */
+        if (!user) {
+         return false;
+
+
+        } else {
+         return user.favorites.includes(movieId);
+
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+    * FavoriteMovie - Função para adicionar ou remover um filme dos favoritos 
+    */
     static async FavoriteMovie(req, res) {
      await connectDB();
 

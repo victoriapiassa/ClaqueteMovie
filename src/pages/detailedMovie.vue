@@ -212,7 +212,7 @@ export default {
  async created() { 
     try {
 
-      //1. Enviar o ID do usuario para o backend
+      //1. Enviar o ID do usuario para o backend X
       //2. Encontrar usuario no banco de dados e verificar se o filme esta no favoritos dele
       //3. retornar is_favorited para o front end
       

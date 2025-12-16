@@ -14,6 +14,7 @@ router
 
     .post('/logout', auth, UserController.logout)
     .get("/me", auth, UserController.Me)
+    .get("/favorites/:userId/:movieId", UserController.verifyFavoriteMovie)
 
 
 
