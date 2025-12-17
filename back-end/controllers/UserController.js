@@ -205,32 +205,57 @@ class UserController {
 }
 
     /**
-     * verifyFavoriteMovie - Encontrar usuario no banco de dados e verificar se o filme esta no favoritos dele
-     */
-    static async verifyFavoriteMovie(userId,movieId) {
+    * verifyFavoriteMovie - Encontrar usuario no banco de dados e verificar se o filme esta no favoritos dele
+    */
+    static async verifyFavoriteMovie(req, res) {
         await connectDB();
+
+       try {
+
+
+        /** 
+        * foi criado um variável para pegar o userId da requisição
+        */
+        const { userId } = req.params;
 
 
         /**
-         * Busca o usuário pelo ID fornecido por meio do 'Faind'ById
-         */
+        * foi criado outra variavel para buscar o usuario(userId) pelo ID com findById
+        */
         const user = await User.findById(userId);
 
 
         /**
-         * Se o usuario for diferente de 'user' retor false
-         */
+        * Se o usuário não for encontrado retorna um erro 404
+        */
         if (!user) {
-         return false;
+            return res.status(404).json({ msg: "Usuário não encontrado" });
+        } 
 
+        if (!user.favoriteMovies || user.favoriteMovies.length === 0) {
+           return res.status(200).json({
+            message: "Usuário não possui filmes favoritos",
+            isFavorites: false
+      });
 
-        } else {
-         return user.favorites.includes(movieId);
-
+       }else {
+        
+        return res.status(200).json({
+            message: "Usuário possui filmes favoritos",
+            isFavorites: true,
+            favoriteMovies: user.favoriteMovies });
         }
+
+    
+
+
+       } catch(error) {
+            return res.status(500).json({
+            message: "Erro ao verificar filmes favoritos",
+            error: error.message
+      });
+  } 
 }
-
-
 
 
 

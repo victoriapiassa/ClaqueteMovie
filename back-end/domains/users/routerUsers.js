@@ -14,7 +14,7 @@ router
 
     .post('/logout', auth, UserController.logout)
     .get("/me", auth, UserController.Me)
-    .get("/favorites/:userId/:movieId", UserController.verifyFavoriteMovie)
+    .get("/users/:userId/favorites", UserController.verifyFavoriteMovie)
 
 
 
@@ -29,6 +29,8 @@ router
     .get("/:userId/favorites", UserController.FavoriteMovieId)
     .post("/user/:id/uploud", UserController.UploadPhotoProfile)
     .post("/watched", UserController.WatchedMovie)
+
+
 
     
 
