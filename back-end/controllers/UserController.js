@@ -218,6 +218,8 @@ class UserController {
         */
         const { userId } = req.params;
 
+        console.log("verificando os filmes favoritos do usuário:", userId)
+
 
         /**
         * foi criado outra variavel para buscar o usuario(userId) pelo ID com findById
@@ -232,29 +234,14 @@ class UserController {
             return res.status(404).json({ msg: "Usuário não encontrado" });
         } 
 
-        if (!user.favoriteMovies || user.favoriteMovies.length === 0) {
-           return res.status(200).json({
-            message: "Usuário não possui filmes favoritos",
-            isFavorites: false
-      });
-
-       }else {
         
-        return res.status(200).json({
-            message: "Usuário possui filmes favoritos",
-            isFavorites: true,
-            favoriteMovies: user.favoriteMovies });
-        }
 
-    
-
-
-       } catch(error) {
+        } catch(error) {
             return res.status(500).json({
             message: "Erro ao verificar filmes favoritos",
             error: error.message
-      });
-  } 
+       });
+    } 
 }
 
 
@@ -397,10 +384,9 @@ class UserController {
          } 
 
 
-          /**
-          * Filter() filtra os favoritos com o parametro 'e', e se e for diferente retorne um string fazia
-          */
-
+         /**
+         * Filter() filtra os favoritos com o parametro 'e', e se e for diferente retorne um string fazia
+         */
          let favorites = user.favorites.filter(e => {
           return e != ''; 
             

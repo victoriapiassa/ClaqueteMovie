@@ -16,6 +16,8 @@ router
     .get("/me", auth, UserController.Me)
     .get("/users/:userId/favorites", UserController.verifyFavoriteMovie)
 
+    
+
 
 
     /**

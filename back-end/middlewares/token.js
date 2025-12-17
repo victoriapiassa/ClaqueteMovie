@@ -18,7 +18,7 @@ export default function auth(req, res, next) {
  * variavel 'token' para armazenar o token vindo da requisição
  */
   let token = undefined;
-  console.log("Headers Authorization:", token);
+  
 
   /**
    *  Existe o header Authorization (cabeçalho de requisição )?
