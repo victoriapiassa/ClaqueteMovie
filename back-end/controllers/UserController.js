@@ -218,7 +218,7 @@ class UserController {
         */
         const { userId } = req.params;
 
-        console.log("verificando os filmes favoritos do usuário:", userId)
+       
 
 
         /**
@@ -232,7 +232,22 @@ class UserController {
         */
         if (!user) {
             return res.status(404).json({ msg: "Usuário não encontrado" });
-        } 
+        }
+
+        if (!user.favorites || user.favorites.length === 0) {
+            return res.status(200).json({
+            msg: "Usuário encontrado, mas não possui filmes favoritos",
+            MovieFavorites: false
+         });
+        }
+         
+        return res.status(200).json({
+            msg: "Usuário encontrado e possui filmes favoritos",
+            MovieFavorites: true,
+            favorites: user.favorites
+       });
+
+        
 
         
 
