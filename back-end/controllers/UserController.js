@@ -207,56 +207,21 @@ class UserController {
     /**
     * verifyFavoriteMovie - Encontrar usuario no banco de dados e verificar se o filme esta no favoritos dele
     */
-    static async verifyFavoriteMovie(req, res) {
-        await connectDB();
+    
+    static async getMyFavorites(req, res) {
+    try {
+        const user = await User.findById(req.userId)
 
-       try {
-
-
-        /** 
-        * foi criado um variável para pegar o userId da requisição
-        */
-        const { userId } = req.params;
-
-       
-
-
-        /**
-        * foi criado outra variavel para buscar o usuario(userId) pelo ID com findById
-        */
-        const user = await User.findById(userId);
-
-
-        /**
-        * Se o usuário não for encontrado retorna um erro 404
-        */
         if (!user) {
-            return res.status(404).json({ msg: "Usuário não encontrado" });
+        return res.status(404).json({ message: 'Usuário não encontrado' })
         }
 
-        if (!user.favorites || user.favorites.length === 0) {
-            return res.status(200).json({
-            msg: "Usuário encontrado, mas não possui filmes favoritos",
-            MovieFavorites: false
-         });
-        }
-         
         return res.status(200).json({
-            msg: "Usuário encontrado e possui filmes favoritos",
-            MovieFavorites: true,
-            favorites: user.favorites
-       });
-
-        
-
-        
-
-        } catch(error) {
-            return res.status(500).json({
-            message: "Erro ao verificar filmes favoritos",
-            error: error.message
-       });
-    } 
+        favorites: user.favorites
+        })
+    } catch (error) {
+        return res.status(500).json({ message: 'Erro interno do servidor' })
+    }
 }
 
 
