@@ -46,6 +46,9 @@
   import axios from 'axios'
 
 
+axios.defaults.withCredentials = true
+
+
 const films = ref([])
 const favoritesMovieHome = ref([])
 
@@ -58,15 +61,13 @@ onMounted(async () => {
 
     const favoritesResponse = await axios.get(
       "http://localhost:3000/users/me/favorites",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
+        
+          { withCredentials: true }
+        
     )
 
     favoritesMovieHome.value = favoritesResponse.data.favorites || []
-    console.log('Filmes favoritos:', favoritesMovieHome.value)
+    console.log('Filmes favoritos - Função frontend:', favoritesMovieHome.value)
 
   } catch (error) {
     console.error('Erro ao carregar dados:', error)

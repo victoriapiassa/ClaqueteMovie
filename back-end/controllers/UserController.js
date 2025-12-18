@@ -208,22 +208,31 @@ class UserController {
     * verifyFavoriteMovie - Encontrar usuario no banco de dados e verificar se o filme esta no favoritos dele
     */
     
-    static async getMyFavorites(req, res) {
+   static async getMyFavorites(req, res) {
+    await connectDB();
+
     try {
-        const user = await User.findById(req.userId)
+    const userId = req.userId; // vem do token, NÃO da URL
 
-        if (!user) {
-        return res.status(404).json({ message: 'Usuário não encontrado' })
-        }
+    console.log("Buscando favoritos do usuário - getMyFavorites:", userId);
 
-        return res.status(200).json({
-        favorites: user.favorites
-        })
-    } catch (error) {
-        return res.status(500).json({ message: 'Erro interno do servidor' })
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
     }
-}
 
+    return res.status(200).json({
+      favorites: user.favorites
+    });
+
+  } catch (error) {
+    console.error("Erro ao buscar favoritos:", error);
+    return res.status(500).json({
+      message: "Erro ao buscar favoritos"
+    });
+  }
+}
 
 
 
@@ -346,7 +355,7 @@ class UserController {
         */
         const { userId } = req.params;
 
-        console.log("Buscando favoritos do usuário:",  userId);
+        console.log("Buscando favoritos do usuário - FavoriteMovieId:",  userId);
 
         try {
 
@@ -354,12 +363,13 @@ class UserController {
          /**
          *  Espera a busca do Id do user
          */
-         const user = await User.findById(userId);
+         const userId = req.userId;
+
 
          /**
          * Se user for diferente retorne a mensagem Usuário não encontrado 
          */
-         if (!user) {
+         if (!userId) {
             return res.status(404).json({ message: "Usuário não encontrado." });
          } 
 
@@ -367,7 +377,7 @@ class UserController {
          /**
          * Filter() filtra os favoritos com o parametro 'e', e se e for diferente retorne um string fazia
          */
-         let favorites = user.favorites.filter(e => {
+         let favorites = userId.favorites.filter(e => {
           return e != ''; 
             
          });

@@ -14,7 +14,7 @@ router
 
     .post('/logout', auth, UserController.logout)
     .get("/me", auth, UserController.Me)
-    .get('/users/me/favorites', auth, UserController.getMyFavorites)
+    .get('/me/favorites', auth, UserController.getMyFavorites) //não alterar essa rota
 
     
 
@@ -28,7 +28,7 @@ router
 
 
     .delete("/favorites/:userId/:filmId", UserController.DeleteFilmFavorite)
-    .get("/:userId/favorites", UserController.FavoriteMovieId)
+    .get("/me/favorites", auth, UserController.FavoriteMovieId) // não alterar essa rota 
     .post("/user/:id/uploud", UserController.UploadPhotoProfile)
     .post("/watched", UserController.WatchedMovie)
 
