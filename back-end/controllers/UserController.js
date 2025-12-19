@@ -6,6 +6,8 @@ import Film from '../domains/films/modelFilm.js'
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
+import mongoose from 'mongoose';
+
 
 /**
  * Controller é agir como intermediário entre a View (interface com o usuário) e o Model (a lógica de dados da 
@@ -205,7 +207,7 @@ class UserController {
 }
 
     /**
-    * verifyFavoriteMovie - Encontrar usuario no banco de dados e verificar se o filme esta no favoritos dele
+    * verifyFavoriteMovie - Encontrar usuario no banco de dados 
     */
     
    static async getMyFavorites(req, res) {
@@ -353,47 +355,51 @@ class UserController {
         /**
         * Separa da requisição o userId
         */
-        const { userId } = req.params;
-
-        console.log("Buscando favoritos do usuário - FavoriteMovieId:",  userId);
-
+        
         try {
 
+         const userId  = req.userId;  //vem do token, Não da URL
+         const { filmId } = req.body; 
 
-         /**
-         *  Espera a busca do Id do user
-         */
-         const userId = req.userId;
+         console.log("Buscando favoritos do usuário - FavoriteMovieId:",  userId);
+
+         if (!filmId) {
+         return res.status(400).json({ msg: "filmId é obrigatório" });
+         }
+
+         if (!mongoose.Types.ObjectId.isValid(filmId)) {
+         return res.status(400).json({ msg: "ID do filme inválido" });
+         }
+
+
+         const user = await User.findById(userId);
 
 
          /**
          * Se user for diferente retorne a mensagem Usuário não encontrado 
          */
-         if (!userId) {
+         if (!user) {
             return res.status(404).json({ message: "Usuário não encontrado." });
          } 
 
 
-         /**
-         * Filter() filtra os favoritos com o parametro 'e', e se e for diferente retorne um string fazia
-         */
-         let favorites = userId.favorites.filter(e => {
-          return e != ''; 
-            
-         });
+          let favorites = user.favorites || [];
+
+          if (favorites.includes(filmId)) {
+            favorites = favorites.filter(id => id !== filmId);
+         } else {
+            favorites.push(filmId);
+         }
+
+         user.favorites = favorites;
+         await user.save();
 
 
+         return res.status(200).json({
+            message: "Favoritos atualizados com sucesso!",
+            favorites
+        });
 
-         /**
-         * Aqui faz uma Query(Busca) no banco de dados, e pega todos os filmes cujo _id está na lista de favoritos
-         * Find(encontre) os filmes / where(onde) onde o id é / in(em) favoritos
-         */
-         const movies = await Film.find().where('_id').in(favorites);
-
-        
-         // retorna um objeto com todas as 
-         console.log('Filmes favoritos:', movies)
-         res.json({ favorites: movies });
 
 
         } catch (error) {
