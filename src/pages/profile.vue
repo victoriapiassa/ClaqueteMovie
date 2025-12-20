@@ -240,43 +240,20 @@ const userData = computed(() => userStore.user || {});
 
 // Função para buscar  os favoritos no backend e renderizar no profile
   const fetchFavorites = async () => {
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/favorites",
+      {
+        withCredentials: true, // envia o cookie com o token
+      }
+    );
 
+    favoriteMovies.value = response.data.favorites || [];
 
-
-
-
-    /**
-     * Se não tiver o id do usuário retorna 
-     */
-    try {
-      if (!userData.value._id) return;
-
-      
-
-      
-
-      /**
-       *  requisição para os favoritos do usuário
-       */
-      const response = await axios.get(
-        `http://localhost:3000/users/${userData.value._id}/favorites`
-        
-      );
-      
-  
-      
-
-
-      /**
-       * O valor de favoriteMovie passa a ser de response
-       */
-      favoriteMovies.value = response.data.favorites || [];
-      
-    } catch (error) {
-      console.error("Erro ao carregar favoritos:", error);
-    }
-
-  };
+  } catch (error) {
+    console.error("Erro ao carregar favoritos:", error);
+  }
+};
 
   async function DeleteFilmFavorite(filmId) {
 

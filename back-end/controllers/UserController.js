@@ -350,66 +350,42 @@ class UserController {
     
 
     static async FavoriteMovieId(req, res) {
-        connectDB()
+     await connectDB();
 
-        /**
-        * Separa da requisição o userId
-        */
-        
-        try {
+     try {
+     const userId = req.userId;
+     const { filmId } = req.body;
 
-         const userId  = req.userId;  //vem do token, Não da URL
-         const { filmId } = req.body; 
+     if (!filmId) {
+      return res.status(400).json({ msg: "filmId é obrigatório" });
+     }
 
-         console.log("Buscando favoritos do usuário - FavoriteMovieId:",  userId);
+     const user = await User.findById(userId);
 
-         if (!filmId) {
-         return res.status(400).json({ msg: "filmId é obrigatório" });
-         }
+     if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado." });
+     }
 
-         if (!mongoose.Types.ObjectId.isValid(filmId)) {
-         return res.status(400).json({ msg: "ID do filme inválido" });
-         }
+     const index = user.favorites.indexOf(filmId);
 
+     if (index !== -1) {
+      user.favorites.splice(index, 1); // remove
+     } else {
+      user.favorites.push(filmId); // adiciona
+     }
 
-         const user = await User.findById(userId);
+     await user.save();
 
+     return res.status(200).json({
+      message: "Favoritos atualizados com sucesso!",
+      favorites: user.favorites,
+    });
 
-         /**
-         * Se user for diferente retorne a mensagem Usuário não encontrado 
-         */
-         if (!user) {
-            return res.status(404).json({ message: "Usuário não encontrado." });
-         } 
-
-
-          let favorites = user.favorites || [];
-
-          if (favorites.includes(filmId)) {
-            favorites = favorites.filter(id => id !== filmId);
-         } else {
-            favorites.push(filmId);
-         }
-
-         user.favorites = favorites;
-         await user.save();
-
-
-         return res.status(200).json({
-            message: "Favoritos atualizados com sucesso!",
-            favorites
-        });
-
-
-
-        } catch (error) {
-
-         console.error("Erro ao buscar favoritos:", error);
-         res.status(500).json({ message: "Erro no servidor." });
-
-        }
-
-    }
+  } catch (error) {
+    console.error("Erro ao atualizar favoritos:", error);
+    return res.status(500).json({ message: "Erro no servidor." });
+  }
+}
 
 
     static async DeleteFilmFavorite (req, res) {
