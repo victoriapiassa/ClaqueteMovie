@@ -374,20 +374,64 @@ class UserController {
       return res.status(400).json({ msg: "filmId é obrigatório" });
      }
 
-     const user = await User.findById(userId);
 
+
+     
+    /**
+     * foi criado uma váriavel para guardar o userId(token da requisição)
+     */
+     const user = await User.findById(userId);
+    
+
+
+
+    /**
+     * se user for diferente  retorne uma mensagem de 'usuário não encontrado'
+     */
      if (!user) {
       return res.status(404).json({ message: "Usuário não encontrado." });
      }
 
+
+
+    /**
+     * O infexOf() é um método de array que retorna o índice(posição) de um array 
+     * 
+     * Exemplo:
+     * const frutas = ["maçã", "banana", "uva"];
+     * frutas.indexOf("banana"); 
+     * // retorna 1
+     * 
+     * se retornar -1 (para todos os casos) significa que o index não foi encontrado na lista de array
+     */
      const index = user.favorites.indexOf(filmId);
 
+
+
+     /**
+      * se index for diferente(!==) o tipo e o valor de -1 (ou seja, o filme já esta nos favoritos), remova o filme(index) dos favoritos usando splice()
+      * 
+      * foi usado uma comparação !==(diferente) estrita para garantir que tanto o valor quanto o tipo sejam diferentes de -1
+      * 
+      * Exemplo:
+      * comparação simples
+      * 5 != "5"   // false (iguais em valor, mas diferentes em tipo). O js converte "5" para o number 5 antes de comparar, assim retorna false pois os valores ficam iguais "5" e "5". Para dar true, um dos valores deve ser diferente. 
+      */
      if (index !== -1) {
       user.favorites.splice(index, 1); // remove
+
+
+      /** 
+       * se o filme não estiver nos favoritos (index é -1), aficiona o filme com o método push()
+       */
      } else {
       user.favorites.push(filmId); // adiciona
      }
 
+
+     /**
+      * Espera salvar as alterações no usuário no banco de dados e retorna 
+      */
      await user.save();
 
      return res.status(200).json({
