@@ -343,19 +343,33 @@ class UserController {
 
 
     /**
-     * 
-     *FUNÇÕES RESPONSAVEIS POR ADMINISTRAR OS BUTTONS DE FAVORITAR, ASSISTIDO, VER DEPOIS E DELETAR FILME
-     */
-    
-    
+    * 
+    *FUNÇÕES RESPONSAVEIS POR ADMINISTRAR OS BUTTONS DE FAVORITAR, ASSISTIDO, VER DEPOIS E DELETAR FILME
+    */
 
+
+    /**
+    * favoriteMovieId - função para favoritar ou desfavoritar um filme pelo ID do usuário autenticado
+    */
     static async FavoriteMovieId(req, res) {
      await connectDB();
 
-     try {
+
+
+
+
+    /**
+    * Obtém o 'userId' do token da requisição e o filmId do corpo da requisição'
+    */
+     try { 
      const userId = req.userId;
      const { filmId } = req.body;
 
+
+
+    /**
+    * se filmId for diferente retorne uma mensagem 
+    */
      if (!filmId) {
       return res.status(400).json({ msg: "filmId é obrigatório" });
      }
