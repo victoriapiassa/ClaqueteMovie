@@ -1,12 +1,10 @@
 
 import { connectDB } from '../config/db.js';
 import User from '../domains/users/model.js';
-import Film from '../domains/films/modelFilm.js'
 
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
-import mongoose from 'mongoose';
 
 
 /**

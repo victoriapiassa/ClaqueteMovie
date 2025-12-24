@@ -14,7 +14,7 @@ router
 
     .post('/logout', auth, UserController.logout)
     .get("/me", auth, UserController.Me)
-    .get('/me/favorites', auth, UserController.getMyFavorites) //não alterar essa rota
+    .get('favorites', auth, UserController.getMyFavorites) //não alterar essa rota
 
     
 
@@ -23,7 +23,7 @@ router
     /**
     * Rotas favorites, watched e toWatch
     */
-    .post("/favorites", UserController.FavoriteMovie)
+    .post("/me/favorites", UserController.FavoriteMovie)
     .post("/verDepois", UserController.watchlistMovie)
 
 

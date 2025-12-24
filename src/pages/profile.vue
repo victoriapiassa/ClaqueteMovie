@@ -222,7 +222,6 @@ const userStore = useUserStore();
  */
 
 
-
 const userPhoto = computed(
   () => userStore.user?.photo || "https://cdn-icons-png.flaticon.com/512/149/149071.png"
 );
@@ -290,5 +289,3 @@ const userData = computed(() => userStore.user || {});
 // Carrega ao iniciar
 onMounted(fetchFavorites);
 </script>
-
-
