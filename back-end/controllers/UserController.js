@@ -361,7 +361,10 @@ class UserController {
     */
      try { 
      const userId = req.userId;
+
      const { filmId } = req.body;
+
+     console.log( 'returno de filmId', filmId)
 
 
 

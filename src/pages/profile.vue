@@ -242,10 +242,13 @@ const userData = computed(() => userStore.user || {});
   try {
     const response = await axios.get(
       "http://localhost:3000/favorites",
+
       {
         withCredentials: true, // envia o cookie com o token
       }
     );
+
+    
 
     favoriteMovies.value = response.data.favorites || [];
 

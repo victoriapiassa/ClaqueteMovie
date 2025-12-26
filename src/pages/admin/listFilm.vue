@@ -62,9 +62,11 @@ onMounted(async () => {
     const favoritesResponse = await axios.get(
       "http://localhost:3000/users/me/favorites",
         
-          { withCredentials: true }
+      { withCredentials: true }
         
-    )
+    );
+
+    console.log(favoritesResponse); //não ta funcionando
 
     favoritesMovieHome.value = favoritesResponse.data.favorites || []
     console.log('Filmes favoritos - Função frontend:', favoritesMovieHome.value)
