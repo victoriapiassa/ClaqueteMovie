@@ -364,7 +364,7 @@ class UserController {
 
      const { filmId } = req.body;
 
-     console.log( 'returno de filmId', filmId)
+     console.log("req.body:", req.body);
 
 
 

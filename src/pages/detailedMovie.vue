@@ -172,9 +172,9 @@ export default {
       console.log('favorites agora =', this.favorites);
 
     try {
+      
 
-
-      //a rota esta certa, não alterar
+      //funcionando
       const response = await axios.post(`http://localhost:3000/users/me/favorites`, {
         userId: userId,
         filmId: this.id,

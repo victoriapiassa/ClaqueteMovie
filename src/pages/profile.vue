@@ -243,9 +243,10 @@ const userData = computed(() => userStore.user || {});
     const response = await axios.get(
       "http://localhost:3000/favorites",
 
-      {
-        withCredentials: true, // envia o cookie com o token
-      }
+      
+       
+        { withCredentials: true } // envia o cookie com o token
+      
     );
 
     

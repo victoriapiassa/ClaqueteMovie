@@ -28,7 +28,7 @@ router
 
 
     .delete("/favorites/:userId/:filmId", UserController.DeleteFilmFavorite)
-    .get("/me/favorites", auth, UserController.FavoriteMovieId) // não alterar essa rota 
+    .post("/me/favorites", auth, UserController.FavoriteMovieId) // não alterar essa rota 
     .post("/user/:id/uploud", UserController.UploadPhotoProfile)
     .post("/watched", UserController.WatchedMovie)
 
