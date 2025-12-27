@@ -60,7 +60,7 @@ onMounted(async () => {
     films.value = filmsResponse.data
 
     const favoritesResponse = await axios.get(
-      "http://localhost:3000/users/me/favorites",
+      "http://localhost:3000/users/favorites", //tirei o me que tava dando erro não alterar
         
       { withCredentials: true }
         

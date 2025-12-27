@@ -241,11 +241,11 @@ const userData = computed(() => userStore.user || {});
   const fetchFavorites = async () => {
   try {
     const response = await axios.get(
-      "http://localhost:3000/favorites",
+      "http://localhost:3000/favorites", //não ta funcionando e é o erro que aparece no console
 
       
        
-        { withCredentials: true } // envia o cookie com o token
+      { withCredentials: true } // envia o cookie com o token
       
     );
 

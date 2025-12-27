@@ -205,7 +205,9 @@ class UserController {
 }
 
     /**
-    * verifyFavoriteMovie - Encontrar usuario no banco de dados 
+    * getMyFavorites - Encontrar usuario no banco de dados 
+    * 
+    * Funciona
     */
     
    static async getMyFavorites(req, res) {
@@ -222,9 +224,12 @@ class UserController {
       return res.status(404).json({ message: "Usuário não encontrado" });
     }
 
+    console.log("Favoritos do usuário - get:", user.favorites);
+
     return res.status(200).json({
       favorites: user.favorites
     });
+
 
   } catch (error) {
     console.error("Erro ao buscar favoritos:", error);
@@ -249,93 +254,7 @@ class UserController {
     /**
     * FavoriteMovie - Função para adicionar ou remover um filme dos favoritos 
     */
-    static async FavoriteMovie(req, res) {
-     await connectDB();
-
-
-
-
-
-     /**
-      * Obtém o userId e filmeId do corpo da requisção
-      */
-    const { userId, filmId } = req.body;
-
-
-
-
-
-    /**
-     * Se userId ou FilmId não existirem, return  um  erro 400
-     */
-    if (!userId || !filmId) {
-        return res.status(400).json({ msg: "Dados incompletos" });
-    }
-
-
-
-
-
-    try {
-       /**
-        * Busca o usuário pelo ID fornecido por meio do FindById(buscarPorId)
-        */
-        const user = await User.findById(userId);
-
-
-
-
-        /**
-        * Se o usuário não for encontrado, retorna um erro 404
-        */
-
-        if (!user) {
-            return res.status(404).json({ msg: "Usuário não encontrado" });
-        }
-
-
-
-
-        /**
-         * Carregar lista de favoritos OU um array vazio (porque o user pode não ter filmes favoritos)
-         */
-        let favorites = user.favorites || [];
-
-
-        // Verificar se já está nos favoritos. O método includes() determina se um conjunto de caracteres pode ser encontrado dentro de outra string, retornando true ou false. No caso seria filmId. "Em favorites existe filmId? se sim."
-        if (favorites.includes(filmId)) {
-            
-
-
-
-            /**
-             * Se a resposta for sim, o Filter cria um novo array com todos os elementos DIFERENTES de FilmId. Ou seja, cria um array com filmes não favoritados. 
-             */
-            favorites = favorites.filter(id => id !== filmId);
-
-
-        /**
-         * Se não adiciona com Push() no array de filme favoritados
-         */
-        } else {  
-            // adicionar o filme
-            favorites.push(filmId);
-        }
-
-        /**
-         * FindByIdAndUpdate() atualize o UserId com o array atualizado
-         */
-        await User.findByIdAndUpdate(userId, { favorites });
-
-        return res.status(200).json({
-            message: "Favoritos atualizados com sucesso!", favorites
-        });
-
-    } catch (error) {
-        console.error("Erro ao atualizar favoritos:", error);
-        res.status(500).json({ message: "Erro no servidor." });
-    }
-  }
+ 
 
 
 
@@ -362,9 +281,11 @@ class UserController {
      try { 
      const userId = req.userId;
 
+    console.log("userId dados:", userId); //não ta pegando o userId do token
+
      const { filmId } = req.body;
 
-     console.log("req.body:", req.body);
+    
 
 
 
@@ -623,3 +544,80 @@ class UserController {
 } 
 
 export default UserController;
+
+
+
+
+/* 
+   static async FavoriteMovie(req, res) {
+     await connectDB();
+
+
+
+
+
+     
+    const { userId, filmId } = req.body;
+
+
+
+
+
+    
+    if (!userId || !filmId) {
+        return res.status(400).json({ msg: "Dados incompletos" });
+    }
+
+
+
+
+
+    try {
+       
+        const user = await User.findById(userId);
+
+
+
+
+        
+
+        if (!user) {
+            return res.status(404).json({ msg: "Usuário não encontrado" });
+        }
+
+
+
+
+        
+        let favorites = user.favorites || [];
+
+
+        
+        if (favorites.includes(filmId)) {
+            
+
+
+
+            
+            favorites = favorites.filter(id => id !== filmId);
+
+
+        
+        } else {  
+            // adicionar o filme
+            favorites.push(filmId);
+        }
+
+        
+        await User.findByIdAndUpdate(userId, { favorites });
+
+        return res.status(200).json({
+            message: "Favoritos atualizados com sucesso!", favorites
+        });
+
+    } catch (error) {
+        console.error("Erro ao atualizar favoritos:", error);
+        res.status(500).json({ message: "Erro no servidor." });
+    }
+  } 
+*/

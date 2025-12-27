@@ -19,11 +19,15 @@ app.use(cors({
 app.use(cookieParser());
 
 
+
+
 app.use("/users", UserRoute); // define a rota base para usuários 
 
 app.use("/films", filmRoutes);
 
 app.use("/admin", routerAdmin);
+
+
 
 
 
